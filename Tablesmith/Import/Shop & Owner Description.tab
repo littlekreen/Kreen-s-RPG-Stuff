@@ -1,0 +1,394 @@
+###Shop & Owner Description
+###Source 1: TSR 9262 - Cities of Mystery (Disposition, Motivation, Quality tables)
+###Source 2: Dawn Ibach (she made the wonderful Quirks table used here -- I hope she doesn't mind.)
+###Source 3: Myself (shop types).
+###Send additions to JimmyFlowers@bigfoot.com
+###
+###DM must determine sex of shop owner.
+###Inns and Taverns are much better handled by other tables. 
+
+:Start
+1,<b>Shop Type:</b> [Shop Types]<br><b>Owner Name: </b>[Fantasy Names.Start]<br><b>Owner's Disposition:</b>[Disposition]<br><b>Owner's Quirks: </b>[Quirks]<br><b>Owner's Motivation: </b>[Motivations]<br><b>Quality of Goods: </b>[Quality].
+
+:Disposition
+01-10,Sour, gruff
+11-20,Quiet and reserved
+21-30,Boisterous
+31-40,Pushy, aggressive
+41-60,Friendly
+61-80,Courteous
+81-90,Talkative
+91-96,Suspicious, distrusting
+97-00,Shifty, dishonest
+
+:Quirks
+1, Accent
+2, Acne
+3, Always eating or drinking
+4, Always late
+5, Always out of breath
+6, Always wears 'lucky' hat, scarf, ring
+7, Always wears favorite color
+8, Always wears thick, leather gloves
+9, Animal bite or claw scar
+10, Archaic speech
+11, Arm in sling
+12, Asks often about his own appearance
+13, Asks rhetorical questions and answers
+14, Avoids crowds
+15, Bad cook, begs PCs to eat
+16, Bandaged extremity
+17, Belches loud and often
+18, Bites fingernails
+19, Bites fingernails or cuticles
+20, Bites lower lip
+21, Blatantly pouts
+22, Blind, sees through familiar's eyes
+23, Blinks often
+24, Bows before speaking and after
+25, Braggart
+26, Bruised extremities
+27, Bucktoothed
+28, Calls PCs by wrong names
+29, Carries cloth covered basket
+30, Carries crumbs to feed birds
+31, Carries satchel filled with junk
+32, Carries small snake, mouse, or lizard
+33, Chews grass, stick, or leaves
+34, Chews on braid or lock of hair
+35, Claps hands often
+36, Closely examines everything
+37, Clothes have bulging pouches
+38, Clothes made of woven leaves
+39, Clumsy
+40, Combs hair with fingers
+41, Complains of heartburn
+42, Conceited
+43, Convinced PCs need reforming
+44, Coughs regularly
+45, Covered with road dust
+46, Crumbs in beard and clothes
+47, Dark tan
+48, Denies gossiping and proceeds to gossip
+49, Dressed in formal attire
+50, Dressed in furs or leather
+51, Dressed in silks and lace
+52, Dresses colorblind
+53, Exotic weapon
+54, Eye tic
+55, Facial piercing
+56, Falsely claims he is an adventurer too
+57, Fascinated by fire
+58, Fascinated by non human races
+59, Fidgets
+60, Flatulent
+61, Flips key ring with finger
+62, Food stained face
+63, Foreign clothing
+64, Freckles
+65, Gaps between teeth
+66, Gestures wildly with hands
+67, Giggles, inappropriately
+68, Gives a different name every meeting
+69, Greatly exaggerates
+70, Hacking cough
+71, Hair dye covering collar
+72, Hairless
+73, Hand covers mouth while speaking
+74, Hands coppers to beggar children
+75, Hard of hearing
+76, Has arthritis in hands
+77, Has black eye
+78, Has hiccups
+79, Has leaves in hair or clothing
+80, Has long, lacquered nails
+81, Has one or more gold teeth
+82, Has paint stained hands and clothes
+83, Has vampire bite scars on neck
+84, Has wart on hand, covers it always
+85, High squeaky voice
+86, Holier than thou attitude
+87, Hooks thumbs in belt and bounces
+88, Instructs PCs on latest fashion
+89, Intoxicated or acting
+90, Jingles coins in pocket or pouch
+91, Keeps arms folded
+92, Keeps hand on PCs shoulder
+93, Keeps hand on weapon
+94, Keeps hands in pockets
+95, Lazy eye
+96, Limp
+97, Lisp
+98, Loses items and asks PCs to help look
+99, Makes puns
+100, Many hair or beard braids
+101, Military manner
+102, Mismatched eyes
+103, Missing limb, joints, fingers, teeth
+104, Mixes gibberish with words
+105, Mixes languages
+106, Mole
+107, Monocle
+108, Mute, speaks through sign language
+109, Never looks anyone in the eye
+110, Nods often
+111, Nose bleeds
+112, Obvious cosmetics
+113, Offers exotic beverages or foods
+114, Ogles opposite sex openly
+115, Oily skin or hair
+116, Only eats meat
+117, Overweight
+118, Paper cuts and ink stained fingers
+119, Pasted on moustache or beard
+120, Pathological liar
+121, Picks at scabs or loose skin
+122, Picks ears
+123, Picks lint off clothes, his and PCs
+124, Picks nose
+125, Picks teeth with knife or fingernails
+126, Plays with charm on necklace
+127, Pockmarked skin
+128, Polishes brooch or buckle often
+129, Polishes spectacles, never wears them
+130, Pregnant woman
+131, Quotes famous poet, regularly
+132, Quotes religious text
+133, Rash
+134, Refers to good old days often
+135, Refers to self in third person
+136, Regularly blows stray hair out of eyes
+137, Rings or bells in hair or beard braids
+138, Rings sewn on clothes with fetishes
+139, Roll twice
+140, Roll twice
+141, Rolls "R's" while speaking
+142, Rope burns around neck or wrists
+143, Rubs back of neck
+144, Rubs calluses on palms with thumb
+145, Rubs chin
+146, Rubs eyes often
+147, Rubs hands together
+148, Rubs large belly often
+149, Rubs luckstone or fetish
+150, Rubs old knee injury
+151, Rubs palms on thighs
+152, Runny nose
+153, Says "hmm - hmm" often
+154, Scar
+155, Scratches
+156, Seems cold or hot
+157, Serious burn scar
+158, Sharpens knife with whetstone
+159, Shaving cuts on face
+160, Single hair or beard braid
+161, Sketches PC while talking
+162, Sleepy
+163, Smacks palm with fist
+164, Smells like alcohol
+165, Smells like cedar wood
+166, Smells like cheap cologne
+167, Smells like dogs
+168, Smells like expensive cologne
+169, Smells like horses
+170, Smells like lavender
+171, Smells like roses
+172, Smells like soap
+173, Smells like sweat
+174, Smells like tobacco
+175, Sneezes often
+176, Sniffs often
+177, Snorts while laughing
+178, Speaks to 'spirits'
+179, Speaks to animals like people
+180, Spit polishes thick, fancy bracelet
+181, Spits when talking
+182, Spotless, glossy boots
+183, Squints
+184, Stretches often
+185, Stutters
+186, Sucks on teeth
+187, Sunburn and peeling skin
+188, Superstitious
+189, Survived torture, has no fingernails
+190, Sweats profusely
+191, Talks in rhyme
+192, Talks loudly
+193, Talks of health problems
+194, Taps foot incessantly
+195, Taps foot or drums fingers
+196, Tattoo
+197, Tongue tied
+198, Toothless
+199, Trims or cleans nails with long knife
+200, Tugs on ear
+201, Twirls coin between fingers
+202, Twirls hair with finger
+203, Twists ring
+204, Underweight
+205, Unusual jewelry
+206, Uses a parasol
+207, Uses foul language
+208, Uses long words incorrectly
+209, Vegetarian
+210, Very pale
+211, Walks like a sailor
+212, Wandering eye
+213, Watering eye(s)
+214, Waxed facial hair
+215, Wears ancient fashions
+216, Wears armor covered in runes
+217, Wears clothes too big or too small
+218, Wears flower in hair or clothing
+219, Wears foreign style clothes
+220, Wears heart shaped beauty mark
+221, Wears notched belt
+222, Wears obvious wig
+223, Wears scarf around ankles or wrists
+224, Wears vest with bell buttons
+225, Wears well tended ancient weapon
+226, Whispers
+227, Wine colored birthmark
+228, Wine stained 'moustache'
+229, Writes down everything PC says
+230, Yawns often
+
+:Quality
+01-05,Shoddy
+06-11,Poor
+12-16,Poor, but appears fair
+17-20,Poor, but appears good or better
+21-30,Fair
+31-80,Good
+81-90,Very Good
+91-96,Excellent
+97-00,Superior workmanship
+
+:Motivations
+01-10,Greed
+11-20,To support a family
+21-30,Pride in his/her work
+31-40,Striving for quality
+41-60,Striving for quantity
+61-80,To support him/herself
+81-90,Hobby, something to do
+91-96,Enjoyment, likes to work
+97-00,Service, likes to help others
+
+:Shop Types
+1, Accountant's Office
+2, Alchemist
+3, Animal Dealer
+4, Animal Trainer
+5, Apothecary
+6, Archery Shop
+7, Architect's Office
+8, Armorer/Armorist
+9, Artist
+10, Astrologer
+11, Bait Shop
+12, Bakery
+13, Bank
+14, Barber Shop
+15, Barrelwright (makes barrels)
+16, Barrister
+17, Bathhouse
+18, Blacksmith
+19, Boat Rental
+20, Bodyguard Services
+21, Book Shop
+22, Bookbindery
+23, Bordello
+24, Bounty Hunter Agency
+25, Bower/Fletcher
+26, Brass Worker
+27, Brewery
+28, Broom Maker
+29, Brush Maker
+30, Builder
+31, Butcher Shop
+32, Cabinet Maker
+33, Candle Shop
+34, Candy Shop
+35, Carpenter
+36, Carpet Shop
+37, Cartographer
+38, Cartwright
+39, Chandler
+40, Cheese Shop 
+41, Clothing Shop
+42, Customs House
+43, Dagger Shop 
+44, Dairy
+45, Distillery
+46, Dyer
+47, Embroiderer
+48, Enchanter
+49, Engineer
+50, Engraver
+51, Fabrics Dealer
+52, Farmers Market
+53, Fishmonger
+54, Fletcher
+55, Florist
+56, Food Seller (provisionist)
+57, Forger
+58, Fortune Teller
+59, Freiht Company
+60, Furniture Shop
+61, Furrier
+62, Gambling House
+63, Gardener
+64, Gem Cutter
+65, Glass Blower
+66, Goldsmith
+67, Grain Merchant
+68, Grocer
+69, Healer
+70, Herald
+71, Herbalist
+72, Jeweler
+73, Lamp & Oil Shop 
+74, Law Office
+75, Leather Worker
+76, Limner
+77, Locksmith
+78, Lumber Dealer
+79, Magic Shop 
+80, Mason
+81, Mercenary Company
+82, Metalsmith
+83, Milliner
+84, Money Changer
+85, Moneylender
+86, Music Shop 
+87, Perfumer
+88, Physician
+89, Sage
+90, Sail Maker
+91, Scribe
+92, Seamstress
+93, Seer
+94, Shipwright
+95, Shoe Shop
+96, Silversmith
+97, Slaughterhouse 
+98, Soap Shop
+99, Sorcerer
+100, Stable
+101, Stonecarver
+102, Sword Shop 
+103, Tack Shop
+104, Tannery 
+105, Taxidermist
+106, Thatcher
+107, Tool Maker
+108, Toy Shop 
+109, Trading Post
+110, Undertaker
+111, Wainwright
+112, Warehouse 
+113, Weaponsmith
+114, Weaver
+115, Wheelwright
+116, Woodcarver

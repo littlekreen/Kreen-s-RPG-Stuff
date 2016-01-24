@@ -1,0 +1,105 @@
+#
+# Basic Character Generator
+#
+# This is a simple program that generates
+# ability scores for a fantasy RPG. Feel
+# free to use this as a starting point for
+# making a full-fledged character generator.
+
+# ------------------------------
+# Variables
+# ------------------------------
+%STR%,0
+%DEX%,0
+%CON%,0
+%INT%,0
+%CHA%,0
+%WIS%,0
+
+%Total%,0
+%LowRoll%,0
+%Die1%,0
+%Die2%,0
+%Die3%,0
+%Die4%,0
+
+# ------------------------------
+# Main
+# ------------------------------
+:Start
+1,[GenStats][DisplayCharacter]
+
+:GenStats
+1,[GenAbilityScores]
+
+:DisplayCharacter
+1,
+_<table border=0>
+_<tr>
+_<td width=150 align="right"><b>Strength:</b></td>
+_<td width=50 align="center">%STR%</td>
+_<td width=50 align="center">[GetStatBonus=%STR%]</td>
+_</tr>
+_<tr>
+_<td width=150 align="right"><b>Intelligence:</b></td>
+_<td width=50 align="center">%INT%</td>
+_<td width=50 align="center">[GetStatBonus=%INT%]</td>
+_</tr>
+_<tr>
+_<td width=150 align="right"><b>Wisdom:</b></td>
+_<td width=50 align="center">%WIS%</td>
+_<td width=50 align="center">[GetStatBonus=%WIS%]</td>
+_</tr>
+_<tr>
+_<td width=150 align="right"><b>Dexterity:</b></td>
+_<td width=50 align="center">%DEX%</td>
+_<td width=50 align="center">[GetStatBonus=%DEX%]</td>
+_</tr>
+_<tr>
+_<td width=150 align="right"><b>Constitution:</b></td>
+_<td width=50 align="center">%CON%</td>
+_<td width=50 align="center">[GetStatBonus=%CON%]</td>
+_</tr>
+_<tr>
+_<td width=150 align="right"><b>Charisma:</b></td>
+_<td width=50 align="center">%CHA%</td>
+_<td width=50 align="center">[GetStatBonus=%CHA%]</td>
+_</tr>
+_</table>
+
+# ------------------------------
+# Ability Score Generation
+# ------------------------------
+:GenAbilityScores
+1,|STR=[RollScore]|
+_|INT=[RollScore]|
+_|WIS=[RollScore]|
+_|DEX=[RollScore]|
+_|CON=[RollScore]|
+_|CHA=[RollScore]|
+
+:RollScore
+1,|Die1={Dice~1d6}||Die2={Dice~1d6}||Die3={Dice~1d6}||Die4={Dice~1d6}|
+_|LowRoll={Min~%Die1%,%Die2%,%Die3%,%Die4%}|
+_|Total=0|
+_|Total+%Die1%||Total+%Die2%||Total+%Die3%||Total+%Die4%|
+_|Total-%LowRoll%|
+_%Total%
+
+# ------------------------------
+# Reference Tables
+# ------------------------------
+:GetStatBonus
+1,-5
+2-3,-4
+4-5,-3
+6-7,-2
+8-9,-1
+10-11,0
+12-13,1
+14-15,2
+16-17,3
+18-19,4
+20-21,5
+22-23,6
+24-25,7

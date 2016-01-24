@@ -1,0 +1,32 @@
+Kreen
+
+1: AM Pitchshifter - Pitch shift 1.25, Buffer 2
+2: Echo .15 delay time, decay factor .1
+
+Machine
+
+1: AM Pitchshifter - Pitch shift 1.05, Buffer 7
+
+180041
+
+----
+
+Kreen practical:
+East indian accent
+Minimal chorus
+High pitched child's voice
+Varies rapidly between hyperactive immaturity and vast age
+
+Machine practical:
+Monotone, no accent (american)
+Little emotional content
+Enunciates
+Deep rumbling voice, adult
+Terse, Specific phrasing but not vague
+Does not lie idly unless of specific advantage
+
+Vilyan:
+English accent
+Intentionally vague & playful
+Voice sounds chorted (singsong)
+Rhythmic

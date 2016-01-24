@@ -1,0 +1,168 @@
+# Inn and Tavern Names
+#
+# Copyright 2004 Bruce A. Gulke
+#
+
+:Start
+1,The [Names]
+
+:Names
+1,{CapEachWord~[Color_Metal] [Variant I]}
+2,{CapEachWord~[Color_Metal] [Variant I]} Inn
+3,{CapEachWord~[Person]'s [Place]}
+4,{CapEachWord~[Person]'s [Item]}
+5,{CapEachWord~[Creature]'s [Item]}
+6,{CapEachWord~[Creature]'s [Place]}
+7,{CapEachWord~[Adjective I] [Person]}
+8,{CapEachWord~[Adjective I] [Place]}
+9,{CapEachWord~[Adjective I] [Creature]}
+10,{CapEachWord~[Adjective I] [Item]}
+11,{CapEachWord~[Adjective II] [Person]}
+12,{CapEachWord~[Adjective II] [Creature]}
+13,{Cap~[Creature]} and {Cap~[Creature]}
+14,{Cap~[Person]} and {Cap~[Person]}
+15,{Cap~[Item]} and the {Cap~[Item]}
+
+:Variant I
+1,[Person]
+2,[Place]
+3,[Creature]
+4,[Item]
+
+:Color_Metal
+1,red
+2,blue
+3,green
+4,white
+5,black
+6,ivory
+7,gold
+8,golden
+9,silver
+10,grey
+11,crimson
+12,scarlet
+13,azure
+14,iron
+15,copper
+16,emerald
+17,ruby
+18,bronze
+19,brass
+20,steel
+
+:Adjective I
+1,flying
+2,broken
+3,shining
+4,salty
+5,flaming
+6,slaughtered
+7,fighting
+8,drunken
+9,olde
+10,cracked
+11,dirty
+12,dancing
+13,laughing
+14,wheezing
+15,mighty
+16,stalwart
+17,dripping
+18,swaying
+19,bitter
+20,beefy
+21,sleeping
+22,leaping
+23,prancing
+
+:Adjective II
+1,curious
+2,happy
+3,lusty
+4,rude
+5,lazy
+6,greedy
+7,jealous
+8,zealous
+9,angry
+10,vulgar
+
+:Item
+1,sword
+2,blade
+3,axe
+4,skull
+5,spear
+6,dagger
+7,head
+8,tail
+9,bell
+10,tankard
+11,wheel
+12,anchor
+13,flag
+14,arrow
+15,coin
+16,helm
+17,gauntlet
+18,candle
+19,harp
+20,chalice
+21,eye
+22,goblet
+23,wagon
+
+:Person
+1,king
+2,queen
+3,knight
+4,wizard
+5,knave
+6,baron
+7,warrior
+8,wench
+9,sage
+10,gladiator
+11,giant
+12,prince
+13,monk
+14,sailor
+15,priest
+16,merchant
+17,minstrel
+18,jester
+19,dancer
+20,herald
+21,boatman
+22,friar
+23,gypsy
+24,plowman
+25,tinker
+
+:Place
+1,domain
+2,hill
+3,wood
+4,keep
+5,throne
+6,gate
+7,shrine
+8,valley
+9,bridge
+10,haven
+11,sanctum
+12,rest
+13,tower
+14,house
+15,manor
+16,river
+17,nest
+18,lair
+19,inn
+20,star
+
+:Creature
+1-6,[Creatures.Animal]
+7,[Creatures.Bird of Prey]
+8-10,[Creatures.Fantastic]

@@ -1,0 +1,57 @@
+# Jewelry
+#
+# Originally created by Bruce A. Gulke
+#
+# Improved by Scott Barrie
+
+:Start
+1-6,{Cap~{AorAn~[Miscellaneous.Precious Metal]}} [Item], worth {Dice~1d8*100} gold coins.
+7-11,{Cap~{AorAn~[Miscellaneous.Precious Metal]}} [Item], set with {AorAn~[Gem]}, worth {Dice~1d8*100} gold coins.
+12-15,{Cap~{AorAn~[Miscellaneous.Precious Metal]}} [Item], set with [Gem]s, worth {Dice~1d8*100} gold coins.
+16-17,{Cap~{AorAn~[Miscellaneous.Precious Metal]}} [Item], [Design], worth {Dice~1d8*100} gold coins.
+18-19,{Cap~{AorAn~[Miscellaneous.Precious Metal]}} [Item], set with {AorAn~[Gem]}, worth {Dice~1d8*100} gold coins.
+20,{Cap~{AorAn~[Miscellaneous.Precious Metal]}} [Item], set with [Gem]s, worth {Dice~1d8*100} gold coins.
+
+:Item
+1,anklet
+2,armband
+3-4,bracelet
+5,brooch
+6,buckle
+7,circlet
+8-9,clasp
+10,earring
+11-12,locket
+13-14,necklace
+15-16,pendant
+17-18,ring
+19,tiara
+20,torc
+
+:Design
+1,engraved with strange symbols
+2,engraved with concentric circles
+3,carved with a twisting, vine-like pattern
+4,enlaid with a pattern of gold
+5,enlaid with a pattern of silver
+6,engraved with an ancient proverb
+7,engraved with a dragon-like shape
+8,engraved with the likeness of an ancient king
+9,covered in a web-like pattern of lines
+10,engraved with an image of the sun
+
+:Gem
+1-3,jade
+4-6,onyx
+7-9,turquoise
+10-12,emerald
+13,diamond
+14-16,sapphire
+17-19,ruby
+20-22,garnet
+23-25,rose quartz
+26-27,amber
+28,pearl
+29,topaz
+30,opal
+31,amethyst

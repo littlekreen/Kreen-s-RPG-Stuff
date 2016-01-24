@@ -1,0 +1,24 @@
+# Noble Household
+#
+# Copyright 1998 Bruce A. Gulke
+#
+
+:Start
+1-65,[Male Title] [Formal Names.Start], [Male Title II] of [Fantasy Names.Start], and his house.
+66-100,[Female Title] [Formal Names.Start], [Female Title II] of [Fantasy Names.Start], and her house.
+
+:Male Title
+1,Lord
+2,Sir
+
+:Female Title
+1,Lady
+2,Dame
+
+:Male Title II
+1,Baron
+2,Master
+
+:Female Title II
+1,Baroness
+2,Mistress

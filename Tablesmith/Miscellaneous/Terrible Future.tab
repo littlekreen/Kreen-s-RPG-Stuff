@@ -1,0 +1,173 @@
+﻿#
+# Terrible Future
+#
+
+%die1%,0
+%die2%,0
+%die3%,0
+%die4%,0
+%die5%,0
+%die6%,0
+%die7%,0
+%die8%,0
+%die9%,0
+%die10%,0
+%idxmain%,1
+
+:Start
+1,{Loop~11,[Sort={Dice~1d10}]}<br><br>
+_1x%die1%,2x%die2%,3x%die3%,4x%die4%,5x%die5%,6x%die6%,7x%die7%,8x%die8%,9x%die9%,10x%die10%<BR><BR>
+_{if~%die1%~>1 ? [onelist=%die1%]<br><br>/}
+_{if~%die2%~>1 ? [twolist=%die2%]<br><br>/}
+_{if~%die3%~>1 ? [threelist=%die3%]<br><br>/}
+_{if~%die4%~>1 ? [fourlist=%die4%]<br><br>/}
+_{if~%die5%~>1 ? [fivelist=%die5%]<br><br>/}
+_{if~%die6%~>1 ? [sixlist=%die6%]<br><br>/}
+_{if~%die7%~>1 ? [sevenlist=%die7%]<br><br>/}
+_{if~%die8%~>1 ? [eightlist=%die8%]<br><br>/}
+_{if~%die9%~>1 ? [ninelist=%die9%]<br><br>/}
+_{if~%die10%~>1 ? [tenlist=%die10%]<br><br>/}
+
+:Sort
+>,
+1,1|die1+1|
+2,2|die2+1|
+3,3|die3+1|
+4,4|die4+1|
+5,5|die5+1|
+6,6|die6+1|
+7,7|die7+1|
+8,8|die8+1|
+9,9|die9+1|
+10,10|die10+1|
+
+:onelist
+<<B>Humanity Broken: The human body stopped working correctly, either due to disease, the slow build-up of pollutants, or something more sinister.</B><BR>
+0,
+2,The majority of the population was handicapped in such a way as to limit the potential survival of the race; blindness, the inability to have children, etc.
+3,Mutations ran rampant, killing most and twisting almost all the rest.
+4,Madness spread, perverting basic human instinct into violence and death.
+5,A pandemic, the new Black Death, wiped the vast majority of the population off the planet.
+
+:twolist
+<<B>Humanity Shackled: The human spirit has been bent to one will, succumbing to driven tyrants or the commands of something else.</B><BR>
+0,
+2,A dystopian police state, endless bureaucracy and despotism, came to power.
+3,An otherworldly civilization conquered Earth, making it a domesticated colony.
+4,Society has embraced horrible and bizarre laws; human sacrifice, mass slavery, killing those over a certain age, revolting caste enforcement, or the like.
+5,A terrible power took the entire world, controlling not just the lives but the very minds of everyone, with free will itself won only by struggle or luck.
+
+:threelist
+<<B>Humaniy Fails: Unable to overcome our distrust for one another or gain control over the more destructive elements among us, we sealed our own fate.</B><BR>
+0,
+2,The world’s population continued to explode, unchecked, economies and resources ground to dust under a wave of bodies that threatens to smother everything.
+3,Never-ending traditional warfare crushed generations beneath its treads, turning nations into blasted battlefields and toppling whole societies.
+4,Society split and splintered, infrastructures collapsed under discontent and fractious infighting, and chaos came to rule the day.
+5,The much-feared apocalyptic final war occurred between major nations, using nuclear missiles, kinetic kill systems, or more obscure weapons and taking billions of lives in the process.
+
+:fourlist
+<<B>Technology Unleashed: The worst fears of the cautious and the nightmares of the luddites came to pass, with human ingenuity racing out past our ability to control or harness it.</B><BR>
+0,
+2,The modern day Prometheus created new forms of life, with genetic and chemical engineering leading to dangerous original life forms and a new social underclass.
+3,Processing power and the ability of advanced machine processes to adapt themselves led to something very much like Artificial Intelligence as well as a war between humans and automated life.
+4,Science unlocked the secrets of the human mind, far past what would be merely useful, and opened it up for mass manipulation and alteration on a level that society could not survive.
+5,The bleeding edge of development spiraled out of control, spawning creations that altered the landscape; clouds of robotic mites that remade molecules, all-consuming gray goo, airborne hallucinogens that can blanket a country, etc.
+
+:fivelist
+<<B>Nature Destroyed: Cataclysmic events led to the natural world being torn apart or turned completely on its head.</B><BR>
+0,
+2,A series of massive volcanic events shifted the shape of the landscape here they occurred, casting vast clouds of ash and smoke across the sky while causing earthquakes or tsunami wave trains at great distances.
+3,The ecosystem of earth as it once existed collapsed, due to the loss of essential foundational elements or a massive structural change such as when organisms first began producing oxygen.
+4,Solar winds, blasts of plasma and radiation originating from the sun, struck the Earth’s electromagnetic layer when it was at its weakest, blowing through and across the exposed face of the world.
+5,A mass of extra-solar material collided with the earth, large enough that the immediate repercussions of the impact destroyed almost all life in a large area, and the fallout threatens to kill off the rest.
+
+:sixlist
+<<B>Nature Rebellious: Nature, either represented by the systems of the universe or a metaphorical animate force, became hostile to the existence of human life in a way never before seen.</B><BR>
+0,
+2,Plants and Microorganisms began to consume artificial substances at an alarming rate.
+3,Massive climatic changes came on with almost no warning, changing the way that life works in various parts of the world; flooding, a new Ice Age, mass desertification, etc.
+4,Magnetic storms from solar winds or caused by major disturbances in the Earth’s magnetic poles fry all but the most heavily shielded or simplistic electronics.
+5,What humans think of as the "natural world" literally, bizarrely, turned on us as a whole. Plants, wild creatures, some domesticated animals, and even previously benign microorganisms became hostile (if not outright murderous) towards people.
+
+:sevenlist
+<<B>Myth Triumphant: The myths, the stories, the prophecies… they became true, or always were. Impossibly the very rules on which the majority of the modern world rested were revealed as mere suggestions, with other things hidden beneath.</B><BR>
+0,
+2,Creatures of legend, folklore, and children’s stories appeared in every country. They haunt bridges, bedevil workshops, snatch babies from their cribs, and take the blood of the innocent, sparking panic and confusion.
+3,The world became divided between those with the ability to summon sorcerous powers, something that itself threw several aspects of modern civilization into complete disarray, and those who could not. The conflicts over controlling both sides were not long in coming.
+4,One or more of the ancient civilizations of the world was correct, their myths containing far more fact than fiction, and their gods have returned in full might from wherever they might have been in the intervening years. Worship, or at least deference, is not optional and their followers easily take power.
+5,Ragnarok, or something very much like it, came to pass and left very little in its wake. Gods and their kin walked the earth and made, or make even now, war with each other as well as monstrous titans that could decimate the firmament itself in their conflict; world serpents, living mountain ranges, and wolves that could swallow a skyscraper whole.
+
+:eightlist
+<<B>Revelations Manifest: Elements of the Book of Revelations and other tales or fears associated with the Abrahamic religions came to pass in the worst ways imaginable.</B><BR>
+0,
+2,All Seven of the great Biblical Plagues ravaged the nations of the world, staggering across the globe with the movements of the sun and having devastating effect.
+3,The Rapture came, catching up all of those who were just or pure or maybe lucky enough to be seen as worthy, introducing untold chaos as the Antichrist begins to plot for power over those terrified people who remain.
+4,The Four Horsemen rode across the lands of the earth, sewing their gifts among the populace and either preparing the way for something as yet unknown or handing out divine justice. They may continue to ride even now, unbound by time or distance.
+5,The war between the Hosts of Heaven and Hell spilled across the planet, sweeping all the living into the conflict as the battle lines were drawn and whole cities plunged into fire either infernal or divine.
+
+:ninelist
+<<B>Horror Ascendant: Like something out of a horror movie, we were exposed to creatures that destroyed our world, our sanity, or our will to live.</B><BR>
+0,
+2,Shape-shifting or mind-controlling creatures intent on using us for their own amusement or consuming us all infiltrated human society on every level.
+3,An infestation of man-hunting beasts from beyond the stars turned every dark corner into potential death. As we tried to wrap our minds around contact with intelligent life it mindlessly, or ruthlessly, slaughtered us in disparate corners of the globe.
+4,The dead rose from their graves, gruesomely adding the living to their number.
+5,The stars aligned, the depths disgorged slumbering ancients to whom humanity is little more than an interesting bacterial culture, and civilization as it was known died screaming in insanity.
+
+:tenlist
+<<B>Time Unwound: The state of society and technology was greatly altered by the events that shaped this new world, leaving the majority of it in a state that would shock a visitor from the recent past.</B><BR>
+0,
+2,Our vast stores of knowledge and tools were lost, with traditions or education unable to keep the spark alive. Maybe they were taken by force, or perhaps mankind passed through a time of such desperation and high mortality that they were wiped away. Welcome to the stone age, bronze at best, though one or two wise souls may know more.
+3,With a level of organization and sophistication that would be recognizable to the Greeks, Romans, or even some Medieval societies humanity has the general awareness but perhaps not the tools or specific knowledge to be what it once was.
+4,Like the period of time surrounding the Industrial Revolution in western history, humanity has access to steam or even diesel power locomotion but is still attempting to master anything more complex mechanically or politically.
+5,While the world might be recognizable in some ways, the sophistication of certain electronics or other advanced tools is beyond what someone in the early 21st century would believe is possible.
+
+:Waste
+<<B>
+>
+1,Traitor!<BR></b>[wastedesc=1]
+2,MacGuffin<BR></b>[wastedesc=2]
+3,Glorious Leader<BR></b>[wastedesc=3]
+4,Landmark<BR></b>[wastedesc=4]
+5,“Conspiracy”
+6,Interlopers
+7,To Our Eternal Shame
+8,Revolution
+9,
+10,
+
+:wastedesc
+<
+>
+1,Someone important to humanity betrayed it, either through intentional action or by an astoundingly inept handling of the responsibility they were entrusted with, and everyone who has survived knows or suspects it. Did they survive the results of their actions, or even profit from them?<BR>
+_<BR>
+_<BR>Symbol: The symbol of the Traitor is usually a phrase, or the name and visage of the individual himself. If the Traitor was actually a stalking horse of another group, then the phrase is more likely, and possibly chilling coming from the lips of another. Examples: “I have only the best of intentions,” “This is just a minor set-back,” “The data is open to interpretation.” 
+2,There was an item of particular importance that many factions struggled to gain control over as events first started to go wrong, and which might have been the cause of the disaster or a potential solution if it had ended up in the right hands. This could be everything from a briefcase of valuable information to a high-tech weapon to a relic of religious significance.
+_<BR>
+_<BR>Whatever the case, it was worth fighting and dying over.
+_<BR>
+_<BR>Symbol: The Symbol of the MacGuffin is very often open discussion of the item, or what the item is believed to be, by members of the public. Sometimes this could take the form of its name being attached to a well-known organization or place, perhaps there was a famous conflict over its possession, or maybe its use is hotly debated in the media. The name of the person who made or found it could also show up in the strangest places.
+3,As events grew worse an important figure, someone that a good deal of people were looking to as a leader or even savior, was removed. Was she assassinated, kidnapped, or was she forced out of the public eye by a smear campaign and harassment? This is someone who might have changed the tide at just the right moment, who held things together longer than thought possible, and her removal likely led to despair, anger, paranoia or all three on a grand scale.
+_<BR>
+_<BR>Symbol: Like the Traitor the image or name of the Glorious Leader could repeatedly turn up, here in relation to their ultimate fate. More interesting might be a particular song associated with a political campaign, memorial service, or the scandals which drove her from power showing up again and again.
+4,There is one place in the world that became the center of either the events that led to this terrible future or the survivors attempts to persevere. Perhaps it is the place where the ritual that summoned the ancient evil was undertaken, where the first bombs landed, where the group behind it all set up their massive new capitol, or even just a beloved national treasure that was burned to the ground. 
+_<BR>
+_<BR>Symbol: The Landmark is perhaps best used as a Symbol when the characters have a strong idea of what it ought to look like; when they believe that the Lincoln Memorial should be unchanged if everything is going according to plan, having it strangely altered or lying in ruins, or never having existed at all as far as anyone they speak to knows, will make for a strong impression. 
+5,There existed, or exists even now, a group which sought to bring about or profit from the events which befell the world, and at least some of the inhabitants now realize the role they played. From behind the scenes they orchestrated the rise and fall of political powers, the acquisition of forbidden knowledge, or the dissemination of dangerous technology as part of a coherent agenda. Did things turn out the way they wanted? Are they at the top of the food chain now, or merely a footnote in history?
+_<BR>
+_<BR>Symbol: Conspiracies do nothing overtly, at least not until they feel it is too late for anyone to stop them, and so the Symbol of their influence works best if it is likewise indirect. It might be an innocuous pop song that radios play just a little too frequently, the seemingly meaningless corporate logo that shows up in a hundred places with dozen subtle alterations, or the same turn of phrase coming from the lips of very different public figures.
+6,The Interlopers are a force outside our time or space that took a hand in shaping our fate. Not necessarily conquerors, they could have revealed themselves world as friendly emissaries or appeared covertly to a few select individuals offering help for a price or nudged a natural system onto the path of ultimate destruction. It is even possible that they were humans from other timelines or alternate futures who, for whatever reason, are intent that events unfold in a certain way. Were they uncovered, and should they be stopped? How did the characters become aware of them, and would putting a face to a seemingly unavoidable fate make it easier to bear for the remaining population?
+_<BR>
+_<BR>Symbol: Of all the Symbols, the Interlopers are most well-suited as direct antagonists to those seeking to fix things through time travel. Their fingerprints on history could be as simple as the existence of events or objects the characters know for a fact never were, or as obvious as threatening messages and feelings of nausea-inducing “wrongness” in areas most heavily effected by their manipulations. The characters might even find that, despite their efforts, the timeline remains almost completely unchanged and understand that there is a force in direct opposition to their work.
+7,While humanity does not act as a whole even in small groups, something occurred for which a great majority of the population feels some responsibility or even guilt. Was it a world-wide panic that led to senseless killing? A single, horrible, lynching? Or perhaps the one person, or creature, that might have saved us all was ridiculed or mocked into obscurity. Whatever it was, it haunts those who still live and is tied closely to the events leading up to the current state of affairs in their minds.
+_<BR>
+_<BR>Symbol: The Symbol for the Eternal Shame is peculiar in that it might be best represented by something that should be in the world having gone missing, either as a bizarre and seemingly unconnected side-effect of what happened or as a direct result of it. A building that was destroyed in a fire that only occurred because of the riots, a certain flower that apparently went extinct, a foundation that the victim had just started and never got the chance to build, etc. More obviously, the Symbol might just be the event in question, reoccurring under different circumstances as the characters try to prevent the root causes.
+8,A group that demanded change made those demands known through a massive campaign that was strongly military, political, or (most likely) both. Was this the last stand of freedom before the iron fist finally closed, or is this the manner in which an insidious influence finally came to power? Are the revolutionaries the side that must succeed, that which has to be defeated at all cost, or just a distraction from the real threat?
+_<BR>
+_<BR>Symbol: The Revolution’s Symbol is most likely to be the slogan that is used heavily by the core group or represents the primary grievance of the movement, though an actual image that represented the group either being ubiquitous (on walls, stickers, fliers, etc.) or being covered up could serve just as well. Often there will be a charismatic individual, or group of such individuals, who either act as the face of the movement or shape its message, but it is not necessary for them to be the foundation on which it all rests; many revolutions just grow stronger with a martyr to rally them.
+9,Before the terrible events that ended up shaking the world, there was a clear and unambiguous warning that was overlooked due to partisan bickering, information overload, or a level of incredulous cynicism that couldn’t be overcome in time. Perhaps it was a series of minor earthquakes all close together, or a rising number seemingly random outbursts of violence in small communities. Maybe a mysterious figure did something inexplicable and terrible in public, and it was dismissed as a hoax, or a number of intense meteor showers that did little damage surprised astronomers.
+_<BR>
+_<BR>Symbol: The Symbol of the Smoke is often front-page headlines that focus on something other than the apparent threat, usually the same celebrity couple or political skirmish splashed across the news with the menacing signs discounted as stories of minor interest. Another Symbol could be the popularization of the threat, exploiting it as a way to make money or making it out as if it is harmless; a doll of the aliens that will enslave us, or a television show romanticizing the beasts that will consume us. 
+10,Someone knew what was going to happen, and he prepared for how best to deal with it. Whether he warned everyone at the time and is now holding onto the ultimate “I told you so” or was able to be heard only when there was nothing left to do but mitigate the damage, he knew before things went wrong the nature of what was going to happen and some indication of what to do about it. Did he survive, or just his precautions and notes? Does he broadcast from a fortified oasis of civilization somewhere in the wastes, or travel from town to town attempting to do what he can? Did those who wanted the world to burn target him, and if so how did he escape? 
+_<BR>Can he, even now, make things better? How much more so if he’d been able to act before hand?
+_<BR>
+_<BR>Symbol: There are a number of Symbols that might work for the Voice, but a certain old song coming through a static-filled pirate radio station as it momentarily overlaps with another signal is a nice default. Others could be particular messages hidden in the same places, like magazine articles or television stations, or perhaps even the existence of the person’s base of operation.

@@ -1,0 +1,1355 @@
+# ---------------------------------------------------
+# Last Update: modified by Valminder Nov 10, 2007.
+# ---------------------------------------------------
+#
+# Equipment
+#
+# Various tables intended for use by other tables
+#
+# Created by Valminder, May 2002.
+# Modified by Valminder, Oct 2003.
+#    -Added %Cost% of items.
+#    -Added Masterwork Weapons/Armors.
+#    -Added size for 3.5E.
+# ** -Added a "Book Selection". If you have the book, change the "0"
+#     to "1" for the book.
+#
+#     101Sp : 101 Spellbooks (by Philip Reed, www.philipjreed.com)
+#     C     : Aurora's Whole Realms Catalogue (2E).
+#     BoEM1 : Book of Eldritch Might 1.
+#     DRXXX : Dragon Magazine XXX.
+#     DUXXX : Dungeon Magazine XXX.
+#     MoF   : Magic of Faerun.
+#     PDAFr : Poisoncraft: The Dark Art (Blue Devil Games). Free preview.
+#     RH    : Complete Ranger's Handbook (2E).
+#     TB    : Tome and Blood.
+#
+# Modified by Valminder, Dec 2005.
+#    Added a CRMod and TypeNeeded (to call Poisons)
+# Modified by Valminder, Jan 2006.
+#    Adapted for TSv5 (Replaced some Reset~ with Unlock~)
+# Modified by Valminder, Feb 2006.
+#    Added "MiscItems" subtable and all categories: container drinking,
+#       container liquid, container stopper, ObjectSmall decorate,
+#       ObjectSmall mundane, textiles, tools, container solid,
+#       lightdevices, container fire, weapon container, Ammunition.
+#       (From Michael Long's table "FR_misc_ToolWeapArm.tab")
+# Modified by Valminder, Nov 2007.
+#    Added "StartNoGP" subtable if you want to generate a random
+#       item without its GP value.
+# Modified by Valminder, Jul 2010.
+#    Added Clothing subtable.
+#
+
+%AlchemicalShop%,0
+%Book%,1
+%Cost%,0
+%CRMod%,0
+%CRVal%,1
+%Damage%,0
+%EQTable%,0
+%Item%,0
+%MagEffect%,0
+%Mult%,1
+%piece%,1
+%Temp%,0
+%Type%,0
+%TypeNeeded%,0
+
+%C%,1
+%101Sp%,1
+%BoEM1%,1
+%DR279%,1
+%DR280%,1
+%DR285%,1
+%MoF%,1
+%PDAFr%,1
+%RH%,1
+%TB%,1
+
+# Leave these 2 parameters for when the table is called from another one
+# (see Traps.tab)
+@CRMod,0,Only used when this table is called from another table.
+@TypeNeeded,0,Only used when this table is called from another table.
+
+:Start
+1,[Alchemical] (%Cost% gp)
+2,[Armors] (%Cost% gp)
+3,[Musical Instruments] (%Cost% gp)
+4,[Poisons] (%Cost% gp)
+5,[Weapons] (%Cost% gp)
+6,[MiscItems] (%Cost% gp)
+
+:AlternateChecker
+1,|EQTable=Alchemical|[EQCall]%Item% (%Cost% %piece%)
+1,|EQTable=Armors|[EQCall]%Item% (%Cost% %piece%)
+1,|EQTable=Musical Instrument|[EQCall]%Item% (%Cost% %piece%)
+1,|EQTable=Poisons|[EQCall]%Item% (%Cost% %piece%)
+1,|EQTable=Weapons|[EQCall]%Item% (%Cost% %piece%)
+1,|EQTable=MiscItems|[EQCall]%Item% (%Cost% %piece%)
+
+:StartNoGP
+1,[Alchemical]
+2,[Armors]
+3,[Musical Instruments]
+4,[Poisons]
+5,[Weapons]
+6,[MiscItems]
+
+:StartNoGPNoSize
+1,[Alchemical]
+2,[MWArmors NoSize]
+3,[Musical Instruments]
+4,[Poisons]
+5,[MWWeaponsNoSize]
+6,[MiscItems]
+
+;Size
+1,Fine|Mult=0.5|
+2,Diminutive|Mult=0.5|
+4,Tiny|Mult=0.5|
+35,Small|Mult=1|
+35,Medium|Mult=1|
+20,Large|Mult=2|
+4,Huge|Mult=4|
+2,Gargantuan|Mult=8|
+1,Colossal|Mult=16|
+
+# ---------------------------------------------------------------------------
+# When calling "Equipment.tab" from another table, use this subtable instead.
+# For example, if you need a weapon in "Table A", use this info to generate a
+# weapon with its cost written in parenthesis.
+#
+# 1,|EQTable=Weapons|[EQCall]%Item% (%Cost% %piece%)
+#
+# This will go to the [EQCall] subtable (found in the table needing an
+# equipment). EQCall goes into "Equipment.tab" to find an item and it will
+# check if you own the appropriate book. If you do, it will show the result,
+# if not it will generate a new item.
+#
+# [PieceChecker] is used to change the cost to gp/sp/cp.
+#
+# You will also need those variables:
+# %Book%,0
+# %Cost%,0
+# %EQTable%,0
+# %Item%,0
+# %piece%,0
+# %Temp%,0
+
+# Also add those variables for the poisons
+# %Damage%,0
+# %MagEffect%,0
+# %Type%,0
+
+:EQCall
+1,|Item=ERROR||Cost=0||Book=1||Temp=[Equipment.%EQTable%Checker]|
+_{Split~Temp,",",Item,Cost,Book}{If~%Book%=0 ? [EQCall]}[PieceChecker]
+
+:PieceChecker
+1,|piece=gp|{If~%Cost%<1 ? |Cost*10||piece=sp|{If~%Cost%<1 ? |Cost*10||piece=cp|{If~%Cost%=0 ? |piece=gp|}}}
+
+
+
+# POISONS : This is a test I created for the poisons.
+:Start Poisons
+1,|EQTable=Poisons|[EQCall2]%Item% (%Cost% gp)<dd><u>Type</u>: %Type%<br><dd><u>Damage</u>: %Damage%<br>{If~%MagEffect%!=0? [PrintMag]}
+
+:PrintMag
+1,<dd><u>Magical Poison</u>: %MagEffect%
+
+:EQCall2
+1,|Item=ERROR||Cost=0||Book=1||MagEffect=0|
+_|Temp=[Equipment.%EQTable%Checker]|
+_{Split~Temp,",",Item,Cost,Book,Type,Damage,MagEffect}
+_{If~%Book%=0 ? [EQCall2]}
+
+# ---------------------------------------------------------------------------
+# B
+
+;BChecker
+1,[B],%Cost%,%Book%
+
+;[B]
+6,[B Common]
+3,[B Uncommon]
+1,[B Rare]
+
+;B Common
+1,|Cost=0||Book=1|
+
+;B Uncommon
+1,|Cost=0||Book=1|
+
+;B Rare
+1,|Cost=0||Book=1|
+
+# ---------------------------------------------------------------------------
+# Alchemical Items
+
+;AlchemicalChecker
+1,[Alchemical],%Cost%,%Book%
+
+;Alchemical
+6,[Alchemical Common]
+3,[Alchemical Uncommon]
+1,[Alchemical Rare]
+
+;!Alchemical Common
+1,{Unlock~Alchemical Common,1-2}[Alchemical Common]
+2,Acid|Cost=10||Book=1|
+2,Alchemist's Fire|Cost=20||Book=1|
+1,Alchemist's Mercy (DR280)|Cost=1||Book=%DR280%|
+2,Antitoxin|Cost=50||Book=1|
+1,Flashpellet (TB)|Cost=5||Book=%TB%|
+1,Flash Powder (DR280)|Cost=20||Book=%DR280%|
+1,Glowpowder (TB)|Cost=50||Book=%TB%|
+1,Healing Salve (TB)|Cost=50||Book=%TB%|
+1,Holdfast (DR280)|Cost=50||Book=%DR280%|
+1,Ice Crystal (DR280)|Cost=5||Book=%DR280%|
+1,Ink Courier's (DR280)|Cost=20||Book=%DR280%|
+1,Ink Disappearing (TB)|Cost=5||Book=%TB%|
+1,Ink Phantom (Firelight) (TB)|Cost=10||Book=%TB%|
+1,Ink Phantom (Magical Light) (TB)|Cost=10||Book=%TB%|
+1,Ink Phantom (Moonlight) (TB)|Cost=10||Book=%TB%|
+1,Ink Phantom (Starlight) (TB)|Cost=10||Book=%TB%|
+1,Insect Repellent (DR280)|Cost=5||Book=%DR280%|
+1,Night Eyes (DR280)|Cost=25||Book=%DR280%|
+1,Powdered Water (DR280)|Cost=0.5||Book=%DR280%|
+1,Scentbreaker (TB)|Cost=5||Book=%TB%|
+1,Slippery Oil (DR280)|Cost=50||Book=%DR280%|
+2,Smokestick|Cost=20||Book=1|
+1,Sneezing Powder (DR280)|Cost=60||Book=%DR280%|
+1,Softshoe Powder (DR280)|Cost=25||Book=%DR280%|
+1,Sunburn Ointment (RH)|Cost=2||Book=%RH%|
+2,Sunrod|Cost=2||Book=1|
+1,Suregrip (TB)|Cost=20||Book=%TB%|
+2,Tanglefoot Bag|Cost=50||Book=1|
+2,Thunderstone|Cost=30||Book=1|
+2,Tindertwig|Cost=1||Book=1|
+1,Traveler's Solace (DR280)|Cost=50||Book=%DR280%|
+
+;!Alchemical Uncommon
+1,{Unlock~Alchemical Uncommon,1}[Alchemical Common]
+1,Armor Soft (DR280)|Cost=50||Book=%DR280%|
+1,Cooling Gel (DR280)|Cost=100||Book=%DR280%|
+1,Firebane (DR280)|Cost=50||Book=%DR280%|
+1,Fire Beetle Paste (DR280)|Cost=50||Book=%DR280%|
+1,Firestone (DR280)|Cost=50||Book=%DR280%|
+1,Free Foot (DR280)|Cost=25||Book=%DR280%|
+1,Grondiel's Chicken Soup (DR285)|Cost=70||Book=%DR285%|
+1,Halfling Trail Bread (DR285)|Cost=50||Book=%DR285%|
+1,Liquid Ice (DR280)|Cost=30||Book=%DR280%|
+1,Masking Perfume (DR279)|Cost=100||Book=%DR279%|
+1,Red Rager (DR280)|Cost=50||Book=%DR280%|
+1,Scent Lure (RH)|Cost=3||Book=%RH%|
+1,Slimebane (DR280)|Cost=15||Book=%DR280%|
+1,Soupstone (DR280)|Cost=300||Book=%DR280%|
+1,Stonecloth (1sqft) (DR280)|Cost=100||Book=%DR280%|
+1,Tangle Wire (DR280)|Cost=25||Book=%DR280%|
+1,Zumzum Cake (DR285)|Cost=75||Book=%DR285%|
+
+;!Alchemical Rare
+1,{Unlock~Alchemical Rare,1}[Alchemical Uncommon]
+1,Moonmoss Pudding (DR285)|Cost=150||Book=%DR285%|
+1,Truth Wine (DR280)|Cost=75||Book=%DR280%|
+1,Vapor's of Sleep (DR280)|Cost=50||Book=%DR280%|
+
+# ---------------------------------------------------------------------------
+# Armors
+
+;ArmorsChecker
+1,[Armors],%Cost%,%Book%
+
+;Armors OnlyChecker
+1,[Armors Only],%Cost%,%Book%
+
+;Armors
+5,[Size] [Armors Light]|Cost*%Mult%|
+3,[Size] [Armors Medium]|Cost*%Mult%|
+1,[Size] [Armors Heavy]|Cost*%Mult%|
+3,[Size] [Shields]|Cost*%Mult%|
+1,Masterwork [MWArmors]|Cost*%Mult%||Cost+150|
+
+;MWArmors
+5,[Size] [Armors Light]
+3,[Size] [Armors Medium]
+1,[Size] [Armors Heavy]
+3,[Size] [Shields]
+
+;MWArmors NoSize
+5,[Armors Light]
+3,[Armors Medium]
+1,[Armors Heavy]
+3,[Shields]
+
+;Armors Only
+5,[Size] [Armors Light]|Cost*%Mult%|
+3,[Size] [Armors Medium]|Cost*%Mult%|
+1,[Size] [Armors Heavy]|Cost*%Mult%|
+1,Masterwork [MWArmors Only]|Cost*%Mult%||Cost+150|
+
+;MWArmors Only
+5,[Size] [Armors Light]
+3,[Size] [Armors Medium]
+1,[Size] [Armors Heavy]
+
+;MWArmors Only NoSize
+5,[Armors Light]
+3,[Armors Medium]
+1,[Armors Heavy]
+
+;!Armors Light
+1,Padded|Cost=5||Book=1|
+1,Leather|Cost=10||Book=1|
+1,Studded Leather|Cost=25||Book=1|
+1,Chain Shirt|Cost=100||Book=1|
+
+;!Armors Medium
+1,Hide|Cost=15||Book=1|
+1,Scale Mail|Cost=50||Book=1|
+1,Chain Mail|Cost=150||Book=1|
+1,Breastplate|Cost=200||Book=1|
+
+;!Armors Heavy
+1,Splint Mail|Cost=200||Book=1|
+1,Banded Mail|Cost=250||Book=1|
+1,Half-Plate|Cost=600||Book=1|
+1,Full Plate|Cost=1500||Book=1|
+
+;!Shields
+1,Buckler|Cost=15||Book=1|
+1,Light Wooden Shield|Cost=3||Book=1|
+1,Light Steel Shield|Cost=9||Book=1|
+1,Heavy Wooden Shield|Cost=7||Book=1|
+1,Heavy Steel Shield|Cost=20||Book=1|
+1,Tower Shield|Cost=30||Book=1|
+
+# -------------------------------------------------------------------
+
+:MiscItemsChecker
+1,[MiscItems],%Cost%,%Book%
+
+;MiscItems
+1,[Ale]
+1,[Ammunition]
+1,[Cheese]
+1,[Clothing]
+1,[container drinking]
+1,[container fire]
+1,[container liquid]
+1,[container solid]
+1,[Fruits]
+1,[lightdevices]
+1,[Musical Instruments]
+1,[ObjectSmall decorate]
+1,[ObjectSmall mundane]
+1,[textiles]
+1,[tools]
+1,[Vegetables]
+1,[Wines]
+1,[weapon container]
+
+;Ale
+1,Bitter Black Ale
+1,Ale
+1,Dragon's Breath Beer
+1,Elminster's Choice Ale
+1,Golden Sand Ale
+1,Golden Sands Gold Ale
+1,Golden Sands Orange Ale
+1,Iriaeboran North Brew
+1,Luiren's Best Ale
+1,Old One Eye Ale
+1,Shadowdark Ale
+1,Skyrss Ale
+1,"Suzale" Ale
+1,Tanagyr's Stout Ale
+
+;Ammunition
+1,arrow|Cost=0||Book=1|
+1,bolt|Cost=0||Book=1|
+1,bullet|Cost=0||Book=1|
+1,stone|Cost=0||Book=1|
+
+;ArmorType
+5,padded|Cost=0||Book=1|
+10,leather|Cost=0||Book=1|
+5,hide|Cost=0||Book=1|
+10,studded leather|Cost=0||Book=1|
+10,chain shirt|Cost=0||Book=1|
+5,scale mail|Cost=0||Book=1|
+10,chain mail|Cost=0||Book=1|
+5,breastplate|Cost=0||Book=1|
+3,splint mail|Cost=0||Book=1|
+5,banded mail|Cost=0||Book=1|
+3,half plate|Cost=0||Book=1|
+1,full plate|Cost=0||Book=1|
+
+;Cheese
+1,Arabellan Cheddar
+1,Chessentan Lotus Cheese
+5,Cheese
+1,Damarite Red Cheese
+1,Death Cheese
+1,Djekul Cheese
+1,Elturian Grey Cheese
+5,Farmer's Cheese
+1,Apple Cheese
+1,Blackberry Cheese
+1,Damson Cheese
+1,Green Calishite Cheese
+1,Luiren Spring Cheese
+1,Mist Cheese
+1,Molvarti Cheese
+1,Nut Cheese
+1,Pepper Cheese
+1,Turmish Brick Cheese
+1,Vilhon Blanc Cheese
+1,Waterdhavian Cheese
+1,Wickler Cheese
+
+;!Cloth
+3,brocade
+10,canvas
+1,cloth of [Miscellaneous.Precious Metal]
+10,cotton
+1,exotic animal fur/leather
+1,exotic bird feathers
+5,flannel
+10,hemp
+3,lace
+5,leather
+10,linen
+1,monster (<b>[Creatures.Fantastic]</b>) skin
+3,satin
+3,silk
+3,velvet
+3,wool
+
+;ClothGen
+6,[Cloth]
+3,[Cloth], and [Cloth]
+1,[Cloth], [Cloth], and [Cloth]
+
+;container drinking
+1,chalice|Cost=0||Book=1|
+1,goblet|Cost=0||Book=1|
+1,jug|Cost=0||Book=1|
+1,mug|Cost=0||Book=1|
+1,stein|Cost=0||Book=1|
+1,tankard|Cost=0||Book=1|
+1,wineskin|Cost=0||Book=1|
+
+;Clothing
+1,apron|Cost=0||Book=1|
+1,baldric/bandoleer|Cost=0||Book=1|
+1,belt|Cost=0||Book=1|
+1,boots|Cost=0||Book=1|
+1,bracers|Cost=0||Book=1|
+1,braies|Cost=0||Book=1|
+1,breeches|Cost=0||Book=1|
+1,buckle|Cost=0||Book=1|
+1,cannons|Cost=0||Book=1|
+1,cap|Cost=0||Book=1|
+1,cape|Cost=0||Book=1|
+1,chemise|Cost=0||Book=1|
+1,cloak|Cost=0||Book=1|
+1,coat|Cost=0||Book=1|
+1,corset|Cost=0||Book=1|
+1,doublet|Cost=0||Book=1|
+1,dress|Cost=0||Book=1|
+1,gauntlets|Cost=0||Book=1|
+1,girdle|Cost=0||Book=1|
+1,gloves|Cost=0||Book=1|
+1,hat|Cost=0||Book=1|
+1,hoods|Cost=0||Book=1|
+1,jacket|Cost=0||Book=1|
+1,jerkins|Cost=0||Book=1|
+1,leggings|Cost=0||Book=1|
+1,loin cloth|Cost=0||Book=1|
+1,mask|Cost=0||Book=1|
+1,mittens|Cost=0||Book=1|
+1,nightshirts|Cost=0||Book=1|
+1,pantaloons|Cost=0||Book=1|
+1,poncho|Cost=0||Book=1|
+1,robes|Cost=0||Book=1|
+1,sandals|Cost=0||Book=1|
+1,sashes|Cost=0||Book=1|
+1,shirt|Cost=0||Book=1|
+1,shoes|Cost=0||Book=1|
+1,skates|Cost=0||Book=1|
+1,skirts|Cost=0||Book=1|
+1,slippers|Cost=0||Book=1|
+1,stockings|Cost=0||Book=1|
+1,surcoat|Cost=0||Book=1|
+1,suspenders|Cost=0||Book=1|
+1,tabard|Cost=0||Book=1|
+1,toga|Cost=0||Book=1|
+1,tunic|Cost=0||Book=1|
+1,vest|Cost=0||Book=1|
+1,wig|Cost=0||Book=1|
+
+;container fire
+1,brazier|Cost=0||Book=1|
+1,candle opra|Cost=0||Book=1|
+1,candle holder|Cost=0||Book=1|
+1,censer|Cost=0||Book=1|
+1,incense burner|Cost=0||Book=1|
+
+;container liquid
+1,wineskin [container stopper]|Cost=0||Book=1|
+2,jug [container stopper]|Cost=0||Book=1|
+2,beaker [container stopper]|Cost=0||Book=1|
+3,bottle [container stopper]|Cost=0||Book=1|
+3,vial [container stopper]|Cost=0||Book=1|
+3,flask [container stopper]|Cost=0||Book=1|
+2,decanter [container stopper]|Cost=0||Book=1|
+1,periapt [container stopper]|Cost=0||Book=1|
+1,phylactery [container stopper]|Cost=0||Book=1|
+
+;container solid
+1,barrel|Cost=0||Book=1|
+1,box|Cost=0||Book=1|
+1,chest|Cost=0||Book=1|
+1,coffer|Cost=0||Book=1|
+
+;container stopper
+4,with stopper
+1,without stopper
+
+;Fruits
+2,[FruitType]green apples
+2,[FruitType]red apples
+2,[FruitType]yellow apples
+2,[FruitType][~Miscellaneous.ColorNoType] apples
+2,[FruitType][FruitColor]apricots
+2,[FruitType]blackberries
+2,[FruitType][FruitColor]cherries
+1,[FruitType][FruitColor]dates
+1,[FruitType][FruitColor]elderberries
+1,[FruitType][FruitColor]figs
+2,[FruitType][FruitColor]grapes
+2,[FruitType][FruitColor]lemons
+1,[FruitType][FruitColor]litchis
+2,[FruitType][FruitColor]melons
+2,[Color][Nuts]
+2,[FruitType][FruitColor]olives
+2,[FruitType][FruitColor]oranges
+2,[FruitType][FruitColor]peaches
+2,[FruitType][FruitColor]pears
+1,[FruitType][FruitColor]pineapples
+2,[FruitType][FruitColor]plums
+2,[FruitType][FruitColor]raspberries
+1,[FruitType][FruitColor]rhubarbs
+2,[FruitType][FruitColor]strawberries
+
+;FruitType
+5,
+1,big 
+1,gigantic
+1,juicy 
+1,small 
+1,sour 
+1,sweet 
+1,tasty 
+
+;FruitColor
+1,[~Miscellaneous.ColorNoType] 
+9,
+
+
+;lightdevices
+1,candle|Cost=0||Book=1|
+1,lantern|Cost=0||Book=1|
+1,oil lamp|Cost=0||Book=1|
+1,torch|Cost=0||Book=1|
+
+;Nuts
+5,almonds
+1,butternuts
+5,cashews
+5,chestnuts
+1,coconuts
+1,goldenseed nuts
+5,groundnuts
+1,hazelnuts
+1,hickory nuts
+1,pecans
+3,pine nuts
+3,pistachios
+5,walnuts
+
+;ObjectSmall decorate
+1,bell|Cost=0||Book=1|
+1,hourglass|Cost=0||Book=1|
+1,magnifying glass|Cost=0||Book=1|
+1,merchant's scale|Cost=0||Book=1|
+1,mirror|Cost=0||Book=1|
+1,serving tray|Cost=0||Book=1|
+1,signal whistle|Cost=0||Book=1|
+1,spyglass|Cost=0||Book=1|
+1,vase|Cost=0||Book=1|
+
+;ObjectSmall mundane
+1,bean|Cost=0||Book=1|
+1,deck|Cost=0||Book=1|
+1,dusts|Cost=0||Book=1|
+1,feather|Cost=0||Book=1|
+1,horseshoes|Cost=0||Book=1|
+1,ointment|Cost=0||Book=1|
+1,skull|Cost=0||Book=1|
+1,stone|Cost=0||Book=1|
+
+;ShieldType
+5,buckler|Cost=0||Book=1|
+3,small shield|Cost=0||Book=1|
+4,medium shield|Cost=0||Book=1|
+3,large shield|Cost=0||Book=1|
+5,tower shield|Cost=0||Book=1|
+
+;textiles
+1,carpet|Cost=0||Book=1|
+1,map or scroll case|Cost=0||Book=1|
+1,pouch|Cost=0||Book=1|
+1,purse|Cost=0||Book=1|
+1,rug|Cost=0||Book=1|
+1,sack|Cost=0||Book=1|
+1,tapestry|Cost=0||Book=1|
+1,winter blanket|Cost=0||Book=1|
+
+;tools
+1,axe|Cost=0||Book=1|
+1,bowl|Cost=0||Book=1|
+1,broom|Cost=0||Book=1|
+1,bucket|Cost=0||Book=1|
+1,coil of rope|Cost=0||Book=1|
+1,grappling hook|Cost=0||Book=1|
+1,knife|Cost=0||Book=1|
+1,mattock|Cost=0||Book=1|
+1,maul|Cost=0||Book=1|
+1,pan|Cost=0||Book=1|
+1,pole|Cost=0||Book=1|
+1,pot|Cost=0||Book=1|
+1,saw|Cost=0||Book=1|
+1,spade|Cost=0||Book=1|
+1,spoon|Cost=0||Book=1|
+
+;Vegetables
+6,[Veg1]
+3,[Veg1], and [Veg1]
+1,[Veg1], [Veg1], and [Veg1]
+
+;!Veg1
+1,[FruitType][FruitColor]artichokes
+2,[FruitType][FruitColor]beans
+2,[FruitType][FruitColor]beets
+2,[FruitType][FruitColor]brocolis
+2,[FruitType][FruitColor]cabbages
+2,[FruitType][FruitColor]calliflowers
+2,[FruitType][FruitColor]carrots
+2,[FruitType][FruitColor]celerys
+1,[FruitType][FruitColor]chilis
+2,[FruitType][FruitColor]cucumbers
+2,fine herbs
+2,[FruitType][FruitColor]mushrooms
+2,[FruitType][FruitColor]onions
+2,[FruitType][FruitColor]peas
+1,[FruitType][FruitColor]pepper
+2,[FruitType][FruitColor]pickles
+1,[FruitType][FruitColor]pimentos
+2,[FruitType][FruitColor]potatoes
+2,[FruitType][FruitColor]pumpkins
+2,[FruitType][FruitColor]salads
+1,[FruitType][FruitColor]soys
+1,[FruitType][FruitColor]tobaccos
+2,[FruitType][FruitColor]tomatoes
+2,[FruitType][FruitColor]zucchinis
+
+;weapon container
+2,bolt case|Cost=0||Book=1|
+1,bolt case with cover|Cost=0||Book=1|
+2,quiver|Cost=0||Book=1|
+1,quiver with cover|Cost=0||Book=1|
+7,sheath|Cost=0||Book=1|
+7,scabbard|Cost=0||Book=1|
+
+;Wines
+1,Ambiere wine
+1,Arabellian Dry wine
+1,Bejl wine
+1,Berduskan Dark wine
+1,Blood Wine
+1,Clarry wine
+1,Elvenmead wine
+1,Fire Wine
+1,Gauglathiir wine
+1,Heathen wine
+1,Saerloonian Glowfire wine
+1,Saerloonian Topaz wine
+1,Undermountain Alurlyath wine
+1,Westgate Ruby wine
+1,Shamarit wine
+1,Silaurey wine
+32,[~Countries.Peoples] [WineType]
+
+;WineType
+1,mead
+1,wine
+1,spiced wine
+1,table wine
+1,winter wine
+
+# -------------------------------------------------------------------
+
+;Musical InstrumentsChecker
+1,[Musical Instruments],%Cost%,%Book%
+
+;Musical Instruments
+6,[Musical Instruments Common]
+3,[Musical Instruments Uncommon]
+1,[Musical Instruments Rare]
+
+;!Musical Instruments Common
+1,{Unlock~Musical Instruments Common,1,5}[Musical Instruments Common]
+1,banjolele|Cost=0||Book=1|
+1,drum|Cost=0||Book=1|
+1,flute|Cost=0||Book=1|
+1,hand harp|Cost=0||Book=1|
+1,lap-harp|Cost=0||Book=1|
+1,lute|Cost=0||Book=1|
+1,lyre|Cost=0||Book=1|
+1,mandolin|Cost=0||Book=1|
+1,pan pipes|Cost=0||Book=1|
+1,recorder-flute|Cost=0||Book=1|
+
+;!Musical Instruments Uncommon
+1,{Unlock~Musical Instruments Uncommon,1}[Musical Instruments Common]
+1,bagpipes|Cost=0||Book=1|
+1,bones (kobolds)|Cost=0||Book=1|
+1,bongo drums|Cost=0||Book=1|
+1,chime|Cost=0||Book=1|
+1,fiddle (old violin)|Cost=0||Book=1|
+1,floor/standing harp|Cost=0||Book=1|
+1,gong|Cost=0||Book=1|
+1,handbell|Cost=0||Book=1|
+1,herald's trumpet|Cost=0||Book=1|
+1,horn (natural)|Cost=0||Book=1|
+1,horn (shell)|Cost=0||Book=1|
+1,violin|Cost=0||Book=1|
+1,whistle-pipe|Cost=0||Book=1|
+
+;!Musical Instruments Rare
+1,{Unlock~Musical Instruments Rare,1}[Musical Instruments Uncommon]
+1,aeolian harp|Cost=0||Book=1|
+1,alphorn (giants)|Cost=0||Book=1|
+1,clavichord|Cost=0||Book=1|
+1,crumhorn (treant)|Cost=0||Book=1|
+1,dulcimer|Cost=0||Book=1|
+1,hanging bell|Cost=0||Book=1|
+1,harmonica|Cost=0||Book=1|
+1,harpsichord|Cost=0||Book=1|
+1,hautbois|Cost=0||Book=1|
+1,lur (giant's horn)|Cost=0||Book=1|
+1,pipe organ|Cost=0||Book=1|
+1,wind stones|Cost=0||Book=1|
+1,zither|Cost=0||Book=1|
+
+# ---------------------------------------------------------------------------
+# Poisons
+# They are divided in 4 categories: Ingested, Injury, Inhaled, Contact.
+# This is to make it easier to add a poison to the trap creator when you need
+# to generate an appropriate CR X poison (as in the trap creatio rules of
+# the DMG) and a certain type of poison (like contact for certain traps).
+
+# To generate any poison.
+;PoisonsChecker
+1,|AlchemicalShop=0|[Poisons],%Cost%,%Book%,%Type%,%Damage%,%MagEffect%
+
+# To generate any poison for the Alchemical Shop.
+;PoisonCheckerAlchemical
+1,|AlchemicalShop=1|[Poisons],%Cost%,%Book%,%Type%,%Damage%,%MagEffect%
+
+# To generate a poison of the appropriate CR.
+# (Look in the Traps.tab) CRMod is 1/2 the required CR value of the poison,
+# +3 for poisons of CR9 and CR10.
+;PoisonsCheckerCRVal
+1,|AlchemicalShop=0|[Poisons],%CRVal%,%Cost%,%Book%,%Type%,%Damage%,%MagEffect%
+
+# To generate a poison of the appropriate type (no CR) with
+# the variable %TypeNeeded%
+;PoisonsCheckerType
+1,|AlchemicalShop=0||CRMod=0|[Poisons%TypeNeeded%],%CRVal%,%Cost%,%Book%,%Type%,%Damage%,%MagEffect%
+
+# To generate a poison of the appropriate CR (as above) and type with
+# the variable %TypeNeeded%
+;PoisonsCheckerTypeCRVal
+1,|AlchemicalShop=0|[Poisons%TypeNeeded%+%CRMod%],%CRVal%,%Cost%,%Book%,%Type%,%Damage%,%MagEffect%
+
+# If a poison of the appropriate type and/or CR cannot be generated within
+# XX tries by TS, this table can be called to generate a default poison of
+# the appropriate type and CR.
+;PoisonsDefaultChecker
+1,|AlchemicalShop=0||MagEffect=0|[PoisonsDefault%TypeNeeded%=%CRMod%],%CRVal%,%Cost%,%Book%,%Type%,%Damage%,%MagEffect%
+
+# The value of each line is the number of poisons found of each type.
+;Poisons
+20,[PoisonsContact+%CRMod%]
+44,[PoisonsIngested+%CRMod%]
+6,[PoisonsInhaled+%CRMod%]
+46,[PoisonsInjury+%CRMod%]
+
+# Creates a random poison from "Poison.tab"
+:PoisonTAB
+1,|Temp=[Poison.GetPoison]|
+_{Split~Temp,";",Item,Cost,Book,Type,Damage,MagEffect,CRVal}
+_|Item=%Item%[Magical Poison Gen+%CRMod%]|%Item%
+
+:PoisonTABCon
+1,|Temp=[Poison.GetPoison(1)]|
+_{Split~Temp,";",Item,Cost,Book,Type,Damage,MagEffect,CRVal}
+_|Item=%Item%[Magical Poison Gen+%CRMod%]|%Item%
+
+:PoisonTABIng
+1,|Temp=[Poison.GetPoison(2)]|
+_{Split~Temp,";",Item,Cost,Book,Type,Damage,MagEffect,CRVal}
+_|Item=%Item%[Magical Poison Gen+%CRMod%]|%Item%
+
+:PoisonTABInh
+1,|Temp=[Poison.GetPoison(3)]|
+_{Split~Temp,";",Item,Cost,Book,Type,Damage,MagEffect,CRVal}
+_|Item=%Item%[Magical Poison Gen+%CRMod%]|%Item%
+
+:PoisonTABInj
+1,|Temp=[Poison.GetPoison(4)]|
+_{Split~Temp,";",Item,Cost,Book,Type,Damage,MagEffect,CRVal}
+_|Item=%Item%[Magical Poison Gen+%CRMod%]|%Item%
+
+;PoisonsContact
+2,[PoisonTABCon]
+6,[Poisons Contact Common][Magical Poison Gen+%CRMod%]
+3,[Poisons Contact Uncommon][Magical Poison Gen+%CRMod%]
+1,[Poisons Contact Rare][Magical Poison Gen+%CRMod%]
+
+;PoisonsIngested
+2,[PoisonTABIng]
+6,[Poisons Ingested Common][Magical Poison Gen+%CRMod%]
+3,[Poisons Ingested Uncommon][Magical Poison Gen+%CRMod%]
+1,[Poisons Ingested Rare][Magical Poison Gen+%CRMod%]
+
+;PoisonsInhaled
+2,[PoisonTABInh]
+6,[Poisons Inhaled Common][Magical Poison Gen+%CRMod%]
+3,[Poisons Inhaled Uncommon][Magical Poison Gen+%CRMod%]
+1,[Poisons Inhaled Rare][Magical Poison Gen+%CRMod%]
+
+;PoisonsInjury
+2,[PoisonTABInj]
+6,[Poisons Injury Common][Magical Poison Gen+%CRMod%]
+3,[Poisons Injury Uncommon][Magical Poison Gen+%CRMod%]
+1,[Poisons Injury Rare][Magical Poison Gen+%CRMod%]
+
+# CONTACT POISONS
+# Cost maximum 250 gp
+;!Poisons Contact Common
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Contact Common,1-2}/{Reset~Poisons Contact Common}}[Poisons Contact Common]
+2,Sassone Leaf Residue (Weakened)|Cost=150||Book=1||Type=Contact||Damage=1d12 hp/1d3 Con (DC13)||CRVal=2|
+
+# Cost 251-1499 gp
+;!Poisons Contact Uncommon
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Contact Uncommon,1-2}/{Reset~Poisons Contact Uncommon}}[Poisons Contact Common]
+2,Malyss root paste|Cost=500||Book=1||Type=Contact||Damage=1 Dex/2d4 Dex (DC16)||CRVal=3|
+2,Nitharit|Cost=650||Book=1||Type=Contact||Damage=0/3d6 Con (DC13)||CRVal=4|
+2,Sassone leaf residue|Cost=300||Book=1||Type=Contact||Damage=2d12 hp/1d6 Con (DC16)||CRVal=3|
+2,Terinav root|Cost=750||Book=1||Type=Contact||Damage=1d6 Dex/2d6 Dex (DC16)||CRVal=5|
+# 101 Spellbooks
+2,Dark Rot (101Sp)|Cost=1000||Book=%101Sp%||Type=Contact||Damage=1d6/1d6 Str (DC20)||CRVal=4|
+2,Green Dagger (101Sp)|Cost=1200||Book=%101Sp%||Type=Contact||Damage=1d6 Con/2d6 Str (DC22)||CRVal=4|
+2,Skull's Breath (101Sp)|Cost=1200||Book=%101Sp%||Type=Contact||Damage=1 hp per rnd for 1d6+6r (DC19)||CRVal=2|
+2,Slow Burn (101Sp)|Cost=800||Book=%101Sp%||Type=Contact||Damage=1d4/1d4 hp within the next 1d4 minutes (DC18)||CRVal=1|
+
+# Cost 1500+ gp
+;!Poisons Contact Rare
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Contact Rare,1-2}/{Reset~Poisons Contact Rare}}[Poisons Contact Uncommon]
+2,Black lotus extract|Cost=4500||Book=1||Type=Contact||Damage=3d6 Con/3d6 Con (DC20)||CRVal=8|
+2,Dragon bile|Cost=1500||Book=1||Type=Contact||Damage=3d6 Str/0 (DC26)||CRVal=6|
+#101 Spellbooks
+2,Black Venom (101Sp)|Cost=5700||Book=%101Sp%||Type=Contact||Damage=2d6 Str/4d4 hp (DC23)||CRVal=6|
+2,Brutal Sting (101Sp)|Cost=3500||Book=%101Sp%||Type=Contact||Damage=1d4/1d3 Con (DC19)||CRVal=5|
+2,Hellstrike (101Sp)|Cost=4600||Book=%101Sp%||Type=Contact||Damage=2d6 Con (1r delay)/1d6 Str (3r after) (DC25)||CRVal=7|
+2,Hell's Fury (101Sp)|Cost=5000||Book=%101Sp%||Type=Contact||Damage=1/1 Negative Level (DC21)||CRVal=5|
+2,Plague of the Ancients (101Sp)|Cost=4500||Book=%101Sp%||Type=Contact||Damage=2d6/2d6 Con + 1 Con per day + Contagious (DC25)||CRVal=9|
+2,Shadow Sickness (101Sp)|Cost=6500||Book=%101Sp%||Type=Contact||Damage=1/1 Negative Level (DC30)||CRVal=7|
+2,Spirit Touch (101Sp)|Cost=2100||Book=%101Sp%||Type=Contact||Damage=Corrupting Touch (2r delay)/1 Neg Level (5r after) (DC22)||CRVal=7|
+
+
+
+# INGESTED POISONS
+# Cost maximum 250 gp
+;!Poisons Ingested Common
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Ingested Common,1-2}/{Reset~Poisons Ingested Common}}[Poisons Ingested Common]
+2,Abrosgar (New)|Cost=25||Book=1||Type=Ingested||Damage=1/1 Dex (DC10)||CRVal=1|
+2,Arsenic|Cost=120||Book=1||Type=Ingested||Damage=1/1d8 Con (DC13)||CRVal=3|
+2,Id moss|Cost=125||Book=1||Type=Ingested||Damage=1d4/2d6 Int (DC14)||CRVal=2|
+2,Lich Dust|Cost=250||Book=1||Type=Ingested||Damage=2d6/1d6 Str (DC17)||CRVal=3|
+2,Oil of taggit|Cost=90||Book=1||Type=Ingested||Damage=0/Unconsciousness (DC15)||CRVal=1|
+2,Striped toadstool|Cost=180||Book=1||Type=Ingested||Damage=1 Wis/2d6 Wis+1d4 Int (DC11)||CRVal=2|
+# BoEM1
+2,Crippling Doom (BoEM1)|Cost=120||Book=%BoEM1%||Type=Injury or Ingested||Damage=Shaken 2 minutes (Will DC11)||CRVal=1|
+2,Sleep (BoEM1)|Cost=180||Book=%BoEM1%||Type=Injury or Ingested||Damage=Sleeps 3 minutes (max 6HD)(DC11)||CRVal=1|
+
+# Cost 251-1499 gp
+;!Poisons Ingested Uncommon
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Ingested Uncommon,1-2}/{Reset~Poisons Ingested Uncommon}}[Poisons Ingested Common]
+2,Dark reaver powder|Cost=300||Book=1||Type=Ingested||Damage=2d6 Con/1d6 Con+1d6 Str (DC18)||CRVal=6|
+# BoEM1
+2,Slow (BoEM1)|Cost=1100||Book=%BoEM1%||Type=Injury or Ingested||Damage=Slowed 7 rounds (Will DC14)||CRVal=2|
+# 101 Spellbooks
+2,BitterTea (101Sp)|Cost=1400||Book=%101Sp%||Type=Ingested||Damage=2d6/1d6 Con (DC25)||CRVal=5|
+2,Dungeon Dust (101Sp)|Cost=1250||Book=%101Sp%||Type=Ingested||Damage=1d8/1d4 Con (DC26)||CRVal=7|
+2,Green Dagger (101Sp)|Cost=1200||Book=%101Sp%||Type=Ingested||Damage=2d8 Con/1d6 Str (DC26)||CRVal=5|
+2,Ninstill's Curse (101Sp)|Cost=500||Book=%101Sp%||Type=Ingested||Damage=1d6/1d6 Wis (DC20)||CRVal=4|
+2,Spider's Venom (101Sp)|Cost=1200||Book=%101Sp%||Type=Ingested||Damage=1d6/2d4 Con (DC25)||CRVal=5|
+2,Spine Crusher (101Sp)|Cost=1200||Book=%101Sp%||Type=Ingested||Damage=2d6 Str/2d6 Dex (DC25)||CRVal=5|
+2,Taste of the Dagger (101Sp)|Cost=450||Book=%101Sp%||Type=Ingested||Damage=1d3/1d2 Con (DC18)||CRVal=4|
+2,Twisted Root (101Sp)|Cost=1200||Book=%101Sp%||Type=Ingested||Damage=1d2 hp (3r delay)/2d6 Con (24hrs after) (DC25)||CRVal=6|
+
+# Cost 1500+ gp
+;!Poisons Ingested Rare
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Ingested Rare,1-2}/{Reset~Poisons Ingested Rare}}[Poisons Ingested Uncommon]
+# BoEM1
+2,Darkmind (BoEM1)|Cost=4700||Book=%BoEM1%||Type=Injury or Ingested||Damage=Coma 1d10 days (DC19)||CRVal=7|
+2,Denial (BoEM1)|Cost=4500||Book=%BoEM1%||Type=Injury or Ingested||Damage=Cannot enter area (Will DC19)||CRVal=2|
+2,Fear (BoEM1)|Cost=1600||Book=%BoEM1%||Type=Injury or Ingested||Damage=Panicked 8 rounds (Will DC16)||CRVal=3|
+2,Heartthief (BoEM1)|Cost=4000||Book=%BoEM1%||Type=Injury or Ingested||Damage=Lose memory closest person (Will DC16)||CRVal=2|
+2,Madness (BoEM1)|Cost=5400||Book=%BoEM1%||Type=Injury or Ingested||Damage=Insanity (Will DC20)||CRVal=8|
+2,Memory Key (BoEM1)|Cost=1500||Book=%BoEM1%||Type=Injury or Ingested||Damage=Specific target forgets specific memory (DC16)||CRVal=3|
+2,Swarmdeath (BoEM1)|Cost=2700||Book=%BoEM1%||Type=Injury or Ingested||Damage=Death (DC17)||CRVal=8|
+2,Truesleep (BoEM1)|Cost=2700||Book=%BoEM1%||Type=Injury or Ingested||Damage=Sleeps 1 hour (max 10HD)(No Save)||CRVal=7|
+2,Wraithsong (BoEM1)|Cost=1600||Book=%BoEM1%||Type=Injury or Ingested||Damage=1 negative level (No Save)||CRVal=3|
+#101 Spellbooks
+2,Acennan's Rage (101Sp)|Cost=2500||Book=%101Sp%||Type=Ingested||Damage=Rage 2r/Rage 1r (DC20)||CRVal=5|
+2,Angel Toxin (101Sp)|Cost=1500||Book=%101Sp%||Type=Ingested||Damage=1d6 Con/1 Con dmg each day for 2 weeks (minimum 1 Con) (DC21)||CRVal=8|
+2,Black Venom (101Sp)|Cost=6000||Book=%101Sp%||Type=Ingested||Damage=3d6 Str/2d10 hp (DC27)||CRVal=7|
+2,Brutal Sting (101Sp)|Cost=3500||Book=%101Sp%||Type=Ingested||Damage=1d4/1d4 Con (DC21)||CRVal=5|
+2,Cleric's Curse (101Sp)|Cost=3400||Book=%101Sp%||Type=Ingested||Damage=1d4 Con/Damaged by cure spells (DC24)||CRVal=5|
+2,Crystal Lung (101Sp)|Cost=1700||Book=%101Sp%||Type=Ingested||Damage=1d6 Con/Death (DC25)||CRVal=8|
+2,Dark Eye (101Sp)|Cost=5400||Book=%101Sp%||Type=Ingested||Damage=1 negative Level/1d6 Con (DC26)||CRVal=4|
+2,Dragon Weed (101Sp)|Cost=3500||Book=%101Sp%||Type=Ingested||Damage=Flu for 12 hours/3d6 Con (DC25)||CRVal=8|
+2,Dried Blood (101Sp)|Cost=2100||Book=%101Sp%||Type=Ingested||Damage=2d6 hp/1d6 hp (DC19)||CRVal=2|
+2,Drops of Despair (101Sp)|Cost=5200||Book=%101Sp%||Type=Ingested||Damage=-2 all checks after 1 hour/-4 after 4d4 hours (DC26)||CRVal=5|
+2,Goblin's Puss (101Sp)|Cost=1800||Book=%101Sp%||Type=Ingested||Damage=1d4/1d6 Con (DC18)||CRVal=4|
+2,Green Rot (101Sp)|Cost=2500||Book=%101Sp%||Type=Ingested||Damage=2d6/2d6 Con (DC20)||CRVal=6|
+2,Hell's Fury (101Sp)|Cost=5000||Book=%101Sp%||Type=Ingested||Damage=1/1 Negative Level (DC21)||CRVal=4|
+2,Hollow Heart (101Sp)|Cost=5000||Book=%101Sp%||Type=Ingested||Damage=Becomes Chaotic Evil (Will DC25)||CRVal=6|
+2,Medusa's Air (Pure) (101Sp)|Cost=3800||Book=%101Sp%||Type=Ingested||Damage=6d6 hp/1d6 Con (DC25)||CRVal=3|
+2,Medusa's Air (Watery) (101Sp)|Cost=3000||Book=%101Sp%||Type=Ingested||Damage=3d6 hp/1d4 Con (DC20)||CRVal=2|
+2,Minotaur's Blood (101Sp)|Cost=3200||Book=%101Sp%||Type=Ingested||Damage=1d6/2d4 Con (DC23)||CRVal=5|
+
+
+
+# INHALED POISONS
+# Cost maximum 250 gp
+;!Poisons Inhaled Common
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Inhaled Common,1-2}/{Reset~Poisons Inhaled Common}}[Poisons Inhaled Common]
+2,Ungol dust (Weakened)|Cost=250||Book=1||Type=Inhaled||Damage=0/1d3 Cha (DC11)||CRVal=1|
+
+# Cost 251-1499 gp
+;!Poisons Inhaled Uncommon
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Inhaled Uncommon,1-2}/{Reset~Poisons Inhaled Uncommon}}[Poisons Inhaled Common]
+2,Ungol dust|Cost=1000||Book=1||Type=Inhaled||Damage=1 Cha/1d6 Cha + 1 Cha perm (DC15)||CRVal=3|
+
+# Cost 1500+ gp
+;!Poisons Inhaled Rare
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Inhaled Rare,1-2}/{Reset~Poisons Inhaled Rare}}[Poisons Inhaled Uncommon]
+2,Burnt othur fumes|Cost=2100||Book=1||Type=Inhaled||Damage=1 Con perm/3d6 Con (DC18)||CRVal=6|
+2,Insanity mist|Cost=1500||Book=1||Type=Inhaled||Damage=1d4 Wis/2d6 Wis (DC15)||CRVal=4|
+#101 Spellbooks
+2,Crystal Lung (101Sp)|Cost=1600||Book=%101Sp%||Type=Inhaled||Damage=1d6 Con/Death (DC25)||CRVal=8|
+2,Orc's Breath (101Sp)|Cost=2500||Book=%101Sp%||Type=Inhaled||Damage=Blindness/2d6 Con (DC22)||CRVal=5|
+
+
+
+# INJURY POISONS
+# Cost maximum 250 gp
+;!Poisons Injury Common
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Injury Common,1-2}/{Reset~Poisons Injury Common}}[Poisons Injury Common]
+2,Black adder venom|Cost=120||Book=1||Type=Injury||Damage=1d6/1d6 Con (DC11)||CRVal=3|
+2,Bloodrot|Cost=100||Book=1||Type=Injury||Damage=0/1d4 Con+1d3 Wis (DC12)||CRVal=1|
+2,Blue whinnis|Cost=120||Book=1||Type=Injury||Damage=1 Con/Unconscious (DC14)||CRVal=1|
+2,Drow poison|Cost=75||Book=1||Type=Injury||Damage=Unconscious/Unconscious 2d4 hr (DC13)||CRVal=2|
+2,Giant wasp poison|Cost=210||Book=1||Type=Injury||Damage=1d6/1d6 Dex (DC18)||CRVal=3|
+2,Greenblood oil|Cost=100||Book=1||Type=Injury||Damage=1/1d2 Con (DC13)||CRVal=1|
+2,Huge scorpion venom|Cost=200||Book=1||Type=Injury||Damage=1d6/1d6 Con (DC18)||CRVal=5|
+2,Large scorpion venom|Cost=150||Book=1||Type=Injury||Damage=1d4/1d4 Con (DC14)||CRVal=3|
+2,Medium centipede poison|Cost=100||Book=1||Type=Injury||Damage=1d3/1d3 Dex (DC11)||CRVal=1|
+2,Medium scorpion venom|Cost=125||Book=1||Type=Injury||Damage=1d3/1d3 Con (DC13)||CRVal=2|
+2,Medium spider venom|Cost=150||Book=1||Type=Injury||Damage=1d4/1d4 Str (DC14)||CRVal=2|
+2,Shadow essence|Cost=250||Book=1||Type=Injury||Damage=1 Str perm/2d6 Str (DC17)||CRVal=3|
+2,Small centipede poison|Cost=90||Book=1||Type=Injury||Damage=1d2/1d2 Dex (DC11)||CRVal=1|
+2,Small spider venom|Cost=100||Book=1||Type=Injury||Damage=1d3/1d3 Str (DC12)||CRVal=1|
+2,Tiny centipede poison|Cost=25||Book=1||Type=Injury||Damage=1/1 Dex (DC10)||CRVal=1|
+2,Tiny spider venom|Cost=40||Book=1||Type=Injury||Damage=1d2/1d2 Str (DC10)||CRVal=1|
+# BoEM1
+2,Crippling Doom (BoEM1)|Cost=120||Book=%BoEM1%||Type=Injury or Ingested||Damage=Shaken 2 minutes (Will DC11)||CRVal=1|
+2,Sleep (BoEM1)|Cost=180||Book=%BoEM1%||Type=Injury or Ingested||Damage=Sleeps 3 minutes (max 6HD)(DC11)||CRVal=1|
+
+# Cost 251-1499 gp
+;!Poisons Injury Uncommon
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Injury Uncommon,1-2}/{Reset~Poisons Injury Uncommon}}[Poisons Injury Common]
+2,Purple worm poison|Cost=700||Book=1||Type=Injury||Damage=1d6 Str/2d6 Str (DC24)||CRVal=4|
+# BoEM1
+2,Slow (BoEM1)|Cost=1100||Book=%BoEM1%||Type=Injury or Ingested||Damage=Slowed 7 rounds (Will DC14)||CRVal=2|
+# 101 Spellbooks
+2,Dungeon Dust (101Sp)|Cost=1300||Book=%101Sp%||Type=Injury||Damage=2d6/1d4 Con (DC21)||CRVal=6|
+2,Ninstill's Curse (101Sp)|Cost=500||Book=%101Sp%||Type=Injury||Damage=1d3/1d3 Wis (DC20)||CRVal=3|
+2,Slow Burn (101Sp)|Cost=900||Book=%101Sp%||Type=Injury||Damage=1d4/1d4 hp within the next 1d4 minutes (DC19)||CRVal=1|
+2,Taste of the Dagger (101Sp)|Cost=500||Book=%101Sp%||Type=Injury||Damage=1d4/1d4 Con (DC19)||CRVal=6|
+
+# Cost 1500+ gp
+;!Poisons Injury Rare
+1,{If~%AlchemicalShop%=1? {Unlock~Poisons Injury Rare,1-2}/{Reset~Poisons Injury Rare}}[Poisons Injury Uncommon]
+2,Deathblade|Cost=1800||Book=1||Type=Injury||Damage=1d6 Con/2d6 Con (DC20)||CRVal=5|
+2,Wyvern poison|Cost=3000||Book=1||Type=Injury||Damage=2d6 Con/2d6 Con (DC17)||CRVal=5|
+# BoEM1
+2,Darkmind (BoEM1)|Cost=4700||Book=%BoEM1%||Type=Injury or Ingested||Damage=Coma 1d10 days (DC19)||CRVal=7|
+2,Denial (BoEM1)|Cost=4500||Book=%BoEM1%||Type=Injury or Ingested||Damage=Cannot enter area (Will DC19)||CRVal=2|
+2,Fear (BoEM1)|Cost=1600||Book=%BoEM1%||Type=Injury or Ingested||Damage=Panicked 8 rounds (Will DC16)||CRVal=3|
+2,Heartthief (BoEM1)|Cost=4000||Book=%BoEM1%||Type=Injury or Ingested||Damage=Lose memory closest person (Will DC16)||CRVal=2|
+2,Madness (BoEM1)|Cost=5400||Book=%BoEM1%||Type=Injury or Ingested||Damage=Insanity (Will DC20)||CRVal=8|
+2,Memory Key (BoEM1)|Cost=1500||Book=%BoEM1%||Type=Injury or Ingested||Damage=Specific target forgets specific memory (DC16)||CRVal=3|
+2,Swarmdeath (BoEM1)|Cost=2700||Book=%BoEM1%||Type=Injury or Ingested||Damage=Death (DC17)||CRVal=8|
+2,Truesleep (BoEM1)|Cost=2700||Book=%BoEM1%||Type=Injury or Ingested||Damage=Sleeps 1 hour (max 10HD)(No Save)||CRVal=7|
+2,Wraithsong (BoEM1)|Cost=1600||Book=%BoEM1%||Type=Injury or Ingested||Damage=1 negative level (No Save)||CRVal=3|
+#101 Spellbooks
+2,Acennan's Rage (101Sp)|Cost=2600||Book=%101Sp%||Type=Injury||Damage=Rage 2r/Rage 1r (DC22)||CRVal=6|
+2,Black Venom (101Sp)|Cost=5500||Book=%101Sp%||Type=Injury||Damage=1d6 Str/2d6 hp (DC20)||CRVal=5|
+2,Brutal Sting (101Sp)|Cost=3500||Book=%101Sp%||Type=Injury||Damage=1d6/1d3 Con (DC22)||CRVal=5|
+2,Dragon Weed (101Sp)|Cost=3300||Book=%101Sp%||Type=Injury||Damage=Flu for 12 hours/2d8 Con (DC25)||CRVal=8|
+2,Dried Blood (101Sp)|Cost=2200||Book=%101Sp%||Type=Injury||Damage=4d6 hp/2d6 hp (DC22)||CRVal=3|
+2,Goblin's Puss (101Sp)|Cost=1800||Book=%101Sp%||Type=Injury||Damage=2d6/2d6 Con (DC21)||CRVal=6|
+2,Hellstrike (101Sp)|Cost=4600||Book=%101Sp%||Type=Injury||Damage=3d6 Con (1r delay)/2d6 Str (3r after) (DC28)||CRVal=9|
+2,Hell's Fury (101Sp)|Cost=5300||Book=%101Sp%||Type=Injury||Damage=1d2/1 Negative Level (DC24)||CRVal=5|
+2,Hollow Heart (101Sp)|Cost=5000||Book=%101Sp%||Type=Injury||Damage=Becomes Chaotic Evil (Will DC25)||CRVal=6|
+2,Minotaur's Blood (101Sp)|Cost=3200||Book=%101Sp%||Type=Injury||Damage=1d6/2d4 Con (DC25)||CRVal=5|
+2,Spirit Touch (101Sp)|Cost=1800||Book=%101Sp%||Type=Injury||Damage=Corrupting Touch (2r delay)/1 Neg Level (5r after) (DC22)||CRVal=5|
+
+# Default Poisons
+
+# DEFAULT CONTACT POISONS
+# One poison of each CR (1 to 10)
+:PoisonsDefaultContact
+1,Slow Burn (101Sp)|Cost=800||Book=1||Type=Contact||Damage=1d4/1d4 hp within the next 1d4 minutes (DC18)||CRVal=1|
+2,Sassone Leaf Residue (Weakened)|Cost=150||Book=1||Type=Contact||Damage=1d12 hp/1d3 Con (DC13)||CRVal=2|
+3,Malyss root paste|Cost=500||Book=1||Type=Contact||Damage=1 Dex/2d4 Dex (DC16)||CRVal=3|
+4,Nitharit|Cost=650||Book=1||Type=Contact||Damage=0/3d6 Con (DC13)||CRVal=4|
+5,Terinav root|Cost=750||Book=1||Type=Contact||Damage=1d6 Dex/2d6 Dex (DC16)||CRVal=5|
+6,Dragon bile|Cost=1500||Book=1||Type=Contact||Damage=3d6 Str/0 (DC26)||CRVal=6|
+7,Hellstrike (101Sp)|Cost=4600||Book=1||Type=Contact||Damage=2d6 Con (1r delay)/1d6 Str (3r after) (DC25)||CRVal=7|
+8,Black lotus extract|Cost=4500||Book=1||Type=Contact||Damage=3d6 Con/3d6 Con (DC20)||CRVal=8|
+9,Plague of the Ancients (101Sp)|Cost=4500||Book=%101Sp%||Type=Contact||Damage=2d6/2d6 Con + 1 Con per day + Contagious (DC25)||CRVal=9|
+10,Black lotus extract <b>and</b> Weakening (BoEM1)|Cost=4500||Book=1||Type=Contact||Damage=3d6 Con/3d6 Con (DC20)||MagEffect=1d4 Str/1d4 Str||CRVal=10|
+
+# DEFAULT INGESTED POISONS
+# One poison of each CR (1 to 10)
+:PoisonsDefaultIngested
+1,Oil of taggit|Cost=90||Book=1||Type=Ingested||Damage=0/Unconsciousness (DC15)||CRVal=1|
+2,Striped toadstool|Cost=180||Book=1||Type=Ingested||Damage=1 Wis/2d6 Wis+1d4 Int (DC11)||CRVal=2|
+3,Lich Dust|Cost=250||Book=1||Type=Ingested||Damage=2d6/1d6 Str (DC17)||CRVal=3|
+4,Ninstill's Curse (101Sp)|Cost=500||Book=1||Type=Ingested||Damage=1d6/1d6 Wis (DC20)||CRVal=4|
+5,Spine Crusher (101Sp)|Cost=1200||Book=1||Type=Ingested||Damage=2d6 Str/2d6 Dex (DC25)||CRVal=5|
+6,Dark reaver powder|Cost=300||Book=1||Type=Ingested||Damage=2d6 Con/1d6 Con+1d6 Str (DC18)||CRVal=6|
+7,Dungeon Dust (101Sp)|Cost=1250||Book=1||Type=Ingested||Damage=1d8/1d4 Con (DC26)||CRVal=7|
+8,Madness (BoEM1)|Cost=5400||Book=1||Type=Injury or Ingested||Damage=Insanity (Will DC20)||CRVal=8|
+9,Black Venom (101Sp) <b>and</b> Weakening (BoEM1)|Cost=7200||Book=1||Type=Ingested||Damage=3d6 Str/2d10 hp (DC27)||MagEffect=1d4 Str/1d4 Str||CRVal=9|
+10,Swarmdeath (BoEM1) <b>and</b> Longnight (BoEM1)|Cost=11700||Book=1||Type=Injury or Ingested||Damage=Death (DC17)||MagEffect=SR30 vs raise; resurrest; reincarnate||CRVal=10|
+
+# DEFAULT INHALED POISONS
+# One poison of each CR (1 to 10)
+:PoisonsDefaultInhaled
+1,Ungol dust (Weakened)|Cost=250||Book=1||Type=Inhaled||Damage=0/1d3 Cha (DC11)||CRVal=1|
+2,Ungol dust (Weakened) <b>and</b> Sleep (BoEM1)|Cost=430||Book=1||Type=Inhaled||Damage=0/1d3 Cha (DC11)||MagEffect=Sleeps 3 minutes (max 6HD)(DC11)||CRVal=2|
+3,Ungol dust|Cost=1000||Book=1||Type=Inhaled||Damage=1 Cha/1d6 Cha + 1 Cha perm (DC15)||CRVal=3|
+4,Insanity mist|Cost=1500||Book=1||Type=Inhaled||Damage=1d4 Wis/2d6 Wis (DC15)||CRVal=4|
+5,Orc's Breath (101Sp)|Cost=2500||Book=1||Type=Inhaled||Damage=Blindness/2d6 Con (DC22)||CRVal=5|
+6,Burnt othur fumes|Cost=2100||Book=1||Type=Inhaled||Damage=1 Con perm/3d6 Con (DC18)||CRVal=6|
+7,Insanity mist <b>and</b> Darkmind (BoEM1)|Cost=6200||Book=1||Type=Inhaled||Damage=1d4 Wis/2d6 Wis (DC15)||MagEffect=Coma 1d10 days (DC19)||CRVal=7|
+8,Crystal Lung (101Sp)|Cost=1600||Book=1||Type=Inhaled||Damage=1d6 Con/Death (DC25)||CRVal=8|
+9,Orc's Breath (101Sp) <b>and</b> Madness (BoEM1)|Cost=7900||Book=1||Type=Inhaled||Damage=Blindness/2d6 Con (DC22)||MagEffect=Insanity (Will DC20)||CRVal=9|
+10,Crystal Lung (101Sp) <b>and</b> Shrivelsoul (BoEM1)|Cost=5100||Book=1||Type=Inhaled||Damage=1d6 Con/Death (DC25)||MagEffect=If dies; body ages 1 year (prevents raise dead)||CRVal=10|
+
+# DEFAULT INJURY POISONS
+# One poison of each CR (1 to 10)
+:PoisonsDefaultInjury
+1,Bloodrot|Cost=100||Book=1||Type=Injury||Damage=0/1d4 Con+1d3 Wis (DC12)||CRVal=1|
+2,Medium scorpion venom|Cost=125||Book=1||Type=Injury||Damage=1d3/1d3 Con (DC13)||CRVal=2|
+3,Black adder venom|Cost=120||Book=1||Type=Injury||Damage=1d6/1d6 Con (DC11)||CRVal=3|
+4,Purple worm poison|Cost=700||Book=1||Type=Injury||Damage=1d6 Str/2d6 Str (DC24)||CRVal=4|
+5,Deathblade|Cost=1800||Book=1||Type=Injury||Damage=1d6 Con/2d6 Con (DC20)||CRVal=5|
+6,Dungeon Dust (101Sp)|Cost=1300||Book=1||Type=Injury||Damage=2d6/1d4 Con (DC21)||CRVal=6|
+7,Huge scorpion venom <b>and</b> Weakening (BoEM1)|Cost=1400||Book=1||Type=Injury||Damage=1d6/1d6 Con (DC18)||MagEffect=1d4 Str/1d4 Str||CRVal=7|
+8,Dragon Weed (101Sp)|Cost=3300||Book=1||Type=Injury||Damage=Flu for 12 hours/2d8 Con (DC25)||CRVal=8|
+9,Wyvern poison <b>and</b> Madness (BoEM1)|Cost=8400||Book=1||Type=Injury||Damage=2d6 Con/2d6 Con (DC17)||MagEffect=Insanity (Will DC20)||CRVal=9|
+10,Madness (BoEM1) <b>and</b> Weakening (BoEM1)|Cost=6600||Book=1||Type=Injury or Ingested||Damage=Insanity (Will DC20)||MagEffect=1d4 Str/1d4 Str||CRVal=10|
+
+
+# Magical Poisons
+
+
+# From Book of Eldritch Might I (BoEM1)
+;Magical Poison Gen
+9,|MagEffect=0|
+1, <b>and</b> [Magical Poisons]
+
+;Magical Poisons
+6,[Magical Poisons Common]
+3,[Magical Poisons Uncommon]
+1,[Magical Poisons Rare]
+
+# up to 1000 gp
+;Magical Poisons Common
+1,Acidheart (BoEM1)|Cost+900||Book=%BoEM1%||MagEffect=3d6/3d6 Acid||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Coldheart (BoEM1)|Cost+900||Book=%BoEM1%||MagEffect=3d6/3d6 Cold||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Crippling Doom (BoEM1)|Cost+120||Book=%BoEM1%||MagEffect=Shaken 2 minutes (Will DC11)||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Electricheart (BoEM1)|Cost+900||Book=%BoEM1%||MagEffect=3d6/3d6 Electric||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Fireheart (BoEM1)|Cost+900||Book=%BoEM1%||MagEffect=3d6/3d6 Fire||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Sonicheart (BoEM1)|Cost+900||Book=%BoEM1%||MagEffect=3d6/3d6 Sonic||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Sleep (BoEM1)|Cost+180||Book=%BoEM1%||MagEffect=Sleeps 3 minutes (max 6HD)(DC11)||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+
+# 1001-4400
+;Magical Poisons Uncommon
+1,Delusion (BoEM1)|Cost+1500||Book=%BoEM1%||MagEffect=Ignore poison damage||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Demonseed (BoEM1)|Cost+3000||Book=%BoEM1%||MagEffect=Possessed by demon if slained and raised||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Fear (BoEM1)|Cost+1600||Book=%BoEM1%||MagEffect=Panicked 8 rounds (Will DC16)||CRVal+2|{If~%CRVal%>10? |CRVal=10|}
+1,Heartthief (BoEM1)|Cost+4000||Book=%BoEM1%||MagEffect=Lose memory closest person (Will DC16)||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Memory Key (BoEM1)|Cost+1500||Book=%BoEM1%||MagEffect=Specific target forgets specific memory (DC16)||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Shrivelsoul (BoEM1)|Cost+3500||Book=%BoEM1%||MagEffect=If dies; body ages 1 year (prevents raise dead)||CRVal+2|{If~%CRVal%>10? |CRVal=10|}
+1,Slow (BoEM1)|Cost+1100||Book=%BoEM1%||MagEffect=Slowed 7 rounds (Will DC14)||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Swarmdeath (BoEM1)|Cost+2700||Book=%BoEM1%||MagEffect=Death (DC17)||CRVal+5|{If~%CRVal%>10? |CRVal=10|}
+1,Truesleep (BoEM1)|Cost+2700||Book=%BoEM1%||MagEffect=Sleeps 1 hour (max 10HD)(No Save)||CRVal+2|{If~%CRVal%>10? |CRVal=10|}
+1,Weakening (BoEM1)|Cost+1200||Book=%BoEM1%||MagEffect=1d4 Str/1d4 Str||CRVal+2|{If~%CRVal%>10? |CRVal=10|}
+1,Wraithsong (BoEM1)|Cost+1600||Book=%BoEM1%||MagEffect=1 negative level (No Save)||CRVal+2|{If~%CRVal%>10? |CRVal=10|}
+
+# 4500+
+;Magical Poisons Rare
+1,Darkmind (BoEM1)|Cost+4700||Book=%BoEM1%||MagEffect=Coma 1d10 days (DC19)||CRVal+3|{If~%CRVal%>10? |CRVal=10|}
+1,Denial (BoEM1)|Cost+4500||Book=%BoEM1%||MagEffect=Cannot enter area (Will DC19)||CRVal+1|{If~%CRVal%>10? |CRVal=10|}
+1,Longnight (BoEM1)|Cost+9000||Book=%BoEM1%||MagEffect=SR30 vs raise; resurrest; reincarnate||CRVal+2|{If~%CRVal%>10? |CRVal=10|}
+1,Madness (BoEM1)|Cost+5400||Book=%BoEM1%||MagEffect=Insanity (Will DC20)||CRVal+4|{If~%CRVal%>10? |CRVal=10|}
+
+# ---------------------------------------------------------------------------
+# Weapons
+
+;WeaponsChecker
+1,[Weapons],%Cost%,%Book%
+
+;WeaponsNoSizeChecker
+1,[WeaponsNoSize],%Cost%,%Book%
+
+# No Masterwork
+;WeaponsNoSizeNoMWChecker
+1,[WeaponsNoSizeNoMW],%Cost%,%Book%
+
+;Weapons
+2,[Size] [Axe and Hammers]
+2,[Size] [Bows]
+2,[Size] [Knives]
+2,[Size] [Swords]
+2,[Size] [Misc]
+1,[Size] [Misc Range]
+1,Masterwork [MWWeapons]|Cost+300|
+
+;MWWeapons
+2,[Size] [Axe and Hammers]
+2,[Size] [Bows]
+2,[Size] [Knives]
+2,[Size] [Swords]
+2,[Size] [Misc]
+1,[Size] [Misc Range]
+
+;WeaponsNoSize
+2,[Axe and Hammers]
+2,[Bows]
+2,[Knives]
+2,[Swords]
+2,[Misc]
+1,[Misc Range]
+1,Masterwork [MWWeaponsNoSize]|Cost+300|
+
+;MWWeaponsNoSize
+2,[Axe and Hammers]
+2,[Bows]
+2,[Knives]
+2,[Swords]
+2,[Misc]
+1,[Misc Range]
+
+;WeaponsNoSizeNoMW
+2,[Axe and Hammers]
+2,[Bows]
+2,[Knives]
+2,[Swords]
+2,[Misc]
+1,[Misc Range]
+
+;!Axe and Hammers
+5,battle axe|Cost=10||Book=1|
+1,dwarven waraxe|Cost=30||Book=1|
+1,gnome hooked hammer|Cost=20||Book=1|
+1,greataxe|Cost=20||Book=1|
+5,handaxe|Cost=6||Book=1|
+5,light hammer|Cost=1||Book=1|
+1,orc double axe|Cost=60||Book=1|
+3,throwing axe|Cost=8||Book=1|
+3,warhammer|Cost=12||Book=1|
+
+;!Bows
+1,composite longbow|Cost=100||Book=1|
+3,composite short bow|Cost=75||Book=1|
+3,longbow|Cost=75||Book=1|
+5,shortbow|Cost=30||Book=1|
+5,light crossbow|Cost=35||Book=1|
+1,hand crossbow|Cost=100||Book=1|
+3,heavy crossbow|Cost=50||Book=1|
+1,light repeating crossbow|Cost=250||Book=1|
+1,heavy repeating crossbow|Cost=400||Book=1|
+
+;!Knives
+5,dagger|Cost=2||Book=1|
+3,dirk|Cost=2||Book=1|
+5,knife|Cost=1||Book=1|
+1,punching dagger|Cost=2||Book=1|
+1,sickle|Cost=6||Book=1|
+
+;!Misc
+10,club|Cost=0||Book=1|
+5,heavy mace|Cost=12||Book=1|
+10,light mace|Cost=5||Book=1|
+5,spiked gauntlet|Cost=5||Book=1|
+1,gauntlet|Cost=2||Book=1|
+10,quarterstaff|Cost=0||Book=1|
+5,shortspear|Cost=1||Book=1|
+1,morningstar|Cost=8||Book=1|
+5,light pick|Cost=4||Book=1|
+10,light flail|Cost=8||Book=1|
+1,heavy pick|Cost=8||Book=1|
+1,trident|Cost=15||Book=1|
+1,heavy flail|Cost=15||Book=1|
+1,greatclub|Cost=5||Book=1|
+1,halberd|Cost=10||Book=1|
+1,guisarme|Cost=9||Book=1|
+1,glaive|Cost=8||Book=1|
+1,lance|Cost=10||Book=1|
+1,longspear|Cost=5||Book=1|
+1,sai|Cost=1||Book=1|
+1,sap|Cost=1||Book=1|
+1,spear|Cost=2||Book=1|
+1,ranseur|Cost=10||Book=1|
+1,scythe|Cost=18||Book=1|
+1,kama|Cost=2||Book=1|
+1,kukri|Cost=8||Book=1|
+1,nunchaku|Cost=2||Book=1|
+1,siangham|Cost=3||Book=1|
+1,spiked chain|Cost=25||Book=1|
+1,dire flail|Cost=90||Book=1|
+1,dwarven urgrosh|Cost=50||Book=1|
+1,whip|Cost=1||Book=1|
+1,net|Cost=20||Book=1|
+
+;!Misc Range
+1,bolas|Cost=5||Book=1|
+5,dart|Cost=0.5||Book=1|
+5,javelin|Cost=1||Book=1|
+10,sling|Cost=0||Book=1|
+1,shuriken (5)|Cost=1||Book=1|
+
+;!Swords
+1,bastard sword|Cost=35||Book=1|
+3,cutlass|Cost=0||Book=1|
+5,long sword|Cost=15||Book=1|
+3,rapier|Cost=20||Book=1|
+3,sabre|Cost=0||Book=1|
+3,scimitar|Cost=15||Book=1|
+5,short sword|Cost=10||Book=1|
+1,greatsword|Cost=50||Book=1|
+1,falchion sword|Cost=75||Book=1|
+1,two-bladed sword|Cost=100||Book=1|
+
+# -------------------------------------------------------------------
+
+;!ExoticWeaponsList
+1,kama|Cost=2||Book=1|
+1,nunchaku|Cost=2||Book=1|
+1,sai|Cost=1||Book=1|
+1,siangham|Cost=3||Book=1|
+1,bastard sword|Cost=35||Book=1|
+1,dwarven waraxe|Cost=30||Book=1|
+1,whip|Cost=1||Book=1|
+1,orc double axe|Cost=60||Book=1|
+1,spiked chain|Cost=25||Book=1|
+1,dire flail|Cost=90||Book=1|
+1,gnome hooked hammer|Cost=20||Book=1|
+1,two-bladed sword|Cost=100||Book=1|
+1,dwarven urgrosh|Cost=50||Book=1|
+1,bolas|Cost=5||Book=1|
+1,hand crossbow|Cost=100||Book=1|
+1,repeating heavy crossbow|Cost=400||Book=1|
+1,repeating light crossbow|Cost=250||Book=1|
+1,net|Cost=20||Book=1|
+1,shuriken|Cost=1||Book=1|
+
+;MartialWeaponsList
+1,throwing axe|Cost=8||Book=1|
+1,light hammer|Cost=1||Book=1|
+1,hand axe|Cost=6||Book=1|
+1,kukri|Cost=8||Book=1|
+1,light pick|Cost=4||Book=1|
+1,sap|Cost=1||Book=1|
+1,short sword|Cost=10||Book=1|
+1,battleaxe|Cost=10||Book=1|
+1,flail|Cost=8||Book=1|
+1,longsword|Cost=15||Book=1|
+1,heavy pick|Cost=8||Book=1|
+1,rapier|Cost=20||Book=1|
+1,scimitar|Cost=15||Book=1|
+1,trident|Cost=15||Book=1|
+1,warhammer|Cost=12||Book=1|
+1,falchion|Cost=75||Book=1|
+1,glaive|Cost=8||Book=1|
+1,greataxe|Cost=20||Book=1|
+1,greatclub|Cost=5||Book=1|
+1,heavy flail|Cost=15||Book=1|
+1,greatsword|Cost=50||Book=1|
+1,guisarme|Cost=9||Book=1|
+1,halberd|Cost=10||Book=1|
+1,lance|Cost=10||Book=1|
+1,ranseur|Cost=10||Book=1|
+1,scythe|Cost=18||Book=1|
+1,longbow|Cost=75||Book=1|
+1,composite longbow|Cost=100||Book=1|
+1,shortbow|Cost=30||Book=1|
+1,composite shortbow|Cost=75||Book=1|
+
+;SimpleWeaponsList
+1,gauntlet|Cost=2||Book=1|
+1,dagger|Cost=2||Book=1|
+1,punching dagger|Cost=2||Book=1|
+1,spiked gauntlet|Cost=5||Book=1|
+1,light mace|Cost=5||Book=1|
+1,sickle|Cost=6||Book=1|
+1,club|Cost=0||Book=1|
+1,heavy mace|Cost=12||Book=1|
+1,morningstar|Cost=8||Book=1|
+1,shortspear|Cost=1||Book=1|
+1,longspear|Cost=5||Book=1|
+1,quarterstaff|Cost=0||Book=1|
+1,spear|Cost=2||Book=1|
+1,heavy crossbow|Cost=50||Book=1|
+1,light crossbow|Cost=35||Book=1|
+1,dart|Cost=0.5||Book=1|
+1,javelin|Cost=1||Book=1|
+1,sling|Cost=0||Book=1|
+
+
+
+

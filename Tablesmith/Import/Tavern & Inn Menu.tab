@@ -1,0 +1,73 @@
+# Inn & Tavern Menu
+#
+# Created by Nick ANdrew
+#
+
+:Start
+1,Drinks: [Column I], [Column I], [Column I]. Food: [Column II], [Column II], [Column II]. Rooms: [Column III], [Column III].
+
+:Column I
+1,Ale 1gp
+2,Beer 5sp
+3,Whiskey 2gp
+4,Dark Wine 10gp per bottle
+5,Bloody Ale 3sp
+6,Knight Beer 2gp
+7,Doria Whiskey 5gp
+8,Elven Wine(The best) 15gp per bottle
+9,Burban 3gp
+10,Lespear Beer 6sp
+11,Dreary Ale 5sp
+12,Pleasentshire Whiskey 3gp
+13,Orderless Ale 2gp
+14,Twitch & Twitch Wine 5gp per bottle
+15,Forestsap Beer 7gp
+16,Gordon's Vodka 3gp
+17,Frothyfeather Ale 1gp
+18,Glimmer Whiskey 3gp
+19,Goat Fur Beer 4sp
+20,Bellyrim Beer 6sp
+21,Arbinger's Wine 30gp per bottle(rare!)
+22,Swelly Ale 6sp
+23,Jordan's Jar Beer 8sp
+24,Dragonbreath Whiskey 5gp
+25,Orcman's Beer 2gp
+
+:Column II
+1,Chicken Breast 2gp
+2,Bat Brisket 1gp
+3,Beef Steak 2gp
+4,Shark meat 4gp
+5,Boiled Eggs 2gp
+6,Chicken Strips 1gp
+7,Clogger Fish 2gp
+8,Fried Beatles 2gp
+9,Oysters 3gp
+10,Dreamer Stew 2gp
+11,Orc Lambchops 3gp
+12,Meat and Noodles 2gp
+13,Dwarf Lizard Steak 3gp
+14,Wyvern Breast 10gp(rare!)
+15,Elven Lion Legs 5gp
+16,Bear Brains 3gp
+17,Salmon Stew 2gp
+18,Elven Salad 3gp
+19,Dwarven Fried Roots 2gp
+20,Halfling Cooked Goose 3gp
+21,Dory's Cheese and Bread 1gp
+22,Broiled Naga 5gp
+23,Pork Chops 2gp
+24,Raven Wing's(Special) 4gp
+25,Tasty Snake(Special) 4gp
+
+:Column III
+1,Poor 2gp/night
+2,All-you-need 7gp/night
+3,Platinum Suite 15gp/night (the best!)
+4,Luxurious 6gp/night
+5,Standard 3gp/night
+6,Suite 8gp/night
+7,Great 7gp/night
+8,Cheapest 1gp/night
+9,Normal 5gp/night
+10,Golden Suite 10gp/night

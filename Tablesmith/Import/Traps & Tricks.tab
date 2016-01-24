@@ -1,0 +1,61 @@
+# Traps and Tricks
+#
+# Created by Nick Andrew
+#
+
+:Start
+1,The trigger is [Trigger] that [Effect]. 
+
+:Trigger
+1,a pressure plate on the ground
+2,a small cord
+3,a magical beam of light
+4,a hole in the wall that detects the player
+5,a button on the wall
+6,a lock on the chest
+7,a pressure plate holding an object
+8,an invisible aura
+9,a switch on the wall
+10,a stair step
+11,a thouch sensitive object
+12,a noise sensitive entity
+13,a magical object
+14,a dark magic
+15,a motion sensitive object
+16,a touch sensitive plate
+17,a camoflaged button
+18,a hinge on a door
+19,a moveable branch
+20,a pressure switch under an object
+21,a detection ray coming from a hole
+22,an object 
+23,a good detecting object
+24,an evil detecting object
+25,a greed detecting object
+
+:Effect
+1,shoots a ray of frost doing 1d6 damage
+2,shoots a dart doing 1d4 damage
+3,teleports player to the beginning of the dungeon
+4,causes fear in all players
+5,pricks the players with a poison needle
+6,opens up a pit making players fall doing 1d8 damage
+7,opens up a spike pit doing 2d8 damage
+8,blasts a ray of destruction doing 1d12 damage
+9,makes a blade come out from the wall doing 1d6 damage
+10,summons 1d4 skeletons with 10hp each and 1d4+1 damage
+11,launches a small fireball doing 3d6 damage
+12,drains 1d6 charisma points for a week
+13,turns player to stone for 1d6+1 days
+14,blinds the player for a week
+15,defens the player for 1d6 days
+16,destroys one weapon
+17,rusts the players metalic belongings
+18,shoots a ray of death with a fort. save DC of 15, if successful it does 2d6+4 damage
+19,destroys one magical item of the players
+20,drains 3 Constitution points for a week
+21,causes gass to fill the room causing players to sleep 1d4 rounds
+22,causes a random insanity for 1d6 rounds
+23,opens a ceiling door making 2 large rocks fall doing 2d6 damage
+24,begins to flood the room
+25,decinigrates a character

@@ -1,0 +1,19 @@
+Base Properties
++525 (mithril enermechanic weapon)
++4 total (16 x 2000) 32000
+  Ghost Touch (+1)
+  +3 bonus 
+
+Weapon Effects 
+ Kreen's pacify (on strike) (100800 * 1.5) (151200)
+    Bestow Curse: 4th (-2 Str -2 Dex, -1 attack) (use-activated) (4 x 7 x 1800) (50400)
+    Enervation: 4th (use-activated) (4 x 7 x 1800) (50400)
+ Machine's will (on strike) (140400 * 1.5) (210600)
+    Vampyric touch: (3rd as 6th) (use activated) (3 x 11 x 1800) 59400
+    Feeblemind: 5th (use activated) (5 x 9 x 1800) 81000
+Use (command):
+ 1) Trap the soul (8th) (mat is kreen) (8 x 15 x 1800) 216000
+ 2) Gravitic Bomb (40 ft + 4ft/lvl) (1/day) (394200 / (5 / 1)) (78840 x 1.5) (118260)
+      Inflict serious wounds, mass (7th empowered (9th)) (9 x 17 x 1800) 275400
+      Shatter: (2nd as 6th) (6 x 11 x 1800) 118800
+

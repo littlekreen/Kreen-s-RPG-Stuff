@@ -1,0 +1,66 @@
+# Character Appearance
+#
+# This table is designed for human characters; feel free to
+# use as a template for characters of other races.
+#
+# This table could really be enhanced by the use of variables
+# and parameters (using parameters to specify profession, race,
+# gender, etc.)
+#
+# Copyright 2001 by Bruce A. Gulke
+
+:Start
+1, <b>Height:</b> [Height]{CR~}
+_<b>Weight:</b> [Weight]{CR~}
+_<b>Hair:</b> [Hair]{CR~}
+_<b>Eyes:</b> [Eyes]{CR~}
+_<b>Special</b>{CR~}{Loop~{Dice~1d4},{Cap~[Special]}}
+
+:Height
+1,Short (4', {Dice~1d12-1}")
+2-3,Average (5', {Dice~1d12-1}")
+4,Tall (6', {Dice~1d12-1}")
+
+:Weight
+1,Skinny ({Dice~7d20} lbs.)
+2-3,Average ({Dice~14d20} lbs.)
+4,Fat ({Dice~21d20} lbs.)
+
+:Hair
+1-5,Brown, [Style]
+6-8,Blond, [Style]
+9-10,Red, [Style]
+11,White, [Style]
+12,Grey, [Style]
+
+:Style
+1-2,short and straight
+3-4,short and curly
+5-7,moderate in length and straight
+8-10,moderate in length and curly
+11,long and straight, unbound
+12,long and straight, tied in the back
+13,long and curly, unbound
+14,long and curly, tied in the back
+
+:Eyes
+1-33,Brown
+34-66,Blue
+66-99,Green
+100,One [Eyes] and one [Eyes]
+
+:Special
+1-9,
+10-11,eye patch{CR~}
+13-14,scar on [Side] cheek{CR~}
+16-17,visible tatoo on [Body Part]{CR~}
+
+:Side
+1,left
+2,right
+
+:Body Part
+1,forehead
+2,[Side] cheek
+3,[Side] hand
+4,neck

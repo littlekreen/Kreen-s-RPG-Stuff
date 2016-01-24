@@ -1,0 +1,530 @@
+# ---------------------------------------------------
+# Last Update: verified by Valminder Dec 20, 2005.
+# ---------------------------------------------------
+#
+# You only have to fill in the gods from your world.
+# Be sure to keep the same standard:
+#     Deities  : Random god, same chance for E/N/G.
+#     Deities2 : Random God, more N/G than E.
+#     Deities3 : Random God, more N/E than G. 
+#
+#     Evil/Good/Neutral Gods : Fill in with the gods of your world.
+#
+#     Other Gods: Dwarf Gods / Elf Gods / Halfling Gods ...
+#
+# -------------------------------------------------------------------------
+#
+# To call this table from another one:
+#    [Religion.Deities(%ShowLand%)
+#
+#    Parameters: (%ShowLand%)
+#
+#    ShowLand: (Default=1)
+#                  1= Lands where the god is worshipped will appear.
+#                  2= Lands won't appear.
+#
+# -------------------------------------------------------------------------
+#
+#
+#
+# -------------------------------------------------------------------------
+# Future Project:
+#    Adding alignment of the gods.  |ALGod=CN|
+#    Adding alignment of clerics.   |ALPri=LG,LN,LE,NG,NN,NE,CG,CN,CE|
+#    Adding alignment of worshippers.  |ALWor=LG,LN,LE,NG,NN,NE,CG,CN,CE|
+#    ---> With the Find~ function, it will be easy to find the alignment
+#         needed. NN= True Neutral, or Neutral Neutral to prevent a mixed-up
+#         with LN or CN when searching for N, you'll then search for NN.
+#    Adding the domains of the gods (for Random Spells.tab), as well as
+#         a way to send the "Name;Land;ALGod;ALPri;ALWor;Domains"
+#         or create a Dataset (the easiest way I think).
+#
+# -------------------------------------------------------------------------
+#
+# Modified by Valminder, April 2002
+#
+# Modified by Valminder, Dec 2005
+#     I added a way to be able not to show the countries where the gods
+#        were active.
+#     Added a table called "CoreGods" for the gods of the PH.
+#     Added Domains of Core Gods from Player's Handbook.
+#
+
+%Land%,0
+%ShowLand%,1
+
+@ShowLand,1,Do you want to show the country where the deities are active?,Yes,No
+
+:Start
+1,<b><u>Mystara God Generator</u>:</b><br><br>
+_Evil God: [~Evil Gods]<br>
+_Good God: [~Good Gods]<br>
+_Neutral God: [~Neutral Gods]<br>
+_<br><hr><br>
+_Dragon: [~Dragon Gods]<br>
+_<u>Dwarf</u>: [~Dwarf Gods]<br>
+_<u>Elf</u>: [~Elf Gods]<br>
+_Giant: [~Giant Gods]<br>
+_Gnoll: [~Gnoll Gods]<br>
+_<u>Gnome</u>: [~Gnome Gods]<br>
+_<u>Halfling</u>: [~Halfling Gods]<br>
+_Kender: [~Kender Gods]<br>
+_Lizard Folk: [~LizardMen Gods]<br>
+_Orc: [~Orc Gods]<br>
+_Ravenloft: [~Ravenloft Gods]<br>
+
+# Equal chance of each deity.
+;Deities
+1,[Evil Gods]
+1,[Good Gods]
+1,[Neutral Gods]
+
+# More chances for G/N deity (less Evil deities).
+;Deities2
+1,[Evil Gods]
+2,[Good Gods]
+2,[Neutral Gods]
+
+# More chances for E/N deity (less Good deities).
+;Deities3
+2,[Evil Gods]
+1,[Good Gods]
+2,[Neutral Gods]
+
+;RacialGods
+1,Dragon: [Dragon Gods][Land]
+1,Dwarf: [Dwarf Gods][Land]
+1,Elf: [Elf Gods][Land]
+1,Giant: [Giant Gods][Land]
+1,Gnome: [Gnome Gods][Land]
+1,Halfling: [Halfling Gods][Land]
+1,Kender: [Kender Gods][Land]
+1,Lizard Folk: [LizardMen Gods][Land]
+1,Orc: [Orc Gods][Land]
+1,Ravenloft: [Ravenloft Gods][Land]
+
+# ---------------------------------------------------------------------------
+# Gods from Player's Handbook
+
+;CoreGods
+1,Boccob
+1,Corellon Larethian
+1,Ehlonna
+1,Erythnul
+1,Fharlanghn
+1,Garl Glittergold
+1,Gruumsh
+1,Heironeous
+1,Hextor
+1,Kord
+1,Moradin
+1,Nerull
+1,Obad Hai
+1,Olidamarra
+1,Pelor
+1,St Cuthbert
+1,Vecna
+1,Wee Jas
+1,Yondalla
+
+# ---------------------------------------------------------------------------
+
+:Land
+1,{If~%ShowLand%=1? {If~%Land%!=0? [PrintLand]}}
+
+:PrintLand
+1,<font size=1><font color=gray> (%Land%)</font></font>
+
+# ---------------------------------------------------------------------------
+# Evil Gods
+
+;Evil Gods
+75,[Evil Gods Common][Land]
+20,[Evil Gods Uncommon][Land]
+5,[Evil Gods Rare][Land]
+
+;Evil Gods Common
+5,Alphaks|Land=<b>THY</b> ALP DAR <i>OCH ROC</i>|
+5,Atzanteotl|Land=SHA BRO HIN UND <i>OCH</i>|
+5,Masauwu|Land=BEL PEA|
+5,Pearl/Tiamat/Takhisis|Land=DEN DRA KAR <b><i>MAZ</b></i> WEN|
+5,Rathanos|Land=ALP HOW <b>IOD</b>|
+5,Talitha/Olidammara|Land=ALA ALP <i>DAR OCH</i> THY|
+5,Thanatos|Land=<u>Old One</u> DEN HIN <b>THY</b>|
+
+;Evil Gods Uncommon
+5,Auril|Land=<b>NOW</b>|
+5,Bemarris|Land=NOW HEL|
+5,Danel Tigerstripes|Land=<b>ATR</b>|
+5,Demogorgon|Land=PIR <i>MAZ</i>|
+5,Hel|Land=<u>Old One</u> BRO <b>NOR</b> SIN|
+5,Karaash/Gruumsh|Land=BRO <b><i>MAZ</i></b>|
+5,Loki|Land=BEL HUL IOD <b>NOR</b> NOW <i>OCH</i>| 
+5,Minroth|Land=<b>MIN PIR</b>|
+5,Nuitari|Land=<b>ALP</b> DAR IER KAR MIN THY <b>UND</b>|
+5,Nyx|Land=BRO DAR KAR YLA|
+5,Orcus|Land=DAR KAR THY|
+
+;Evil Gods Rare
+5,Arik|Land=ALP|
+5,Bagni Gullymaw|Land=BRO|
+1,Bahgtru|Land=Bemarris BRO|
+5,Bartziluth|Land=SIN <b>WEN</b> <i>Giants</i>|
+5,Brissard|Land=ALP HIN SIN|
+5,Crakkak of the Sharp Tooth |Land=MIN PIR|
+5,Elder Elemental|Land=PIR|
+5,Faluzure|Land=DRA|
+5,Harrow|Land=BEL HEL HIN <i>OCH</i> PEA SHA|
+1,Hruggek|Land=Bartziluth BRO|
+5,Jammudaru|Land=BRO KAR UND|
+5,Leptar|Land=KAR <i>MAZ</i> <b>RAV</b> THY|
+5,Raiden|Land=OCH|
+5,Ranivorus|Land=BRO NOR|
+5,Saasskas the Destroyer|Land=ALP ATR HEL IOD RAV SIN THY YLA|
+5,Set|Land=IOD YLA|
+5,Sharpcrest the Squid Slayer|Land=<b>BEL</b> IER MIN|
+5,Shining One, The|Land=BRO HOW NOR|
+5,Sinbad|Land=<u>Old One</u> IER <i>OCH</i> PEA PIR <b>QEO</b>|
+5,Slizzark the Lurker|Land=IER MIN PIR|
+1,Twelve Watchers (Laduguer)|Land=<b>UND</b>|
+5,Tyaa|Land=<b>ALA</b>|
+5,Usamigaras|Land=DAR KAR UND|
+5,Valkyries|Land=NOR|
+5,Wogar the Wolf Lord|Land=BRO HOW|
+5,Yagrai He-Who-Always-Rise|Land=BRO DAR HOW UND|
+
+# ---------------------------------------------------------------------------
+# Good Gods
+
+;Good Gods
+75,[Good Gods Common][Land]
+20,[Good Gods Uncommon][Land]
+5,[Good Gods Rare][Land]
+
+;Good Gods Common
+5,Alphatia|Land=<b>ALP</b> NOW IOD BEL|
+1,Branchala|Land=Eiryndul <b>MIN</b>|
+5,Calitha Starbrow|Land=IER <b>MIN</b> PIR|
+5,Diamond/Bahamut/Paladine|Land=<b>DRA <i>KAR</i></b> <i>OCH QEO</i>|
+5,Diulanna|Land=<b>HIN THY</b> <i>DAR</i>|
+5,Eiryndul|Land=<b>ALA ALP MIN</b> ALF IOD <i>MAZ OCH</i>|
+1,Ilmater|Land=Diulanna DAR|
+5,Ilsundal/Corellon|Land=<b>ALF</b> ALP BEL DAR KAR IER IOD MIN THY|
+5,Kagyar|Land=DAR HEL KAR MIN NOR NOW <b>ROC</b> THY|
+5,Mealiden Starwatcher|Land=ALF KAR|
+5,Odin|Land=<u>Old One</u> HIN HOW <b>NOR</b> NOW THY|
+5,Petra/Kiri-Jolith|Land=<b>KAR</b> NOR <i>ROC</i>|
+5,Terra|Land=<i>ATR</i> DAR <b>ETH</b> <i>FIV</i> IOD KAR NOW <i>SYL</i>|
+5,Valerias|Land=<u>Old One</u> <i>ALF</i> DAR IER <b>THY</b>|
+5,Vanya|Land=HEL <b>THY</b>|
+
+;Good Gods Uncommon
+5,Atruaghin|Land=<b>ATR</b>|
+5,Chardastes|Land=<b>KAR</b> <i>MAZ OCH</i>|
+5,Chauntea|Land=<b>ALA</b> DAR HEL <i>FIV OCH</i>|
+5,Djaea|Land=MIN SPE|
+5,Frey|Land=<b>NOR</b>|
+5,Garl Glittergold|Land=HOW KAR NEV <i>UND</i>|
+5,Gorm|Land=<b>KAR</b> IOD <i>OCH</i>|
+5,Khoronus|Land=<i>ALF</i> <b>DAR</b> <i>OCH</i>| 
+5,Madarua|Land=ATR HEL <i>FIV</i> KAR <i>IOD</i> NOW|
+5,Mahmatti Running Elk|Land=<b>ATR</b> NOW|
+5,Noumena|Land=HOW <i>IOD</i> NEV|
+5,Ordana|Land=ALF ALP BEL DAR FIV IER IOD <b>MIN</b> THY|
+5,Solinari|Land=<b>ALP</b> DAR IER KAR MIN THY|
+5,Thor|Land=<b>NOR</b> NOW THY|
+5,Zirchev|Land=ALF ALP DAR KAR|
+
+;Good Gods Rare
+5,Aerdrie Faenya|Land=ALF WEN DAR <b>ALA</b> <i>MAZ IOD ALP</i>|
+5,Ahmanni Turtlerider|Land=<b>ATR</b> QEO|
+5,Brigantia|Land=DAR|
+5,Chiron|Land=PEA QEO HIN <i>IER</i>|
+5,Chung Kuel|Land=<b>OCH</b>|
+5,Cyrrollalee|Land=FIV|
+5,Forsetta|Land=NOR|
+5,Horus|Land=IOD|
+5,Idun|Land=NOR|
+1,Issek of the Jug|Land=<b>RAV</b>|
+1,K'ung Fu-tzu|Land=<b>OCH</b>|
+5,Kythria|Land=<b>IER</b> <i>MAZ OCH</i>| 
+1,Lathander|Land=<i>OCH</i> <b>RAV</b>|
+5,Liena|Land=ALP FIV NOW <i>OCH</i>| 
+5,Lokena/Athena|Land=KAR| 
+5,Maat|Land=ALF NOR SYL|
+5,Malafor the Dolphin Friend|Land=MIN|
+5,Metzli|Land=MAZ|
+5,Nut|Land=IOD|
+5,Osiris|Land=IOD|
+5,Palartarkan|Land=<b>ALA</b> ALP DAR|
+5,Palson|Land=HEL IOD SYL|
+5,Polunius the Designer|Land=IER MIN PEA|
+5,Rellavar Danuvien|Land=NOW|
+5,Ssu-Ma/Gilean|Land=<b>ALA</b> ALP <i>KAR</i>|
+5,Tahkati Stormtamer|Land=<b>ATR</b>|
+5,Turmis|Land=DAR THY|
+1,Twelve Watchers (Flandal Steelskin)|Land=<b>IOD</b> THY|
+1,Twelve Watchers (Goibhniu)|Land=HIN NOR NOW|
+1,Twelve Watchers (Shang-ti)|Land=OCH|
+1,Twelve Watchers (St-Cuthbert)|Land=DAR <b>IOD</b>|
+5,Verthandi|Land=<i>ALF</i> DAR <b>IOD</b> <i>MAZ</i> <b>MIN</b> RAV SPE WEN|
+
+# ---------------------------------------------------------------------------
+# Neutral Gods
+
+;Neutral Gods
+75,[Neutral Gods Common][Land]
+20,[Neutral Gods Uncommon][Land]
+5,[Neutral Gods Rare][Land]
+
+;Neutral Gods Common
+5,Al-Kalim|Land=<b>YLA</b> IER <i>IOD</i>|
+5,Asterius|Land=<b>DAR</b> THY <i>FIV</i>|
+5,Halav|Land=HOW <b>KAR</b> MIL NOW <i>OCH</i> THY|
+5,Ixion|Land=<u>Old One</u> DAR <b>ETH</b> HOW <i>IOD MAZ</i> NOR PEA <b>SIN</b> WEN|
+5,Ka the Preserver|Land=DAR HOW MAZ|
+1,Rad/Azuth|Land=<b>GLA</b>|
+5,Tarastia|Land=NOW <b>THY</b>|
+
+;Neutral Gods Uncommon
+5,Benekander (no priests for now)
+5,Faunus|Land=ALP <i>KAR</i>|
+5,Freya|Land=<b>NOR</b>|
+5,Great One/Io|Land=DRA|
+5,Hattani Stoneclaw|Land=<b>ATR</b>|
+5,Korotiku|Land=<u>Old One</u> <i>ALF</i> PEA <b><i>UND</i></b>| 
+5,Koryis|Land=<b>ALP DAR</b> NOW <i>OCH</i> THY| 
+5,Lunitari|Land=<b>ALP</b> DAR GLA IER KAR MIN THY|
+5,Opal|Land=DRA|
+5,Pflarr|Land=ALP KAR HOW|
+5,Protius|Land=MIN NOR <i>OCH</i> <b>THY</b> YLA|
+5,Rad/Azuth|Land=<b>GLA</b>|
+5,Rafiel|Land=<b>SHA</b>|
+5,Razud|Land=<b>ALP</b>|
+1,Tiresias/Oghma|Land=ALA <i>DAR</i> NOR PEA <i>SYL</i>|
+
+;Neutral Gods Rare
+5,Aasterinian|Land=Dragon|
+5,Centeotl|Land=<b>MAZ</b>|
+5,Cretia|Land=ATR <b>ETH RAV</b> <i>OCH</i>|
+5,Dionysus|Land=ALP IOD MIN|
+1,Gorrziok the Wave Lord|Land=Giants|
+5,Kallala of the Seven Veils|Land=IER MIN PIR|
+1,Lao Tzu|Land=OCH| 
+5,Marwdyn the Hanged Man|Land=<i>IOD</i> SHA RAV|
+5,Nai No Kami|Land=OCH|
+5,Patura|Land=<i>ALP</i> IER <i>NOR ROC Giants</i>|
+5,Rafiel|Land=BRO <b>SHA</b>|
+5,Taroyas|Land=BEL IER|
+5,Tarsellis Meunniduin|Land=NOW|
+5,Tiresias/Oghma|Land=ALA <i>DAR</i> NOR PEA <i>SYL</i>|
+1,Twelve Watchers (Ama-Tsu-Mara)|Land=OCH|
+1,Twelve Watchers (Coyote)|Land=ATR|
+1,Twelve Watchers (Dumathoin)|Land=ROC|
+1,Twelve Watchers (Izanagi & Izanami)|Land=OCH|
+1,Twelve Watchers (Meriadar)|Land=ALA BRO|
+1,Twelve Watchers (Ometeotl)|Land=<b>MAZ</b>|
+1,Twelve Watchers (Ptah)|Land=IOD|f
+5,Tyche|Land=BEL DAR ETH IER <i>MAZ</i> QEO ROC|
+5,Wayland|Land=BEL <i>OCH</i>|
+5,Yav|Land=IER <i>SYL</i> <b>YAV</b>|
+
+# ---------------------------------------------------
+# Racial Gods
+
+:Dragon Gods
+1,[Dragon Gods Roll][Land]
+
+;Dragon Gods Roll
+1,Aasterinian (N)|Land=DRA|
+5,Diamond/Bahamut/Paladine (G)|Land=<b>DRA <i>KAR</i></b> <i>OCH QEO</i>|
+1,Faluzure (E)|Land=DRA|
+5,Great One/Io (N)|Land=DRA ALP IOD <i>THY</i>|
+5,Opal (N)|Land=DRA|
+5,Pearl/Tiamat/Takhisis (E)|Land=<i>DEN</i> DRA <i>KAR <b>MAZ</b> WEN</i>|
+
+:Dwarf Gods
+1,[Dwarf Gods Roll][Land]
+
+;Dwarf Gods Roll
+5,Alphaks/Abbathor (E)|Land=<b>THY</b> ALP DAR <i>ROC</i>|
+1,Berronar Truesilver/Patura (N)|Land=<i>ALP</i> IER <i>NOR ROC Giants</i>|
+15,Kagyar/Moradin (G)|Land=DAR HEL KAR MIN NOR NOW <b>ROC</b> THY|
+5,Petra/Clangeddin (G)|Land=<b>KAR</b> NOR <i>ROC</i>|
+1,Twelve Watchers (Dumathoin) (N)|Land=ROC|
+1,Twelve Watchers (Flandal Steelskin) (G)|Land=<b>IOD</b> THY|
+1,Vergadain (tyche) (N)|Land=BEL DAR IER QEO ROC|
+1,[Deities2]
+
+:Elf Gods
+1,[Elf Gods Roll][Land]
+
+;Elf Gods Roll
+1,Aerdrie Faenya (G)|Land=ALF WEN DAR <b>ALA</b> <i>MAZ IOD ALP</i>|
+1,Araleth Letheranil (Palson) (G)|Land=SYL|
+1,Calitha Starbrow (G)|Land=IER <b>MIN</b> PIR|
+5,Eiryndul (Branchala, G)|Land=<b>MIN</b>|
+1,Faunus (N)|Land=KAR|
+10,Hanali Celanil (Valerias) (G)|Land=<u>Old One</u> <i>ALF</i> DAR IER <b>THY</b>|
+1,Harrow/Bhaal (E)|Land=SHA|
+15,Ilsundal/Corellon (G)|Land=<b>ALF</b> ALP BEL DAR KAR IER IOD MIN THY|
+1,Kirith Sotheril (Yav) (N)|Land=<i>SYL</i>|
+3,Labelas Enoreth (Khoronus) (G)|Land=<i>ALF</i> <b>DAR</b>|
+1,Lolth (Korotiku) (N/E)|Land=<u>Old One</u> <i>ALF</i> <b><i>UND</i></b>| 
+1,Malafor the Dolphin Friend (G)|Land=MIN Sea|
+1,Manannan mac Lir (Protius) (N)|Land=MIN Sea|
+1,Marwdyn the Hanged Man (N)|Land=<i>IOD</i> SHA RAV|
+10,Mealiden Starwatcher/Solonor (G)|Land=ALF KAR|
+1,Melira Taralen (Tiresias) (N)|Land=SYL|
+1,Naralis Analor (Terra) (G)|Land=SYL|
+1,Rafiel (N)|Land=<b>SHA</b>|
+5,Rillifane Rallathil (Ordana) (G)|Land=ALP BEL IOD|
+3,Sehanine Moonbow (Verthandi) (G)|Land=ALF WEN|
+1,Tarsellis Meuniduin (N)|Land=NOW|
+1,Tethrin Veraldé (Maat) (G)|Land=SYL|
+3,Zirchev (G)|Land=ALF ALP DAR KAR|
+1,[Deities2]
+
+:Giant Gods
+1,[Giant Gods Roll][Land]
+
+;Giant Gods Roll
+1,Bartziluth (E)|Land=SIN <b>WEN</b> <i>Giants</i>|
+1,Gorrziok the Wave Lord (N)|Land=Giants|
+1,Hiatea (Patura) (N)|Land=<i>ALP</i> <i>NOR ROC Giants</i>|
+1,Horus (Cloud/Storm G)|Land=IOD|
+1,Jammudaru/Karontor (Fomorian/Verbeeg E)|Land=BRO KAR|
+1,Lathander (G)|Land=<i>OCH</i> <b>RAV</b>|
+
+:Gnoll Gods
+1,[Gnoll Gods Roll][Land]
+
+;Gnoll Gods Roll
+10,Ranivorus (E)|Land=BRO NOR|
+1,Twelve Watchers (Meriadar) (N)|Land=ALA BRO|
+1,[Deities3]
+
+:Gnome Gods
+1,[Gnome Gods Roll][Land]
+
+;Gnome Gods Roll
+5,Baravar (Lunitari) (N)|Land=<b>ALP</b> DAR GLA IER KAR MIN THY|
+5,Dugmaren Brightmantle (Noumena) (G)|Land=HOW <i>IOD</i> NEV|
+10,Garl Glittergold (G)|Land=HOW KAR NEV <i>UND</i>|
+1,Khoronus (G)|Land=<b>DAR</b>|
+1,[Deities2]
+
+:Halfling Gods
+1,[Halfling Gods Roll][Land]
+
+;Halfling Gods Roll
+3,Brandobaris (Asterius) (N)|Land=<b>DAR</b> <i>THY</i> FIV|
+1,Cyrrollalee (G)|Land=FIV|
+1,Ordana (G)|Land=ALF ALP BEL DAR FIV IER IOD <b>MIN</b> THY|
+1,Talitha/Olidammara (E)|Land=ALA ALP <i>DAR OCH</i> THY|
+5,Urogalan (Terra) (G)|Land=DAR FIV IOD KAR|
+10,Yondalla (Madarua) (G)|Land=HEL <i>FIV</i> KAR <i>IOD</i> NOW|
+1,[Deities2]
+
+:Kender Gods
+1,[Kender Gods Roll][Land]
+
+;Kender Gods Roll
+10,Branchala (Eiryndul) (G)|Land=<b>MIN</b>|
+1,Talitha/Olidammara (E)|Land=ALA ALP<i>DAR OCH</i> THY|
+1,[Deities2]
+
+:LizardMen Gods
+1,[LizardMen Gods Roll][Land]
+
+;LizardMen Gods Roll
+3,Ka the Preserver (N)|Land=DAR HOW MAZ|
+1,[Deities]
+
+:Orc Gods
+1,[Orc Gods Roll][Land]
+
+;Orc Gods Roll
+5,Atzanteotl/Dark God (E)|Land=SHA BRO HIN UND <i>OCH</i>|
+1,Bagni Gullymaw (E)|Land=BRO|
+10,Gruumsh (Karaash) (E)|Land=BRO|
+1,Hel (E)|Land=<u>Old One</u> BRO <b>NOR</b> SIN|
+1,Jammudaru (E)|Land=BRO KAR UND|
+1,Nyx (E)|Land=BRO DAR KAR YLA|
+1,The Shining One/Gaknulak (E)|Land=BRO HOW NOR|
+1,Twelve Watchers (Meriadar) (N)|Land=ALA BRO|
+1,[Deities3]
+
+:Ravenloft Gods
+1,[Ravenloft Gods Roll][Land]
+
+;Ravenloft Gods Roll
+5,Cretia (G)|Land=ATR <b>ETH RAV</b> <i>OCH</i>|
+5,Issek of the Jug (G)|Land=<b>RAV</b>|
+5,Lathander (G)|Land=<i>OCH</i> <b>RAV</b>|
+5,Loviatar (Leptar) (E)|Land=KAR <i>MAZ</i> <b>RAV</b> THY|
+5,Marwdyn the Hanged Man (N)|Land=<i>IOD</i> SHA RAV|
+1,Saasskas the Destroyer (E)|Land=ALP ATR HEL IOD RAV SIN THY YLA|
+5,Verthandi (G)|Land=<i>ALF</i> DAR <b>IOD</b> <i>MAZ</i> <b>MIN</b> RAV SPE WEN|
+1,[Deities3]
+
+# ---------------------------------------------------------------------------
+# Core Gods: Domains of each god
+# You need 12 entries for each god. Put "0" if you do not have enough domains
+
+:BoccobDomains
+1,Knowledge;Magic;Trickery;0;0;0;0;0;0;0;0;0
+
+:Corellon LarethianDomains
+1,Chaos;Good;Protection;War;0;0;0;0;0;0;0;0
+
+:EhlonnaDomains
+1,Animal;Good;Plant;Sun;0;0;0;0;0;0;0;0
+
+:ErythnulDomains
+1,Chaos;Evil;Trickery;War;0;0;0;0;0;0;0;0
+
+:FharlanghnDomains
+1,Luck;Protection;Travel;0;0;0;0;0;0;0;0;0
+
+:Garl GlittergoldDomains
+1,Good;Protection;Trickery;0;0;0;0;0;0;0;0;0
+
+:GruumshDomains
+1,Chaos;Evil;Strength;War;0;0;0;0;0;0;0;0
+
+:HeironeousDomains
+1,Good;Law;War;0;0;0;0;0;0;0;0;0
+
+:HextorDomains
+1,Destruction;Evil;Law;War;0;0;0;0;0;0;0;0
+
+:KordDomains
+1,Chaos;Good;Luck;Strength;0;0;0;0;0;0;0;0
+
+:MoradinDomains
+1,Earth;Good;Law;Protection;0;0;0;0;0;0;0;0
+
+:NerullDomains
+1,Death;Evil;Trickery;0;0;0;0;0;0;0;0;0
+
+:Obad HaiDomains
+1,Air;Animal;Earth;Fire;Plant;Water;0;0;0;0;0;0
+
+:OlidamarraDomains
+1,Chaos;Luck;Trickery;0;0;0;0;0;0;0;0;0
+
+:PelorDomains
+1,Good;Healing;Strength;Sun;0;0;0;0;0;0;0;0
+
+:St CuthbertDomains
+1,Destruction;Law;Protection;Strength;0;0;0;0;0;0;0;0
+
+:VecnaDomains
+1,Evil;Knowledge;Magic;0;0;0;0;0;0;0;0;0
+
+:Wee JasDomains
+1,Death;Law;Magic;0;0;0;0;0;0;0;0;0
+
+:YondallaDomains
+1,Good;Law;Protection;0;0;0;0;0;0;0;0;0

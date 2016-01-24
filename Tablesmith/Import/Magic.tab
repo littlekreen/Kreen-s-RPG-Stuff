@@ -1,0 +1,61 @@
+# Magic
+#
+# Created by Nick Andrew
+#
+
+:Start
+1,You see [Noun] that [Verb]. 
+
+:Noun
+1,a small light
+2,a strange shadow
+3,a sunray
+4,a thin mist
+5,a dark figure
+6,a lively flower
+7,an elf
+8,a strange aura
+9,a ghostly figure
+10,a floating eye
+11,a bright flame
+12,a glowing gem
+13,a magical rope
+14,an evil, floating hand.
+15,a blurred figure
+16,a small group of lights
+17,a large group of lights
+18,a large light
+19,a small bush
+20,a white cloud
+21,a few blowing leaves
+22,an ugly rock
+23,a beautiful figure
+24,an evil pair of eyes
+25,a holy figure
+
+:Verb
+1,is singing softly
+2,is dancing around
+3,is teleporting here and there
+4,is yelling a fearful cry
+5,is jumping up and down
+6,dashes in circles
+7,seems to float around the area slowly
+8,is getting closer and closer
+9,is humming a calming song
+10,is screaming horribly
+11,is singing very loudly
+12,is weeping quietly
+13,turns around a looks curiously at you
+14,blinds you with a bright light
+15,makes strange and mysterious faces
+16,begins to dash at you quickly
+17,causes the area to darken
+18,shoots a ray of light upon you
+19,destroys a nearby object
+20,begins to get away from you
+21,makes a strange, throbbing sound
+22,does random actions here and there
+23,blows a cold wind that makes you cringe
+24,causes a warm breeze making you feel calm
+25,disappears mysterioously

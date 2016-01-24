@@ -1,0 +1,186 @@
+# Book Descriptions
+#
+# Books a character might find in a
+# mage's study or an old library.
+#
+# HTML-formatted
+#
+# Originally created by Bruce A. Gulke, Improved by Scott Barrie, Further improved by Bruce Gulke
+#
+# 09/2007
+
+:Start
+1,{Bold~[~Book Titles.Start]}{Line~left,50}
+_[Description]{CR~}
+_{Italic~Value: {Dice~2d8*50} gp}
+
+#-worth on subject manner
+#- game information (put in placeholder until 4E)
+
+:Description
+1,• [~Size], in [~Quality] condition, with covers of [~Cover].{CR~}
+_• Written in [~Language].{CR~}
+_[~Age]
+_• The [~Pages] pages are [~Binding].
+_{If~{Dice~1d10}>6?{CR~}• [~Special]}{CR~}
+_• [WritingQuality].
+
+;WritingQuality
+1,Impossible to understand due to a lack of coherency or organization
+1,The writing appears to be that of a madman
+1,Much of the content has been stolen from [~Book Titles.Start]
+1,Little original content, mainly repeats what is already found in [~Book Titles.Start]{If~{Dice~1d2}=1? and [~Book Titles.Start]}
+1,A work of average quality, useful for novices
+1,Light but entertaining
+1,An excellent introduction to the subject
+1,An excellent treatise on the subject
+1,Adds nothing to the field, but its organization makes for an excellent reference
+1,Well-researched but very dry and dense
+1,Well-written but difficult to understand for non-experts
+1,Presents many new and original ideas
+1,Considered to be one of the definitive works on the subject
+1,Numerous illustrations [Illustrations]
+
+;Illustrations
+1,contribute to the high quality of the writing
+1,contribute nothing, but the writing is good
+1,do nothing to help the poor quality of the content
+
+;!Language
+10,Common
+3,Dwarven
+2,Elven
+1,Draconic
+1,[LangOutsider]
+1,[LangElemental]
+
+;LangOutsider
+1,Celestial
+1,Abyssal
+1,Infernal
+
+;LangElemental
+1,Auran
+1,Ignan
+1,Terran
+1,Aquan
+
+;Age
+5,
+4,• The book is quite old ({Dice~1d2*100} years).{CR~}
+2,• The book is very old ({Dice~2d3*100} years).{CR~}
+1,• The book is ancient ({Dice~2d3*500} years).{CR~}
+
+:Size
+<{Cap~
+1-3,a hefty tome
+4-7,a thick work
+8-11,a thin volume
+12-20,average in size
+>}
+
+:Cover
+1-23,deerhide
+24-26,human skin stretched over thin wood
+27-66,leather
+67-71,polished metal
+72-77,scales stretched over thin wood
+78-91,thin wood
+92-100,heavy wood
+
+:Pages
+1,dried skin
+2-10,parchment
+11,stamped metal
+12-15,vellum
+16-17,wood
+18-19,woven hemp
+20,papyrus
+
+;Special
+< {Cap~
+3,[Feature].
+1,[Feature] and [Feature].
+>}
+
+:Binding
+1-2,bound with metal rings
+3-6,loose
+7-15,sewn into the spine
+16-17,unbound, but wrapped with a hemp cord
+18-20,unbound, but wrapped with a leather cord
+
+:!Feature
+1,the book bears a small metal lock{If~{Dice~1d2}=1? (which is broken)}
+2,the book is [Container]
+3,the covers are capped with metal corner pieces
+4,the covers have runes carved around their edges
+5,there is a picture of {AorAn~[Pictures]} on the front cover
+6,there is an odd, geometric pattern on the front cover
+7,the front cover has an image of {AorAn~[Creatures.Animal]} and {AorAn~[Creatures.Animal]} fighting
+8,a picture of a reclining [Creatures.Animal] adorns the cover
+9,there is a drawing of several men battling {AorAn~[Creatures.Fantastic]} on the front cover
+10,the spine features a small image of {AorAn~[Creatures.Fantastic]}
+11,there is a picture of {AorAn~[Creatures.Bird of Prey]} on the front cover
+12,the covers are stained with [Stain]
+13,the front cover is torn by four claw marks
+14,the covers have scorch marks on them
+15,there is a written dedication at the front of the book[Writing]
+16,there is a bookmark [Location={Dice~1d3}]
+17,a list of [List] can be found [Location] of the book
+18,a [MapType] map can be found [Location] of the book
+19,there are notes scribbled in the margins[Writing]
+20,the book contains several small notes[Writing]
+
+;MapType
+1,small
+1,folded
+1,piece of a
+
+;List
+1,[NameType] names
+1,nobles
+1,infamous criminals
+1,regional clergy
+
+;NameType
+1,people's
+1,elven
+1,dwarven
+1,wizard
+
+;Writing
+4,
+1,, in [Language]
+1,, in an indecipherable language
+
+;Location
+1,near the front
+1,in the middle
+1,near the end
+1,tucked in the spine
+
+;Container
+1,in a case of stained wood
+1,in a locked case
+1,wrapped in a dirty cloth
+1,wrapped in a velvet cloth
+
+;Pictures
+1,castle
+1,skull
+1,demon
+1,deity
+1,sword
+
+;Stain
+1,a black residue
+1,a greenish film
+1,blood spatters
+
+:Quality
+1,excellent
+2-3,good
+4-7,average
+8-9,poor
+10,terrible

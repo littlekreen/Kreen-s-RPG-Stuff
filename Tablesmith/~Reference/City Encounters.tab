@@ -1,0 +1,620 @@
+# -----------------------------------------------------
+# Last Update: modified by Valminder Sep 15, 2006.
+# -----------------------------------------------------
+#
+# City Encounters
+#
+# This file generates encounters for towns and cities.
+#
+# Copyright 2000 Jeff Ibach
+#
+# -------------------------------------------------------------------------
+#
+# To call this table from another one:
+#    [City Encounters.Start(%tod%)
+#
+#    Parameters: (%tod%)
+#
+#    tod: (2)      Enter the time of day.
+#                  1- None
+#                  2= Any       0000-2400
+#                  3= Day       0600-1800
+#                  4= Morning   0600-1200
+#                  5= Afternoon 1200-1800
+#                  6= Night     1800-2400
+#                  7= Evening   1800-0000
+#                  8= Midnight  0000-0600
+#
+# -------------------------------------------------------------------------
+#
+# Modified 2001 Fred Preuett
+# Modified by Valminder, April 2002.
+#    Nov 2003 : Linked with "City Encounters 2".
+#    Nov 2005 : Fixed some minor things and added a few.
+#    May 2006 : Added 150 encounters from Roleplaying Tips Weekly E-Zine Issue #299
+# Modified by Valminder, Sep 2006.
+#    Added stuff from a Sharn City Generator (by s.shippy@mchsi.com).
+#    Added link to:
+#       Countries.Start
+#       Crate and Wagon Contents.Generate
+#    Changed, a little bit, the way this table works.
+# Modified by Valminder, July 2010.
+#    Added "ADV Urban Flavor" by Larry Cormier to this table.
+#
+# Separated by time of day
+#  Any       0000-2400
+#  Day       0600-1800
+#  Morning   0600-1200
+#  Afternoon 1200-1800
+#  Night     1800-2400
+#  Evening   1800-0000
+#  Midnight  0000-0600
+#
+# Time Of Day
+#
+
+%tod%,0
+%tmp%,0
+%Roll%,0
+
+@tod,2,Time of Day,None,Any,Day,Night,Morning,Afternoon,Evening,Midnight
+
+:Start
+1,[Generate=%tod%]<br>
+
+:Generate
+1,
+2,{If~{Dice~1d100}<=70?[Any]/[Generate={Dice~1d6+2}]}
+3,{If~{Dice~1d100}<=60?[Any]/[Day]}
+4,{If~{Dice~1d100}<=80?[Any]/[Night]}
+5,{If~{Dice~1d100}<=80?[Any]/[Morning]}
+6,{If~{Dice~1d100}<=80?[Any]/[Afternoon]}
+7,{If~{Dice~1d100}<=80?[Any]/[Evening]}
+8,{If~{Dice~1d100}<=80?[Any]/[Midnight]}
+
+#:GenOLD
+#1-25,[P1].
+#26-50,{If~%tod%=5?[GenDay]}{If~%tod%=6?[GenDay]}{If~%tod%=7?[GenNight]}{If~%tod%=8?[GenNight]}
+#50-100,|tmp=%tod%||tod=2|[P1].|tod=%tmp%|
+#
+#:GenDay
+#1,|tmp=%tod%||tod=3|[P1].|tod=%tmp%|
+#
+#:GenNight
+#1,|tmp=%tod%||tod=4|[P1].|tod=%tmp%|
+#
+#:P1
+#1,{If~%tod%=2?[Any]/[P2]}
+#
+#:P2
+#1,{If~%tod%=3?[Day]/[P3]}
+#
+#:P3
+#1,{If~%tod%=4?[Night]/[P4]}
+#
+#:P4
+#1,{If~%tod%=5?[Morning]/[P5]}
+#
+#:P5
+#1,{If~%tod%=6?[Afternoon]/[P6]}
+#
+#:P6
+#1,{If~%tod%=7?[Evening]/[P7]}
+#
+#:P7
+#1,{If~%tod%=8?[Midnight]}
+
+;Any
+5,[City Encounters 2.Alternate2]
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] dressed in black
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] barbarian(s) out of place
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] [~Miscellaneous.Class] (level 1-6)
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] [~Miscellaneous.Class] (level 2-8)
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] [~Miscellaneous.Class] (level 3-10)
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] [~Miscellaneous.Class] (level 3-12)
+1,A beggar ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) grabs a random character as he passes by, pleading for a few coins. The poor wretch is infected with a random disease ([~Miscellaneous.DiseaseFull]). The character must make a Fortitude saving throw or be infected.
+1,A {If~{Dice~1d3}>=2?sea captain/factory supervisor} tries to hire you
+1,A cat (or [~Creatures.Familiar]) approaches the party, walking amidst them, meowing and cuddling up to their feet. The feline is a wizard's ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) familiar. The spellcaster might be the head of a nobles security detail who wants to check out the characters or a spy for some villainous group.
+1,Abandoned |Roll={Dice~1d2}|{If~%Roll%=1 ? cart/wagon}
+1,{Cap~[~Creatures.Humanoid2]} apprentice in the livery of a guild ([~Group Designer.RandomGroupID])
+1,Band of <b>{Dice~1d6+2}</b> young [~Creatures.Humanoid2] nobles
+1,Broken cart or wagon
+1,Bummer in the livery of a noble house ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,<b>{Dice~1d3}</b> cat(s)
+1,{Cap~[~Creatures.Humanoid2]} cryer advertising a tavern ([~Tavern Names.NAME])
+1,{Cap~[~Creatures.Humanoid2]} cryer advertising a tavern or festhall ([~Inn and Tavern Names.Names])
+1,{Cap~[~Creatures.Humanoid2]} cryer for tavern or festhall ([~Inn and Tavern Names.Names])
+1,Dead body of a [~Creatures.Humanoid2].|Roll={Dice~1d100}| {If~%Roll%<30? He was assassinated/He was not assassinated}
+1,Empty wagon
+1,A fanatic cleric of [~Religion.Deities(2)] ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) wanders up and down the street, yelling insults at the infedel dogs that dwell within the city and predicting doom for unbelievers. If the PC openly wears a holy symbol, he spits on it and tries to incite a brawl.
+1,Flying creature ([~Creatures.Flying])
+1,Foreign [~Creatures.Humanoid2] merchant named <b>[~Names Generator.NAME Random]</b> from the <b>[~Countries.Start]</b>
+1,Foreign [~Creatures.Humanoid2] merchant named <b>[~Names Generator.NAME Random]</b> from the <b>[~Countries.Start]</b>. He is lost
+1,Foreigner ([~Creatures.Humanoid2] from [~Countries.Start]) who speaks only the dialect of his contry tries to ask the PC's for directions. If they aid him, he could become a valuable friend.
+1,Horse/Boat Race: <b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] and [~Creatures.Humanoid2] racing in the street
+1,Foot Race: <b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] and [~Creatures.Humanoid2] racing in the street
+1,A fight breaks out between <b>{Dice~3d6}</b> [~Creatures.Humanoid2], perhaps supporters of different factions.{If~{Dice~1d4}=1? A character is attacked.}
+1,A group of dwarves engages in a loud argument with a band of elves over some past grievances. The situation turns into a brawl.
+1,Loose Animal: <b>{Dice~1d3}</b> [~Creatures.Animal2]
+1,A madman ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) stands on a corner propheseying the end of the world. Perhaps in his rambling he offers the party some information that is useful.
+1,A magical experiment runs out of control, causing flames to engulf part of a building. If the PC's act quickly, they can douse the fire and earn renown as daring heroes.
+1,A man ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) tries to grab and kidnap a small child ([~Creatures.Humanoid2] named [Names Generator.NAME Random]). If the characters step in and apprehend the criminal, they gain a +2 bonus to all Charisma related checks in that neighborhood for one month.
+1,Mangy dog
+1,Merchant ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>) en route home
+1,A messenger stops the party and hands them a note stamped with the seal of a noble house. If the characters read the message, they discover that it is addressed to someone else. The note could be a conspiracy.
+1,<b>{Dice~1d4+1}</b> [~Creatures.Humanoid2] minstrels playing some music
+10,Monster encounter ([~ENC Random Monsters.Alternate(1,1,1,2)])
+1,Newly-demolished building
+1,Broken pavement
+1,New hole in the street
+1,Discarded garbage
+1,Noble in portage chair ([~Creatures.Humanoid2] named <b>[~Noble Household Names.Start2]</b>)
+1,Noble in travel chair ([~Creatures.Humanoid2] named <b>[~Noble Household Names.Start2]</b>)
+1,Noble party of <b>{Dice~1d100+10}</b> individuals ([~Creatures.Humanoid2] named <b>[~Noble Household Names.Start2]</b>)
+1,<b>{Dice~1d3+1}</b> noble ruffians
+1,Noble with <b>{Dice~1d4+1}</b> bodyguards ([~Creatures.Humanoid2] named <b>[~Noble Household Names.Start2]</b>)
+1,Nobles (<b>{Dice~1d4+1}</b>) out for an evening stroll (mostly ([~Creatures.Humanoid2])
+1,Noble out for a stroll ([~Creatures.Humanoid2] named <b>[~Noble Household Names.Start2]</b>)
+1,Non-human porter ([~Creatures.Humanoid])
+1,Non-human fighters ([~Creatures.Humanoid2])
+1,Non-human mercenary ([~Creatures.Humanoid2] [~Miscellaneous.ClassPC])
+1,Old coots ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,Old drunk propped against a wall ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,Old man eating ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,Old man with book under his arm ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,Old war veteran watching the world ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,Orator ([~Creatures.Humanoid2] named [~Names Generator.NAME Random]), speaking well of a |Roll={Dice~1d4}|{If~%Roll%=1? someone who died a long time ago/recently dead person} ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,An out of control flesh golem smashes through a doorway, wading into the street with its fists flailing. Its owner may be dead, but he leaves behind clues to a hidden conspiracy.
+1,Parade: <b>{Dice~2d100+10}</b> peoples (mainly [~Creatures.Humanoid2])
+1,A pegasus hurdles around the corner and stops in the middle of the street. Gripped by panic because its wings are tied, the animal seeks to escape the city. Its owner may be an honest man who is training the animal or a cruel master that beats it.<br>{Generate~0,Click to generate owner,NPC Appearance.Generate3}
+1,Pick pocket attempt by a [~Creatures.Humanoid2] rogue |Roll={Dice~1d6}| level %Roll%. Pickpocket roll <b>{Dice~1d20+{Calc~(%Roll%+3+2)}}</b>
+1,Priests from two rival sects ([~Religion.Deities(2)] and [~Religion.Deities(2)]) engage in a shouting match as their argument over metaphysics and philosophy threatens to turn into a physical and magical duel.
+1,A prophet ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) stands before a temple of [~Religion.Deities2(2)], speaking of the visions he has seen and cautioning listeners to mend their evil ways. He casts spells to heal the sick to show his power. {Generate~0,Click to generate vision,The Oracle.RandomSentence}
+1,<b>{Dice~1d20+2}</b> [~Creatures.Humanoid2] protestors
+1,Quiet cryer ([~Creatures.Humanoid2]) handing out pamphlets for a tavern ([~Tavern Names.NAME])
+1,Raggedy priest ([~Religion.Deities2]) talking to himself ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,<b>{Dice~1d6+1}</b> rats
+1,<b>{Dice~1d6+1}</b> [~Creatures.Humanoid2] ruffians
+1,The characters find a muddy, torn scroll lying in the street. It could hold the directions to a secret rendezvous, a treasure map, or a magic spell.
+1,A shifter (or doppleganger) disguised as an old woman ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) tries to lure the characters to an alley to ambush them.
+1,Snooty young nobleman ([~Creatures.Humanoid2] named <b>[~Noble Household Names.Start2]</b>)
+1,Someone ([NPC Appearance.GenerateQuick4]) in exotic dress bumps into a character, dropping a large satchel he carries. Scrolls and other items spill from it. Panicked and nervous, he tries to quickly gather his things and waves off any offers of assistance. In the confusion he accidently leaves behind a valuable item ([Objects of Art.Alternate]).
+1,A squad of guardsmen stops the PC's and demands to search their pockets. One of the characters resembles a robber who just stole the cash from a merchant's stall.
+1,A stray dog follows the characters, whining and pitiably and gazing longingly at any food they carry.
+1,A street corner preacher ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) harasses passerby's about the evil gods of the dark six (or [~Religion.Evil Gods(2)]).
+1,Street musician ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,Strolling minstrel ([~Creatures.Humanoid2] named <b>[~Names Generator.NAME Random]</b>)
+1,<b>{Dice~1d3+2}</b> three [~Creatures.Humanoid2] nobles in intense discussion
+1,Trotting cart with 1 passenger ([~Creatures.Humanoid2])
+1,Trotting cart with 2 passengers ([~Creatures.Humanoid2])
+1,Trotting cart, empty of passengers
+1,Two [~Creatures.Humanoid2] spread chalk dust and ashes in complex, mystic patterns around the place. The two are wizards who are conducting a grand experiment. Perhaps they cause a freak weather accident or some other strange magical effect.
+1,Two warriors ([~Creatures.Humanoid2] and [~Creatures.Humanoid2]) fight a duel in the middle of the street, perhaps injuring bystanders in their actions.
+1,Unremarkable [~Creatures.Humanoid2] messenger
+1,Wagon moving towards one of the gates. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Wagon coming from one of the gates. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Wagon pulled by 2 |Roll={Dice~1d2}|{If~%Roll%=1? oxen/draft horses}. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,You find [~Curios.Generate]
+1,Young [~Creatures.Humanoid2] couple oblivious to the world.|Roll={Dice~1d100}|{If~%Roll%<10? They are a pair of rogues watching for an easy prey}
+1,Young [~Creatures.Humanoid2] with bulky object, looking over his shoulder
+1,Young nobleman ([~Creatures.Humanoid2] named <b>[~Noble Household Names.Start2]</b>)
+1,<b>{Dice~1d6+2}</b> young [~Creatures.Humanoid2] toughs hanging out
+1,<b>{Dice~1d6+2}</b> young [~Creatures.Humanoid2] vandals
+#####
+# The following are from Roleplaying Tips Weekly E-Zine Issue #299
+# It was also found in "ADV Urban Flavor" which is now removed (thanks to Larry Cormier 2007).
+#####
+1,Chamber pot emptied near/on PC Reflex save DC<b>{Dice~1d4+10}</b>. 
+1,Cats chasing each other dart past.
+1,"Please watch this cart for me, just for a minute." This is from [NPC Appearance.GenerateQuick2]. {Generate~0,Click to generate contents of cart,Gen_Wagon_Content}
+1,Birds of prey ([~Creatures.Bird of Prey]) circling overhead
+1,Young [~Creatures.Humanoid2] urchin approaches for minor scam
+1,Shadow passes across the ground
+1,Smoke rises in distance (brush fire)
+1,Feeling of <i>deja vu</i>
+1,Insect swarm on building
+1,Insect nest on building
+1,Howling in the distance
+1,Barking in the distance
+1,{Cap~[~Creatures.Humanoid2]} beggar asks for alms
+1,{Cap~[~Creatures.Humanoid2]} children pester party
+1,Local [~Creatures.Humanoid2] teen wants to join party
+1,Graffiti on building ([DUN Graffiti.Graffiti])
+1,Stumble onto amorous [~Creatures.Humanoid2] teens
+1,{Cap~[~Creatures.Humanoid2]} child looking for pet frog 
+1,Snake slithers away
+1,{Cap~[~Creatures.Humanoid2]} street vendor (food, drink, trinkets, etc.)
+1,Rainbow in the distance
+1,Group of bats rise in the distance
+1,Drunken fist fight ([~Creatures.Humanoid2] vs [~Creatures.Humanoid2])
+1,Stumble on [~Creatures.Humanoid2] lover's quarrel
+1,Religious pilgrims ([~Creatures.Humanoid2]) with vow of silence are jeered at
+1,"Recognized" by a drunk ([NPC Appearance.GenerateQuick2])
+1,Overturned vegetable cart
+1,Criminal held in public stock ([NPC Appearance.GenerateQuick3])
+1,Sudden sun shower
+1,Wind kicks up
+1,{Cap~[~Creatures.Humanoid2]} street performer(s) 
+1,{Cap~[~Creatures.Humanoid2]} religious fanatic of [~Religion.Deities2]
+1,A discarded, tattered cloak
+1,A rusty old weapon found in gutter
+1,Dark storm cloud approaches
+1,Large beetle buzzes around head
+1,{Cap~[~Creatures.Humanoid2]} kids playing game (hide 'n seek)
+1,Criminal in custody is marched past, escorted by <b>{Dice~2d4}</b> city guards (Criminal: [NPC Appearance.GenerateQuick3])
+1,{Cap~[~Creatures.Humanoid2]} mother looking for child
+1,Sandstorm
+1,Small dust whirlwind
+1,A dead ox causes a gridlock
+1,An overturned cart causes a gridlock. {Generate~0,Click to generate contents of cart,Gen_Wagon_Content}
+1,A few sun bleached papers blow by
+1,Well-armed [~Creatures.Humanoid2] adventurers pass by
+1,Roof tile falls, barely missing party
+1,Approached by [~Creatures.Humanoid2] prostitute(s)
+1,Smell of baking/cooking
+1,{Cap~[~Creatures.Humanoid2]} pimp ("you messin' with my woman?")
+1,Wailing [~Creatures.Humanoid2] baby
+1,One person chasing another ([~Creatures.Humanoid2] vs [~Creatures.Humanoid2])
+1,Stench of feces
+1,Ray of light seems to surround one [~Creatures.Humanoid2]
+1,Unusually cool breeze
+1,Rats are following you
+1,You get a dull, throbbing headache
+1,Injured bird lies helpless
+1,Skunk smell
+1,Eerily quiet
+1,{Cap~[~Creatures.Humanoid2]} customer angry with [~Creatures.Humanoid2] shopkeeper
+1,Food fight occurring
+1,Stung by a bee
+1,Arid dust coats your mouth
+1,{Cap~[~Creatures.Humanoid2]} town guard walking a beat
+1,{Cap~[~Creatures.Humanoid2]} spoiled brat wants party item
+1,A [~Creatures.Humanoid2] teleports away
+1,Very friendly cat
+1,{Cap~[~Creatures.Humanoid2]} parent scolding child
+1,Someone bumps pouch--nothing's missing
+1,Find a copper piece
+1,Parade in honor of minor saint, hero, etc.
+1,Foreigners ([~Creatures.Humanoid2] from [~Countries.Start]) arguing in their own language
+1,Allergic reaction to exotic spice/pollen
+1,Discount holy water salesman
+1,Witness a minor crime
+1,Something scurries away (chipmunk)
+1,{Cap~[~Creatures.Humanoid2]} street preacher accosts you ([~Religion.Deities2])
+1,Witness a major crime 
+1,Two religious processions meet head-on ([~Religion.Deities2] vs [~Religion.Deities2])
+1,City watch follows you for 2d4 blocks
+1,Find a silver piece
+1,Dogs chasing each other run by
+1,Very active beehive nearby
+1,Howling gust of wind 
+1,Approaching lightning storm
+1,Crow squawks repeatedly at approach
+1,Rubbery mass stuck to your boot (gum)
+1,Step in crap - dog, dire rat, etc.
+1,Someone stomps in nearby puddle--splash!
+1,{Cap~[~Creatures.Humanoid2]} street cleaner sweeps by
+1,Unconscious [~Creatures.Humanoid2] stranger on side of road 
+1,Pair of small birds harass you
+1,Feral cat is trailing the party
+1,A case of mistaken identity
+1,Cloud shaped as holy symbol
+1,Shopping list for potions is found
+1,Old ring is sticking out of the dirt
+1,One person has an intense itch
+1,Hawk takes mole/mouse near party
+1,Find a gold piece
+1,Loose chickens peck at the street
+1,Passing [~Creatures.Humanoid2] child drops pottery, cries
+1,Raven lands in path, stares, leaves
+1,Injured mounted scout charges through the street
+1,{Cap~[~Creatures.Humanoid2]} noble is carried past in a sedan chair
+1,Two hooded people ([~Creatures.Humanoid2]) whisper on street
+1,Young [~Creatures.Humanoid2] consumer is watched closely
+1,Singing floats out of nearby building
+1,Circus wagon trundles past, animal calls
+1,{Cap~[~Creatures.Humanoid2]} weapon sharpener approaches party
+1,Large flock of birds flies acrobatics, then darts away
+1,Private [~Creatures.Humanoid2] guards flank a door
+1,Distracted senior totters ([~Creatures.Humanoid2]) straight for party
+1,Weary knight ([~Creatures.Humanoid2]) is mobbed by adoring children ([~Creatures.Humanoid2])
+1,Partial eclipse of the sun
+1,Emaciated [~Creatures.Humanoid2] children tug at party sleeves
+1,People cheer for the party
+1,A strong, young, healthy [~Creatures.Humanoid2] beggar asks for coin
+1,A [~Creatures.Humanoid2] politician on a box of soap during a speech makes eye contact with a PC
+1,A cat is stuck in a tree and mewls at the PCs
+1,An escaped pet rodent rolling around the street in its ball bumps up against a PC's leg
+1,A religious leader ([~Creatures.Humanoid2]) and his incense burning retinue cuts across the PCs' path ([~Religion.Deities2])
+1,A diseased old [~Creatures.Humanoid2] resting in a chair asks for help standing up
+1,A paint can spills from above and splashes PCs
+1,Political activists ([~Creatures.Humanoid2]) on parade beckon the PCs to join
+1,A dangerous fish in a tank bumps loudly against the glass
+1,A bee stings a nearby [~Creatures.Humanoid2] child who blindly runs to a PC for soothing
+1,A small bird egg drops out of a nest from above and land intact nearby
+1,A [~Creatures.Humanoid2] walks by with living snakes wrapped around his shoulders
+1,A [~Creatures.Humanoid2] visitor stops to ask for directions to an interesting place
+1,A [~Creatures.Humanoid2] fish vendor bends over to vomit and people point and laugh
+1,A sheet of music blows into a PC's face
+1,A garbage bin rattles; inside is a tied sack of kittens
+1,A depressed [~Creatures.Humanoid2] bard asks sing-song, rhetorical questions of the PCs
+1,A dangerous-looking racoon has claimed an apple cart as his--merchant beseeches PCs
+1,A known crime boss ([~Creatures.Humanoid2]) sits and reads while sweating shoe shine boy buffs and casts the PCs worried looks
+1,A [~Creatures.Humanoid2] woman with too much fashion going on breaks her shoe and stumbles into a PC
+1,A [~Creatures.Humanoid2] man gets down on one knee and proposes, drawing a crowd and knotting traffic
+1,A [~Creatures.Humanoid2] beggar with his hand down a drain hole brings up a ring and immediately asks the PCs to buy it
+1,Three [~Creatures.Humanoid2] performers in masks surround the PCs and do a ring dance around them
+1,Clothing tossed out a window during a lovers' spat lands on a PC
+1,A [~Creatures.Humanoid2] woman drops a basket of fruit--can the PCs dodge before squashing some?
+1,A crazy [~Creatures.Humanoid2] points at PC's equipment and lists its magical properties--and he's right!
+1,A little [~Creatures.Humanoid2] boy confronts the PCs and shoots them with an imaginary crossbow
+1,PCs pass an alleyway blocked by a new spider web
+1,A [~Creatures.Humanoid2] fishmonger dumps a cart of rotten fish for scavengers to clean up
+1,A young [~Creatures.Humanoid2] noble passes trailed by a pickpocket
+1,A [~Creatures.Humanoid2] messenger collides with the PCs and numerous papers start blowing around
+1,A body of an evil wizard tied to a stake, body still smoking ([~NPC Appearance.GenerateNoClass])
+1,A chatty [~Creatures.Humanoid2] bard walks alongside the party
+1,A chess match ([~Creatures.Humanoid2] vs [~Creatures.Humanoid2])
+1,A [~Creatures.Humanoid2] passed out from too much drink, looted, with writing on forehead
+
+;Day
+5,[City Encounters 2.Alternate2]
+1,A [~Creatures.Humanoid2] named [Names Generator.NAME Random] walking down the street is accosted by a self-rightous cleric of [~Religion.Deities(2)] ([~Creatures.Humanoid2] named [Names Generator.NAME Random]). If they characters intercede they could make a friend and enemy.
+1,A bard ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) performs on a street corner, signing ballads and telling stories. He holds out a hat to collect cash. He casts a 1st-level bard spell for anyone who gives him gold.
+1,A beggar ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) offers to sell the PC's a secret. For 1 gp, he tells them something that could lead to an adventure, such as the location of a dead body, or might be nothing more than a red herring. {Generate~0,Click to generate Rumor,~Rumors.Rumor}
+1,A group of [~Creatures.Humanoid2] jesters is performing in the street accross the party. They make jokes at the PC's expense and badger them with wretched puns and awful limericks. If the PC's play along, they prove to be valuable allies. Otherwise they bombard the PC's with eggs and call for the guard.
+1,An illusionist ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) performs on a street corner, using his spells to weave magical scenes. If the characters stop to watch, the spellcasters thief associates try to pick their pockets.
+1,An out of control carriage roars down the street, sending people scattering as it clatters over the cobblestones. Each character must make a Reflex savew (DC10) or suffer 1d4 points of nonlethal damage.
+1,A passing woman ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) cries out in fear as a pick pocket ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) grabs one of her personal affects. If the PC's catch the thief, she rewards them.
+1,<b>{Dice~1d4}</b> [~Creatures.Humanoid2] beggars.|Roll={Dice~1d100}|{If~%Roll%<20? They are rogues (level 1-4)}
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] clerics in religious discussion (God: [~Religion.Deities2])
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] gladiators in demonstration
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] mercenaries arguing
+1,<b>{Dice~1d4+2}</b> human porters
+1,<b>{Dice~1d4+2}</b> human porters carrying goods
+1,<b>{Dice~1d4+2}</b> [~Creatures.Humanoid2] porters
+1,{Cap~[~Creatures.Humanoid2]} artist doing portraits
+1,{Cap~[~Creatures.Humanoid2]} artist sketching
+1,{Cap~[~Creatures.Humanoid2]} artist working on a wall mural
+1,Barbarian from the {If~{Dice~1d2}=1?northern/southern} lands argues loudly with a squad of guardsmen. Lost and confused in the city, he blundered into this neighborhood and punched a nobleman ([~Noble Household Names.Start2], [~Creatures.Humanoid2] aristocrat) who almost ran him over on his horse. If the characters intercede on his behalf, he could become a trusted friend.
+1,<b>{Dice~1d4+2}</b> [~Creatures.Humanoid2] bearers carrying large cloth burdens
+1,{Cap~[~Creatures.Humanoid2]} beggar.|Roll={Dice~1d100}|{If~%Roll%<10? He is a rogue (level {Dice~1d4})}
+1,Caravan driver ([~Creatures.Humanoid2]) dickering with a local merchant ([~Creatures.Humanoid2])
+1,Carriage with drawn curtains
+1,Carriage with livery of noble house ([~Noble Household Names.Start2])
+1,Cart teetering with boxes, crates and other goods tips over. The characters must make a Reflex save (DC10) or take 1d6 points of nonlethal damage and be buried under the debris. {Generate~0,Click to generate contents of cart,Gen_Wagon_Content}
+1,The character with the lowest dexterity must check that ability (DC10) or knock over a display of items, such as a neatly stacked bin of fruit, causing the merchant ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) to yell at them and demand payment. 
+1,Circus
+1,City Watch, patrol of <b>{Dice~1d3+3}</b>
+1,Clerical instructor and group of <b>{Dice~4d4}</b> students ([~Creatures.Humanoid2] of [~Religion.Deities])
+1,A con artist ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) tries to sell the PC's bad potions.
+1,A con artist ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) tries to convince characters that all the visitors must pay 1 sp tax for using the streets. Gullible visitors pay up, but characters native to the city can see through the ruse.
+1,Concerned citizen
+1,Construction on nearby building
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] craftsmen arguing over a noble's business ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] craftsmen's apprentice
+1,{Cap~[~Creatures.Humanoid2]} cryer advertising a local shop ([~Shop Names.GenShop])
+1,{Cap~[~Creatures.Humanoid2]} cryer advertising a merchant's wares ([~Shop Names.Merchants])
+1,{Cap~[~Creatures.Humanoid2]} cryer advertising an upcoming noble festivity ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,{Cap~[~Creatures.Humanoid2]} cryer advertising an upcoming gala
+1,{Cap~[~Creatures.Humanoid2]} cryer announcing arrival of merchant caravan ([~Names Generator.NAME Random] of the [~Countries.Start])
+1,{Cap~[~Creatures.Humanoid2]} cryer for eatery or tavern ([~Inn and Tavern Names.Names])
+1,{Cap~[~Creatures.Humanoid2]} cryer for entertainer or theater ([~Shop Names.Generic])
+1,{Cap~[~Creatures.Humanoid2]} for restaurant ([~Inn and Tavern Names.Names])
+1,{Cap~[~Creatures.Humanoid2]} cryer in noble house livery ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,{Cap~[~Creatures.Humanoid2]} cryer in noble livery([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,{Cap~[~Creatures.Humanoid2]} cryer in palace livery
+1,{Cap~[~Creatures.Humanoid2]} cryer with printed one-sheet pamphlets
+1,Dancing bear or other animal with owner
+1,Disgruntled customer: <b>{Dice~1d3}</b> [~Creatures.Humanoid2]
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] dungsweeper(s)
+1,An elderly cleric of [~Religion.Deities(2)] ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) seeks to collect money for the poor. They may use sympethic, heart-rendering arguments to liberate a few coins from the PC's.
+1,A fence ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) tries to sell a random character a stolen item, such as a weapon or a piece of adventuring gear. The NPC tries to lure the PC to the alley where his friends wait in ambush.
+1,Fishing contest
+1,Followers ([~Creatures.Humanoid2]) of a god of chaos, love, and music dance in the streets. They offer wine and food to attractive people (Charisma 12+) they meet and invite them to attend a revel at the temple.
+1,{Cap~[~Creatures.Humanoid2]} fortune teller
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] gardener(s) working on trees
+1,Gridlock--a number of wagons narrowing traffic. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Group of <b>{Dice~1d6+2}</b> [~Creatures.Humanoid2] beggars
+1,A group of [~Creatures.Humanoid2] children, awed by the PC's armor and weapons, follows them everywhere in the neighborhood. The youngsters ask them questions, beg them for stories about their adventures, and plead for spare coins.
+1,Group of <b>{Dice~1d6+2}</b> [~Creatures.Humanoid2] clerics of [~Religion.Deities] exhorting to the masses
+1,Group of <b>{Dice~1d4+1}</b> [~Creatures.Humanoid2] mendiants cadging for coins
+1,A group of [~Creatures.Humanoid2] students marches through the streets, demanding better treatment by their professors, improved food and housing, and lower tuition fees. Some of the more ardent protestors try to recruit the PC's to march.
+1,<b>{Dice~1d4}</b> haughty [~Creatures.Humanoid2] residents
+1,<b>{Dice~1d3+1}</b> horses tied up in front of building
+1,Innocent [~Creatures.Humanoid2] bystander
+1,Innocent [~Creatures.Humanoid2] bystander.|Roll={Dice~1d100}|{If~%Roll%<10? He is a rogue (level {Dice~1d3+1})}
+1,A jester ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) dressed in an outrageous costume throws a pie at the parties sorcerer or wizard. In a case of mistaken identity, the jester was hired to humiliate a a spellcaster who looks like the PC. Unless the PC's can explain the situation, the jester continues to plague him.
+1,{Cap~[~Creatures.Humanoid2]} jongleur/ minstrel entertainer
+1,{Cap~[~Creatures.Humanoid2]} journeyman in the livery of a guild ([~Group Designer.RandomGroupID])
+1,Jousting match
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] laborers cleaning up a wall
+1,Local [~Creatures.Humanoid2] merchant named <b>[~Names Generator.NAME Random]</b>
+1,Lone [~Creatures.Humanoid2] horseman. He looks like a [~Miscellaneous.Occupations] or [~Miscellaneous.Class2]
+1,<b>{Dice~1d6+2}</b> lower-class [~Creatures.Humanoid2] commoners
+1,A man ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) sitting in a second story window heckles the characters.  <b>{Generate~0,Click to Generate Insults,~INSULTS Dwarven.Generate}</b>
+1,{Cap~[~Creatures.Humanoid2]} buying a small item from a [~Creatures.Humanoid2] 
+1,{Cap~[~Creatures.Humanoid2]} merchant fawning over a noble ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,{Cap~[~Creatures.Humanoid2]} merchant haggling with two [~Creatures.Humanoid2] adventurers
+1,{Cap~[~Creatures.Humanoid2]} merchant hustling to make an appointment
+1,{Cap~[~Creatures.Humanoid2]} merchant in front of his store ([~Shop Names.GenShop])
+1,{Cap~[~Creatures.Humanoid2]} merchant making a delivery
+1,{Cap~[~Creatures.Humanoid2]} merchant making a delivery, with wagon. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,{Cap~[~Creatures.Humanoid2]} merchant making a sale to a [~Creatures.Humanoid2]
+1,{Cap~[~Creatures.Humanoid2]} messenger in guild garb ([~Group Designer.RandomGroupID])
+1,{Cap~[~Creatures.Humanoid2]} messenger in the livery of a noble guild ([~Group Designer.RandomGroupID])
+1,{Cap~[~Creatures.Humanoid2]} messenger in the livery of a noble house ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,{Cap~[~Creatures.Humanoid2]} messenger wearing the device of a guild ([~Group Designer.RandomGroupID])
+1,{Cap~[~Creatures.Humanoid2]} minor official (scribe or clerk)
+1,{Cap~[~Creatures.Humanoid2]} minor official of the Country (scribe or clerk)
+1,The markets erupts into chaos as a pack of dogs, cats, birds, and other pets storm through it. As a practical joke, a wizard ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) used his spells to free an exotic pet dealers wares. If the characters round up the animals, they may be rewarded.
+1,A merchant ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) pushes a cart selling roasted meat. He offers the characters a free sample to help drum up business. Unfortunately there is a 10 percent chance the meat is tainted, exposing the character to disease.
+1,A merchant ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) calls out to the characters, offering them a very rare item at a good price. The item has been enchanted by a <i>magic aura</i> spell.
+1,A merchant ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) pesters and bugs the PC's, trying to give them the hard sell on an item. He follows them around the market, disrupting their attempts to purchase other goods.
+1,Minor, harried official ([~Creatures.Humanoid2])
+1,A missionairy ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) offers the characters a chapbook describing the life and times of a saint prophet. He latches on to them and attempts to convert them to his faith.
+1,A monk ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) practices his technique in the park, performing acrobatics and fighting maneuvers that draw a small crowd. He could be a diversion for a criminal act, an arrogant bully who challenges the PC monk to a duel, or a young ascetic out in the world for the first time.
+1,{Cap~[~Creatures.Humanoid2]} moneychanger with <b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] guards
+1,<b>{Dice~1d3+1}</b> obvious [~Creatures.Humanoid2] tourists from [~Countries.Land]
+1,<b>{Dice~1d3+1}</b> obvious [~Creatures.Humanoid2] tourists with guide
+1,The next time the characters approach the stall, the merchant ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) working there refuses to serve them. An ardent racist, he bears a hatred for one of them.
+1,Party of <b>{Dice~1d6+2}</b> [~Creatures.Humanoid2] tourists with guide
+1,A pig dashes around a corner, chased by a small number of apprentice [~Creatures.Humanoid2] wizards. An accident has polymorphed a famous alchemist ([~Creatures.Humanoid2] named [Names Generator.NAME Random]). If the PC's capture him and restore him to normal, they will be rewarded.
+1,A procession of worshippers crowds the streets ([~Religion.Deities(2)]), singing hymns and bearing cerimonial icons and banners. They march to a nearby temple where an important ceremony is about to begin.
+1,{Cap~[~Creatures.Humanoid2]} political speaker with crowd
+1,Ragged [~Creatures.Humanoid2] priest (level {Dice~1d7+1}) looking to convert others (God: [~Religion.Deities2])
+1,Ragged [~Creatures.Humanoid2] priest exhorting to the masses to repent (God: [~Religion.Deities2])
+1,{Cap~[~Creatures.Humanoid2]} religious speaker with crowd (God: [~Religion.Deities2])
+1,A sage ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) struggles to carry a pile of books to his tower. The pile totters, threatening to spill into the dirt and mud.  If the PC's aid the sage, he provides them with information when they need it.
+1,Someone dumps a chamber pot on a random character. Reflex (DC12) or suffer a -2 penalty to Charisma until next bath.
+1,[~Creatures.Humanoid2] in a sports contest
+1,Street/River fair
+1,A street peddler ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) accosts the characters and tries to sell them his goods, which could range from narcotics to weapons and tools he has scavenged and repaired.
+1,{Cap~[~Creatures.Humanoid2]} street vendor
+1,{Cap~[~Creatures.Humanoid2]} townsman arguing with [~Creatures.Humanoid2] merchant over freshness of produce
+1,<b>{Dice~1d4+1}</b> [~Creatures.Humanoid2] townspeople engaged in gossip
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] guildsmen in casual discussion ([~Group Designer.RandomGroupID])
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] guildsmen in discussion ([~Group Designer.RandomGroupID])
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] merchants haggling
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] merchants in heated discussion
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] nobles in discussion
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] townswoman talking
+1,Two merchants ([~Creatures.Humanoid2] and [~Creatures.Humanoid2]) argue over the price of a load of furniture from a distant port ([~Countries.Start+3]). They resort to shoving, and after a few moments both draw knives.
+1,Two merchants ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) AND [~Creatures.Humanoid2] named [Names Generator.NAME Random]) engage in a fist fight over some minor slight between them. If the characters intervence, they might make a friend and an ememy. The merchants are connected to the Boromar Clan and House Tarkanan.
+1,Two wagons laden with goods collide, spilling crates into the streets. The men driving the wagons are badly injured, while traffic on the street is blocked. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Two young [~Creatures.Humanoid2] lovers in a loud, angry discussion
+1,Wagon loaded with furniture
+1,A wagon rolls by carrying a [~Creatures.Fantastic] in a steel cage. The animal breaks loose and threatens to kill anyone who gets in its way as it attempts to flee in panic.
+1,While the characters shop at a stall, a small crowd of [~Creatures.Humanoid2] customers gathers to pelt it with rotten vegetables. The attackers were all cheated by the merchant ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) and seek revenge against him.
+
+;Morning
+1,[City Encounters 2.Alternate2]
+1,A bard ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) sings for a small audience. If the characters stop to listen, they may overhear an important clue or bit of useful information in the obscure folk song they perform.
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] fishwives arguing
+1,<b>{Dice~1d2+2}</b> [~Creatures.Humanoid2] servants, gossiping
+1,{Cap~[~Creatures.Humanoid2]} barman or restauranteur buying supplies
+1,<b>{Dice~1d3+2}</b> [~Creatures.Humanoid2] children at play
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] courtesans en route home
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] fishwives engaged in gossip
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] gardener(s) replanting uprooted flowers
+1,{Cap~[~Creatures.Humanoid2]} grocer directing wagon unloading. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Lone [~Creatures.Humanoid2] adventurer, sleeping.|Roll={Dice~1d100}|{If~%Roll%<5? He is dead}
+1,An old womans cat is caught in a tree ([~Creatures.Humanoid2] named [Names Generator.NAME Random]). If the characters save the cat, they discover the woman is a council member.
+1,<b>{Dice~1d4+1}</b> [~Creatures.Humanoid2] porters unloading a wagon. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] servants engaged in gossip
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] servant(s) running an errand
+1,<b>{Dice~1d2+1}</b> small [~Creatures.Humanoid2] children
+1,A small sect of [~Religion.Deities] new to the city holds a rally in the park, hoping to draw more members to its banner. The sect could be good or evil. Its aggressive recruiters actively court the NPC's. 
+1,A team of burly warforged dig a hole behind some bushes. They accidently hit the PC's with a clod of dirt as they work. The warforged work on behalf of a nobleman ([~Noble Household Names.Start2], [~Creatures.Humanoid2] aristocrat) who has heard rumors that a lost treasure is buried here. If pressed about the work, they are evasive and threaten with force.
+1,{Cap~[~Creatures.Humanoid2]} townspeople out shopping
+1,Wagon making deliveries. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Wagon unloading supplies. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Young [~Creatures.Humanoid2] couple with picnic
+
+;Afternoon
+1,[City Encounters 2.Alternate2]
+1,A confidence artist ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) dressed as a cleric of [~Religion.Good Gods(2)] beseeches the characters for a donation to help the poor, starving children of the slums. A Knowledge (Religion) check (DC10) reveals the crooks disguise.
+1,<b>{Dice~1d6+3}</b> [~Creatures.Humanoid2] laborers on a break
+1,Collision -- two wagons or carriages, owners ([~Creatures.Humanoid2] and [~Creatures.Humanoid2]) are arguing. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}
+1,Convinced that the PC's have money to burn, <b>{Dice~2d4}</b> [~Creatures.Humanoid2] beggars follow them through the slums. They lavish the PC's with compliments for money and may try to pick their pockets.
+1,Elderly noble ([~Noble Household Names.Start2], [~Creatures.Humanoid2] aristocrat) using a switch to beat one of her servants ([Names Generator.NAME Random], [~Creatures.Humanoid2] commoner). If the PC's intervene, they could earn an enemy but the servant has an important secret to pass along to them. {Generate~0,Click to generate Rumor,~Rumors.Start}
+1,A loud, low rumbling comes from a nearby temple of [~Religion.Deities2(2)]. A few moments later, men and women stream from it in a panic. An evil outsider has appeared to destroy the temples altar, and the PC's are the closet to the scene.
+1,Minor city official taking a nap ([~Creatures.Humanoid2])
+1,A noblewoman directing construction ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,Religious parade or procession (God: [~Religion.Deities])
+1,A resident of the slums ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) decides to tail the characters, hoping that if they get into a fight he can loot any bodies left behind. If confronted, he tries to offer an excuse to escape from them.
+1,{Cap~[~Creatures.Humanoid2]} runner delivering a small item (sword, jewelry, food)
+1,{Cap~[~Creatures.Humanoid2]} runner for some guild ([~Group Designer.RandomGroupID])
+1,{Cap~[~Creatures.Humanoid2]} runner for some noble house ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,{Cap~[~Creatures.Humanoid2]} runner in the livery of a noble house ([~Noble Household Names.Start2])
+1,{Cap~[~Creatures.Humanoid2]} runner in the livery of the Country officials
+1,<b>{Dice~1d3+1}</b> small [~Creatures.Humanoid2] children, playing with dogs
+1,A random party member is caught in the area of affect of a 2nd-level arcane spell such as <i>web</i> or <i>flaming sphere</i> and must save as normal. A drunken wizard ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) has decided to settle an old score and is blasting a rival with spells.
+1,The characters must stand aside as a nobleman ([~Noble Household Names.Start2], [~Creatures.Humanoid2] aristocrat) and his entrourage move down the street, marching four abreast and forcing everyone off the road. If the PC's stand up to him, they make a powerful enemy.
+1,Wagon moving furniture
+1,Wild-eyed [~Creatures.Humanoid2] speaker yelling from a soap-box
+1,<b>{Dice~1d6+2}</b> [~Creatures.Humanoid2] workers on a break
+1,<b>{Dice~1d6+2}</b> [~Creatures.Humanoid2] workers refinishing the surface of a building
+1,<b>{Dice~1d6+2}</b> [~Creatures.Humanoid2] workmen replacing a destroyed wall or window
+
+;Evening
+1,[City Encounters 2.Alternate2]
+1,<b>{Dice~1d2+2}</b> [~Creatures.Humanoid2] in shadows
+1,Arrogant rake ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) jostles into a fighter in the party. He feigns outrage and demands to fight a duel to first blood, either in the street or at a future time.
+1,Band of <b>{Dice~1d4+2}</b> [~Creatures.Humanoid2] ruffians
+1,Bored guardsman ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) accosts the PC's and demands that they explain their presence in the area. If they can't offer a good explanation or appear suspicious (Diplomacy check DC15 to diffuse the situation) he fines them 1 sp each.
+1,<b>{Dice~1d3+2}</b> [~Creatures.Humanoid2] courtesans with escort
+1,Courting [~Creatures.Humanoid2] lovers
+1,Drunken foreigner ([~Creatures.Humanoid2] from [~Countries.Land])
+1,A drunken lout ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) bumps into the smallest character in the party and tries to start a fight.
+1,A drunk apprentice wizard ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) decides to test his <i>unseen servant</i> and <i>mage hand</i> spells on the party's gear.
+1,Drunken [~Creatures.Humanoid2] noble rowdies
+1,Drunken [~Creatures.Humanoid2] rowdies
+1,Drunk nobleman ([~Noble Household Names.Start2], [~Creatures.Humanoid2] aristocrat) staggers from a pub and falls into step with the PC's. He speaks at length of his military service, bragging about his skills in weapons and spells. While annoying he means no harm. If the PC's are friendly towards him, they could win a useful friend. Otherwise they risk insulting him.
+1,A drunken student ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) accosts a PC, and mistaking him for a friend, babbles on about some secret topic. The student could be involved with a criminal organization or other group the PC's must stop.
+1,Funeral procession, led by a [~Creatures.Humanoid2] priest (level {Dice~1d4+1}) moves down the street, forcing the characters to stand to the side as it passes. (God: [~Religion.Deities2])
+1,A gang of <b>{Dice~1d3+1}</b> low level (1-3) [~Creatures.Humanoid2] thieves leap from an alley to overpower the driver ([NPC Appearance.GenerateQuick]) of a wagon full of goods. They attempt to make a quick getaway. If the PC's stop them, the merchant will reward the PC's. {Generate~0,Click to generate contents of wagons,Gen_Wagon_Content}<br>{Generate~0,Click to generate reward,Reward}
+1,A gang of halflings theaten to burn down a tavern that refused to serve them or perhaps mistook their leader for a child.
+1,A gang of local toughs ([~Creatures.Humanoid2]) ambushes the party, hoping to grab a few coins.
+1,Group of <b>{Dice~1d5+1}</b> [~Creatures.Humanoid2] youths gambling with dice
+1,Inebriated [~Creatures.Humanoid2] sell-sword
+1,<b>{Dice~1d3}</b> [~Creatures.Humanoid2] lamplighter(s)
+1,A merchant ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) sells stolen goods at 50 percent off. If the characters buy anything, they may be later accused of trafficking in stolen goods, as many of the items bear monograms and other identifying marks.
+1,<b>{Dice~1d2+1}</b> [~Creatures.Humanoid2] merchants talking at doorway to shop ([~Shop Names.GenShop]), after closing hours
+1,Press gang of <b>{Dice~1d4+2}</b> [~Creatures.Humanoid2] mistakes a PC for a sailor who jumped in
+1,{Dice~1d4+4}th-level rogue ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) tries to lift an item from a random character.
+1,A renegade apprentice wizard ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) has turned to thievery. He uses his <i>darkness</i> spell and his Blind Fight Feat to confuse characters and grab any equipment he can get his hands on.
+1,A runner ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) from one of the local criminal guilds approaches the toughest looking PC and tries to recruit him for an illegal bare-knuckle boxing match.
+1,<b>{Dice~1d4+1}</b> [~Creatures.Humanoid2] townspeople out for an evening stroll
+1,A troop of of drunken [~Creatures.Humanoid2] mercenaries decides to hold an impromptu archery contest, using the side of the building as a target. The characters are asked to wager, join, or asked to put a stop to it.
+1,Wagon loaded with street-sweepings, heading out of the city
+1,Young [~Creatures.Humanoid2] couple oblivious to the world
+1,Caravan of odd animals (camels, oxen, baluchitherium)
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] children playing
+
+;Night
+1,[City Encounters 2.Alternate2]
+1,A band of <b>{Dice~1d4+2}</b> drunken [~Creatures.Humanoid2] {If~{Dice~1d3}>=2?sailors/factory workers} approaches the party spoiling for a brawl
+1,City Guards, patrol of <b>{Dice~1d6+3}</b>
+1,A gang of hot headed [~Creatures.Humanoid2] fanatics seeks to deface a statue outside a temple of [~Religion.Deities(2)], smearing it with black paint and painting slogans on the temples outer walls.
+1,Gang (<b>{Dice~1d3+1}</b>) of low level (1-3) [~Creatures.Humanoid2] rogues
+1,A guard patrol stops and questions the characters about a recent crime. If the PC's are rude (Diplomacy check DC10 to diffuse the situation), they are hauled to the courthouse for questioning and fined 5 sp each.
+1,<b>{Dice~1d4+2}</b> mangy-looking [~Creatures.Humanoid2] thugs
+1,<b>{Dice~1d4+2}</b> [~Creatures.Humanoid2] thugs
+1,<b>{Dice~1d3}</b> hard currency [~Creatures.Humanoid2] girls
+1,Large pile of garbage, yet to be hauled away
+1,Mugging in Progress: <b>{Dice~1d4+1}</b> [~Creatures.Humanoid2] against a [~Creatures.Humanoid2]
+1,{Cap~[~Creatures.Humanoid2]} noble en route home, drunk ([~Noble Household Names.Start2])
+1,Pile of broken branches and uprooted plants, to be removed
+1,Shady [~Creatures.Humanoid2] lurking near corner
+1,Shady [~Creatures.Humanoid2] watching a nearby [~Creatures.Humanoid2] merchant home
+1,Shady [~Creatures.Humanoid2] watching a nearby noble home ([~Creatures.Humanoid2] named [~Noble Household Names.Start2])
+1,<b>{Dice~1d3+1}</b> [~Creatures.Humanoid2] making a secret transaction
+1,A tavern brawl spills over into the street, catching the characters in the wake.
+1,Young [~Creatures.Humanoid2] drunk sleeping at side of the building.|Roll={Dice~1d100}|{If~%Roll%<10? He is dead}
+1,Young [~Creatures.Humanoid2] lovers making a night-time rendezvous
+
+;Midnight
+1,[City Encounters 2.Alternate2]
+1,A criminal ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) pursued by the guards blunders into a PC, knocking him prone unless he makes a Strength check (DC 15). The criminal attempts to flee the scene and resorts to violence if the characters try to stop him.  The guards appear <b>{Dice~1d3}</b> rounds later.
+1,A wizard ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) has decided to test out a magic item he discovered on an adventure in the parks relatively open space. Unfortunately, the item summons a random monster ([~Creatures.Summonmonster{Dice~1d9}]) that goes on a rampage.
+1,Detachment of the Guard (<b>{Dice~1d10+6}</b> soldiers)
+1,Gang of <b>{Dice~1d4+1}</b> low level (1-3) [~Creatures.Humanoid2] rogues breaking into a building
+1,Gang of <b>{Dice~1d4+1}</b> low level (1-3) [~Creatures.Humanoid2] rogues looking for an easy mugging
+1,Gang of <b>{Dice~1d4+1}</b> low level (1-3) [~Creatures.Humanoid2] thieves climbing over a wall
+1,A gang of [~Creatures.Humanoid2] thugs runs rampant through the street, smashing windows and assaulting commoners. The gang runs a protection scheme and the locals are behind on their payments.
+1,Innocent [~Creatures.Humanoid2] bystanders, out too late
+1,Midnight celebration (mostly [~Creatures.Humanoid2])
+1,Mugging in Progress: <b>{Dice~1d4+1}</b> [~Creatures.Humanoid2] against a [~Creatures.Humanoid2]
+1,A few sprites who dwell in the park fountain play a joke on the PC's, perhaps stealing an item or taunting them. If the PC's take the joke instride, the sprites may befriend them.
+1,A swarm of <b>{Dice~2d4}</b> dire rats emerges from a nearby sewer grate, attacking all creatures.
+1,The characters catch a sight of a shadowy figure ([~Creatures.Humanoid2] named [Names Generator.NAME Random]) dragging something behind a bush. It could be something innocent, such as a beggar looking for a comfortable place to sleep, or something sinister, like a wererat making off with a victim.
+
+# ---------------------------------
+
+:Gen_Wagon_Content
+1,{Loop~{Dice~1d6},<br>-{Cap~[Crate and Wagon Contents.Generate]}}
+
+:Reward
+1,The reward is [Rumors.Reward1={Dice~1d21}]
+

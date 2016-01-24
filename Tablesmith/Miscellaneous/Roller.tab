@@ -1,0 +1,6 @@
+﻿#
+# Roller
+#
+
+:Start
+1, 1d6 roll {Dice~1d6} <br> 1d8 roll {Dice~1d8} <br> 1d10 roll {Dice~1d10} <BR> 1d12 Roll {Dice~1d12}

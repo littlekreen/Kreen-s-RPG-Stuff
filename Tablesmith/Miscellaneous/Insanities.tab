@@ -1,0 +1,45 @@
+# Mental Disorders
+#
+# Potential problems for PCs who go insane, see
+#  something they can't handle, etc.
+#
+# Copyright 1998 Bruce A. Gulke
+#
+
+:Start
+1,Phobia: {Cap~[Phobia]}
+2-10,{Cap~[Disorder]}
+
+:Disorder
+1,amnesia
+2,catatonia
+3,dementia
+4,hallucinatory Insanity
+5,homicidal Mania
+6,kleptomania
+7,manic Despression
+8,megalomania
+9,paranoia
+10,schizophrenia
+
+:Phobia
+1,acrophobia (heights)
+2,agoraphobia (open spaces)
+3,ailurophobia (cats)
+4,arachnophobia (spiders)
+5,claustrophobia (confined spaces)
+6,clinophobia (beds)
+7,dendrophobia (trees)
+8,entomophobia (insects)
+9,gephyrdophobia (crossing bridges)
+10,hematophobia (blood)
+11,monophobia (being alone)
+12,necrophobia (dead things)
+13,ophiophobia (snakes)
+14,pyrophobia (fire)
+15,scotophobia (darkness)
+16,thalassophobia (the sea)
+17,vestiophobia (clothin)
+18,vestiophobia (clothing)
+19,xenophobia (foreigners)
+20,zoophobia (animals)

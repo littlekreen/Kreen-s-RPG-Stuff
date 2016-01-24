@@ -1,0 +1,13 @@
+Node 2p - Power monitoring
+Node 0 - Nyc
+Node G - Journal
+Node 13-1B Intruder monitoring
+Node E - Damage Planning
+Node 3A - GIS interpreter
+Node K - Backup Grid
+
+CCG - Core Conjugate Gate
+EDH - Error Detection and Handling
+ICI - Identification Component or Intruder
+GIS - Global Infrastructure Synthesis
+WAI - Ward Adaptive Integrator
